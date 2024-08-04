@@ -8,12 +8,10 @@ import sys
 import filelock
 import re
 
-# Constants for file paths
 USER_DATA_FILE = "users.json"
 LOCK_FILE = "users.lock"
 ENCRYPTION_KEY_FILE = "encryption.key"
 
-# Generate or load the encryption key
 def load_or_create_encryption_key() -> bytes:
     """Generate a new encryption key or load an existing one."""
     if Path(ENCRYPTION_KEY_FILE).is_file():
@@ -25,7 +23,6 @@ def load_or_create_encryption_key() -> bytes:
             key_file.write(key)
         return key
 
-# Initialize the Fernet encryption object
 encryption_key = load_or_create_encryption_key()
 fernet = Fernet(encryption_key)
 
@@ -78,7 +75,6 @@ class User:
             "password": decrypted_password
         }
 
-# Define a function to create a new user
 def create_user(email: str, password: str) -> Dict[str, bytes]:
     """Create a new user with the given email and password."""
     user = User(email, password)
@@ -86,7 +82,6 @@ def create_user(email: str, password: str) -> Dict[str, bytes]:
     encrypted_data = user.encrypt_user_data(hashed_password)
     return encrypted_data
 
-# Define a function to save user data to a file with file locking
 def save_user_data(user_data: Dict[str, Dict[str, bytes]], filename: str = USER_DATA_FILE) -> None:
     """Save user data to a file with file locking to ensure data integrity."""
     try:
@@ -96,7 +91,6 @@ def save_user_data(user_data: Dict[str, Dict[str, bytes]], filename: str = USER_
     except IOError as e:
         print(f"Error saving user data: {e}")
 
-# Define a function to load user data from a file with file locking
 def load_user_data(filename: str = USER_DATA_FILE) -> Dict[str, Dict[str, bytes]]:
     """Load user data from a file with file locking."""
     try:
@@ -109,7 +103,6 @@ def load_user_data(filename: str = USER_DATA_FILE) -> Dict[str, Dict[str, bytes]
         print(f"Error loading user data: {e}")
         return {}
 
-# Define a function to check if a user exists
 def user_exists(email: str, user_data: Dict[str, Dict[str, bytes]]) -> bool:
     """Check if a user with the given email exists."""
     for encrypted_user_data in user_data.values():
@@ -118,7 +111,6 @@ def user_exists(email: str, user_data: Dict[str, Dict[str, bytes]]) -> bool:
             return True
     return False
 
-# Define a function to find a user's encrypted data
 def find_encrypted_user_data(email: str, user_data: Dict[str, Dict[str, bytes]]) -> Dict[str, bytes]:
     """Find a user's encrypted data by email."""
     for encrypted_user_data in user_data.values():
@@ -127,7 +119,6 @@ def find_encrypted_user_data(email: str, user_data: Dict[str, Dict[str, bytes]])
             return encrypted_user_data
     return None
 
-# Define a function to handle forgotten passwords
 def forgotten_password(email: str, user_data: Dict[str, Dict[str, bytes]]) -> None:
     """Handle forgotten passwords by asking for a new password."""
     encrypted_user_data = find_encrypted_user_data(email, user_data)
@@ -150,7 +141,6 @@ def forgotten_password(email: str, user_data: Dict[str, Dict[str, bytes]]) -> No
     else:
         print("User does not exist.")
 
-# Define a function to handle login
 def login(email: str, password: str, user_data: Dict[str, Dict[str, bytes]]) -> bool:
     """Handle login by checking if the email and password are correct."""
     encrypted_user_data = find_encrypted_user_data(email, user_data)
@@ -167,7 +157,6 @@ def login(email: str, password: str, user_data: Dict[str, Dict[str, bytes]]) -> 
         print("User does not exist. Try again!")
         return False
 
-# Define a function to handle registration
 def register(email: str, password: str) -> None:
     """Handle registration by creating a new user and saving their data."""
     user_data = load_user_data()
@@ -182,7 +171,6 @@ def register(email: str, password: str) -> None:
     else:
         print("User already exists. Try again!")
 
-# Main program loop
 def main():
     while True:
         try:
