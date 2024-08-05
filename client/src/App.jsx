@@ -2,6 +2,7 @@ import React from 'react';
 import Payment from './components/Payments/payment';
 import Footer from './components/Footer/Footer';
 import Training from './components/PersonalTraining/Training';
+
 import Home from './components/Home/Home'
 import './App.css'; // Import stylesheet
 
