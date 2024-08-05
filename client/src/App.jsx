@@ -1,12 +1,20 @@
 import React from 'react';
-import Home from './Components/Home/Home';
-import './App.css';
+import Payment from './components/Payments/payment';
+import Footer from './components/Footer/Footer';
+import Training from './components/PersonalTraining/Training';
+import Home from './components/Home/Home'
+import './App.css'; // Import stylesheet
 
-const App = () => {
+function App() {
   return (
-    <div className="app">
-      <Home/>
+    <div className="App">
+      <section id="home"><Home /></section>
+      <section id="training"><Training /></section>
+      <section id="payment"><Payment /></section>
+      
+      <section id="footer"><Footer /></section>
     </div>
   );
-};
+}
+
 export default App;

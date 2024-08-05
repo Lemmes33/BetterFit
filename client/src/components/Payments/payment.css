@@ -9,6 +9,7 @@
     margin: 0 auto; 
   }
   
+  
   .card {
     position: relative;
     display: flex;
@@ -100,11 +101,11 @@
   }
   
   .btn:hover {
-    background-color: #275005;
+    background-color: #4faa04;
   }
-  
+    
   .btn:focus {
-    outline: 1px dashed rgb(11, 228, 58);
+    outline: 1px dashed rgb(1, 255, 56);
     outline-offset: 3px;
   }
   
@@ -153,18 +154,11 @@
     .card:focus-within .content > *:not(.title) {
       transition-duration: 0s;
     }
-  }body {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-    margin: 0;
   }
-  
   .main-title, .sub-title {
     font-family: 'Cardo', serif; 
-    font-weight: 300;
+    font-weight: 500;
+    color: black;
   }
   
   .main-title {
