@@ -13,8 +13,9 @@ function App() {
       <section id="home"><Home /></section>
       <section id="programs"><Programs /></section>
       <section id="training"><Training /></section>
-      <section id="trainers"><Trainers /></section>
       <section id="payment"><Payment /></section>
+      <section id="trainers"><Trainers /></section>
+      
       
       <section id="footer"><Footer /></section>
     </div>
