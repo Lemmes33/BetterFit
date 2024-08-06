@@ -15,8 +15,6 @@ function App() {
       <section id="training"><Training /></section>
       <section id="payment"><Payment /></section>
       <section id="trainers"><Trainers /></section>
-      
-      
       <section id="footer"><Footer /></section>
     </div>
   );
