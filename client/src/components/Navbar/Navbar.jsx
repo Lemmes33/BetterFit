@@ -1,4 +1,6 @@
 import React from 'react';
+import { Link } from 'react-router-dom'
+
 import './navbar.css';
 import Logo from '../../assets/logo.png'
 
@@ -15,7 +17,7 @@ const Navbar = () => {
         <li><a href="#workout">Workout Sessions</a></li>
         <li><a href="#diet">Healthy Diet</a></li>
         <li><a href="#about">About Us</a></li>
-        <li><a href="#profile">Profile</a></li>
+        <li><Link to="/login">Profile</Link></li>
       </ul>
     </nav>
   );
