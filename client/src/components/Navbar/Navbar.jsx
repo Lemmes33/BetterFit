@@ -17,7 +17,7 @@ const Navbar = () => {
         <li><a href="#workout">Workout Sessions</a></li>
         <li><a href="#diet">Healthy Diet</a></li>
         <li><a href="#about">About Us</a></li>
-        <li><Link to="/login">Profile</Link></li>
+        <li><a href="/login">Profile</a></li>
       </ul>
     </nav>
   );
