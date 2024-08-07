@@ -1,5 +1,6 @@
 import React from 'react';
-import Navbar from '../Navbar/Navbar';
+import Navbar from '../Navbar/Navbar'
+import { Link } from 'react-router-dom'
 import './home.css';
 import HomeImage from "../../assets/fitness-removebg-preview.png"
 
