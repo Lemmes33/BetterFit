@@ -1,12 +1,13 @@
 import React from 'react';
 import './navbar.css';
+import Logo from '../../assets/logo.png'
 
 
 const Navbar = () => {
   return (
     <nav className="navbar">
       <div className="logo-container">
-        <img src="https://i.pinimg.com/564x/25/bf/13/25bf1306e6e49063586cd87d28fb5a4b.jpg" alt="BetterFit Logo" className="logo-image" />
+        <img src={Logo} alt="BetterFit Logo" className="logo-image" />
         <div className="logo-text">BetterFit</div>
       </div>
       <ul className="nav-links">

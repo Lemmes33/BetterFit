@@ -22,15 +22,18 @@ body {
 }
 
 .logo-image {
-  width: 40px;
-  height: 40px;
-  margin-right: 10px;
+  width: 120px;
+  height: 120px;
+  margin-top: -20px;
+  margin-bottom: -30px;
 }
 
 .logo-text {
   font-size: 2.5em;
   color: rgb(29, 28, 28);
   font-weight: bold;
+  margin-left: -20px;
+  margin-top: 20px;
   font-family: 'Pacifico', cursive;
 }
 
