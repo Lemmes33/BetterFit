@@ -1,6 +1,6 @@
 import React from 'react';
 import './training.css';
-// import womanImg from '../../assets/woman.png';
+import Shaina from '../../assets/Shaina_West_fitness_shoot-removebg-preview.png'
 
 const training = () => {
   return (
@@ -22,7 +22,7 @@ const training = () => {
           <button className="training__button">Join now</button>
         </div>
         <div className="training__image">
-          <img src="https://i.pinimg.com/564x/46/2f/85/462f850adb911426062261599deae75f.jpg" alt="Woman working out" className="training__img" />
+          <img src={Shaina} alt="Woman working out" className="training__img" />
         </div> 
       </div>
     </section>
