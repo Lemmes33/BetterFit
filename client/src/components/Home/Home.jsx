@@ -1,19 +1,20 @@
 import React from 'react';
 import Navbar from '../Navbar/Navbar';
 import './home.css';
+import HomeImage from "../../assets/fitness-removebg-preview.png"
 
 const Home = () => {
   return (
     <div className="home-container">
       <Navbar />
       <div className="hero-section">
-        <div className="hero-text">
+        <div className="hero-text" >
           <h1>REACH NEW HEIGHTS IN FITNESS</h1>
           <p>Join and transform your fitness today.</p>
           <button>Start Now</button>
         </div>
         <div className="hero-image">
-          <img src="https://i.pinimg.com/236x/82/66/9d/82669d4d0b6d41a3fd1ed13057be815d.jpg" alt="Fitness" />
+          <img src={HomeImage} alt="Fitness" />
         </div>
       </div>
       <div className="push-forward-section">
