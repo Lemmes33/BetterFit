@@ -1,73 +1,75 @@
-import React, { useState, useRef } from 'react';
-import './login.css';
-// import { IonIcon } from 'ionicons';
+import React, { useState } from 'react';
+import './Login.css';
 
 const Login = () => {
-  const [isRightPanelActive, setIsRightPanelActive] = useState(false);
-  const containerRef = useRef(null);
+  const [showSignUp, setShowSignUp] = useState(false);
 
-  const handleSignUpClick = () => {
-    setIsRightPanelActive(true);
-  };
-
-  const handleSignInClick = () => {
-    setIsRightPanelActive(false);
-  };
+  const toggleSignUp = () => setShowSignUp(!showSignUp);
 
   return (
-    <div className={`container ${isRightPanelActive ? 'right-panel-active' : ''}`} ref={containerRef}>
-      <div className="form-container sign-up-container">
-        <form>
-          <h1>Create Account</h1>
-          <div className="social-container">
-            <a href="#" className="social">
-              <IonIcon name="logo-facebook" />
-            </a>
-            <a href="#" className="social">
-              <IonIcon name="logo-googleplus" />
-            </a>
-            <a href="#" className="social">
-              <IonIcon name="logo-linkedin" />
-            </a>
-          </div>
-          <span>or use your email for registration</span>
-          <input type="text" placeholder="Name" />
-          <input type="email" placeholder="Email" />
-          <input type="password" placeholder="Password" />
-          <button>Sign Up</button>
-        </form>
+    <div className="container">
+      <div className="left-side">
+        <img 
+          className="left-side-img" 
+          src="https://your-direct-image-url.com/image.jpg" 
+          alt="Background" 
+        />
+        <div className="left-side-bg">
+        
+        </div>
       </div>
-      <div className="form-container sign-in-container">
-        <form>
-          <h1>Sign In</h1>
-          <div className="social-container">
-            <a href="#" className="social">
-              <IonIcon name="logo-facebook" />
-            </a>
-            <a href="#" className="social">
-              <IonIcon name="logo-googleplus" />
-            </a>
-            <a href="#" className="social">
-              <IonIcon name="logo-linkedin" />
-            </a>
+      <div className="right-side">
+        <div className="sign-in-container login-font">
+          <div className="sign-in">
+            <button
+              id="signin"
+              className={`btn-header ${!showSignUp ? 'active' : ''}`}
+              type="button"
+              onClick={() => setShowSignUp(false)}
+            >
+              Sign In
+            </button>
           </div>
-          <span>or use your account</span>
-          <input type="email" placeholder="Email" />
-          <input type="password" placeholder="Password" />
-          <button>Sign In</button>
-        </form>
-      </div>
-      <div className="overlay-container">
-        <div className="overlay">
-          <div className="overlay-panel overlay-left">
-            <h1>Welcome Back</h1>
-            <p>To keep connected with us please login with your personal info</p>
-            <button className="ghost" onClick={handleSignInClick}>Sign In</button>
+          <div className="sign-up">
+            <button
+              id="signup"
+              className={`btn-header ${showSignUp ? 'active' : ''}`}
+              type="button"
+              onClick={toggleSignUp}
+            >
+              Sign Up
+            </button>
           </div>
-          <div className="overlay-panel overlay-right">
-            <h1>Hello, Friend</h1>
-            <p>Enter your personal details and start journey with us</p>
-            <button className="ghost" onClick={handleSignUpClick}>Sign Up</button>
+          <div id="signup-tab" className={`sign-up-information-container ${showSignUp ? '' : 'hidden'}`}>
+            <div className="prompt-field">USERNAME</div>
+            <input type="text" name="login-name" className="input-field" placeholder="Create a username" />
+            <div className="prompt-field">PASSWORD</div>
+            <input type="password" name="login-password" className="input-field" placeholder="*************" />
+            <div className="prompt-field">E-MAIL ADDRESS</div>
+            <input type="text" name="login-email" className="input-field" placeholder="Enter your e-mail address" />
+            <div className="terms-container">
+              <input type="checkbox" className="terms-checkbox" value="terms_checkbox" />
+              <label className="terms-prompt">
+                I accept the <span style={{ borderBottom: '1px solid #47C1B9' }}>terms and conditions</span>
+              </label>
+            </div>
+            <button className="btn-signup" type="submit">
+              SIGN UP <i className="fa fa-arrow-right" aria-hidden="true"></i>
+            </button>
+          </div>
+          <div id="signin-tab" className={`sign-up-information-container ${showSignUp ? 'hidden' : ''}`}>
+            <div className="prompt-field">USERNAME</div>
+            <input type="text" name="login-name" className="input-field" />
+            <div className="prompt-field">PASSWORD</div>
+            <input type="password" name="login-password" className="input-field" />
+            <div className="terms-container">
+              <label className="terms-prompt">
+                <span style={{ borderBottom: '1px solid #47C1B9' }}>Forgot your password?</span>
+              </label>
+            </div>
+            <button className="btn-signup" type="submit">
+              SIGN IN <i className="fa fa-arrow-right" aria-hidden="true"></i>
+            </button>
           </div>
         </div>
       </div>
