@@ -8,7 +8,7 @@
     margin: 0 auto; 
   }
   
-  .card {
+  .payment-card {
     position: relative;
     display: flex;
     align-items: center;
@@ -30,7 +30,7 @@
   
   
   
-  .card:before {
+  .payment-card:before {
     content: '';
     position: absolute;
     top: 0;
@@ -43,15 +43,15 @@
     pointer-events: none;
   }
   
-  .card:nth-child(1):before {
+  .payment-card:nth-child(1):before {
     background-image: url(https://i.pinimg.com/564x/d7/4f/5c/d74f5c10cf18aeafcef8cccf95a2ce20.jpg);
   }
   
-  .card:nth-child(2):before {
+  .payment-card:nth-child(2):before {
     background-image: url(https://i.pinimg.com/564x/55/01/f3/5501f35f8560cf662206a1eb47875291.jpg);
   }
   
-  .card:nth-child(3):before {
+  .payment-card:nth-child(3):before {
     background-image: url(https://i.pinimg.com/564x/44/1e/85/441e8559a94328a48d7149fd645eb10b.jpg);
   }
   
@@ -77,12 +77,12 @@
     display:flex;
     align-items: center;
     line-height: 1.2;
-    font-family: 'Cardo', serif;
+    font-family: 'payment-cardo', serif;
     font-weight: 400;
   }
   
   .details {
-    font-family: 'Cardo', serif;
+    font-family: 'payment-cardo', serif;
     font-size: 1.125rem;
     font-style: italic;
     line-height: 1.35;
@@ -111,7 +111,7 @@
   }
   
   @media (hover: hover) and (min-width: 600px) {
-    .card:after {
+    .payment-card:after {
       transform: translateY(0);
     }
   
@@ -126,38 +126,38 @@
                   opacity 700ms cubic-bezier(0.19, 1, 0.22, 1);
     }
   
-    .card:hover, .card:focus-within {
+    .payment-card:hover, .payment-card:focus-within {
       align-items: center;
     }
   
-    .card:hover:before, .card:focus-within:before { 
+    .payment-card:hover:before, .payment-card:focus-within:before { 
       transform: translateY(-4%); 
     }
   
-    .card:hover:after, .card:focus-within:after { 
+    .payment-card:hover:after, .payment-card:focus-within:after { 
       transform: translateY(-50%); 
     }
   
-    .card:hover .content, .card:focus-within .content { 
+    .payment-card:hover .content, .payment-card:focus-within .content { 
       transform: translateY(0); 
     }
   
-    .card:hover .content > *:not(.title), 
-    .card:focus-within .content > *:not(.title) {
+    .payment-card:hover .content > *:not(.title), 
+    .payment-card:focus-within .content > *:not(.title) {
       opacity: 1;
       transform: translateY(0);
       transition-delay: calc(700ms / 8);
     }
   
-    .card:focus-within:before,
-    .card:focus-within:after,
-    .card:focus-within .content,
-    .card:focus-within .content > *:not(.title) {
+    .payment-card:focus-within:before,
+    .payment-card:focus-within:after,
+    .payment-card:focus-within .content,
+    .payment-card:focus-within .content > *:not(.title) {
       transition-duration: 0s;
     }
   }
   .main-title, .sub-title {
-    font-family: 'Cardo', serif; 
+    font-family: 'payment-cardo', serif; 
     font-weight: 500;
     color: rgb(248, 241, 241);
   }
