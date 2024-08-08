@@ -1,0 +1,104 @@
+body {
+  background-color: #f6f9f8;
+  font-family: 'Roboto', sans-serif;
+}
+
+a {
+  color: #0e7aea;
+  text-decoration: none;
+}
+
+/* Typography */
+h6 {
+  color: #9aa3ab;
+  font-weight: 300;
+  line-height: 1.5;
+}
+
+h5 {
+  color: #99a1aa;
+  font-weight: 300;
+}
+
+h4 {
+  font-weight: 300;
+  font-size: 13px;
+  color: #97a2ad;
+}
+
+h3 {
+  color: #58636a;
+  font-weight: 500;
+}
+
+/* Main container */
+.payment-slip-container {
+  width: 50%;
+  min-width: 636px;
+  margin: 10% auto;
+  overflow: hidden;
+  border-radius: 5px;
+  box-shadow: 0px 5px 21px 0px rgba(0, 0, 0, 0.2);
+}
+
+/* Left side */
+.payment-slip-left {
+  background-color: #1882ef;
+  width: 39%;
+  height: 100%;
+  border-radius: 5px 0 0 5px;
+  float: left;
+  color: #fff;
+  padding: 35px;
+  box-sizing: border-box;
+}
+
+/* Right side */
+.payment-slip-right {
+  width: 61%;
+  height: 100%;
+  float: left;
+  border-radius: 0 5px 5px 0;
+  padding: 50px 40px;
+  box-sizing: border-box;
+}
+
+/* Information box */
+.payment-slip-info-box {
+  /* ... */
+}
+
+/* Receipt */
+.payment-slip-receipt {
+  /* ... */
+}
+
+/* Entry */
+.payment-slip-entry {
+  /* ... */
+}
+
+/* Content */
+.payment-slip-content {
+  /* ... */
+}
+
+/* Header */
+.payment-slip-header {
+  /* ... */
+}
+
+/* Main */
+.payment-slip-main {
+  /* ... */
+}
+
+/* Message */
+.payment-slip-message {
+  /* ... */
+}
+
+/* Footer */
+.payment-slip-footer {
+  /* ... */
+}
