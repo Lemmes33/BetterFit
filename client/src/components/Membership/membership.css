@@ -1,0 +1,133 @@
+/* Global Styles */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  body {
+    font-family: 'Source Sans Pro', sans-serif;
+    line-height: 1.6;
+    /* color: #333; */
+    /* background-color: #f9f9f9; */
+  }
+  
+  /* Container Styles */
+  
+  .container-fluid {
+    /* max-width: 1200px; */
+    margin: 2em auto;
+    padding: 2em;
+    height: 900px;
+    width: 1200px;
+    background-color: #000000;
+    border-radius: 12px;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Main Header Styles */
+  
+  .main_header {
+    margin-bottom: 2em;
+  }
+  
+  .main_header h5 {
+    font-size: 18px;
+    margin-bottom: 0.5em;
+  }
+  
+  .main_header h1 {
+    font-size: 24px;
+
+    margin-bottom: 0.5em;
+  }
+  
+  /* button1 Block Styles */
+  
+  .button1_block {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .button1 {
+    margin-left: 100px;
+    margin-right: -300px;
+    margin-bottom: 20px;
+    margin-top: 100px;
+    width: 450px;
+    padding: 1em;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    cursor: pointer;
+  }
+  
+  .button1:hover {
+    background-color: #f2f2f2;
+    box-shadow: 0px 5px 25px rgba(0, 0, 0, 0.1);
+  }
+  
+  .button1_img {
+    width: 50px;
+    height: 50px;
+    margin-right: 1em;
+  }
+  
+  /* Sign In Block Styles */
+  
+  .sign_in_block {
+    margin-top: 2em;
+  }
+  
+  .sign_in_text {
+    float: left;
+  }
+  
+  .sign_in_text h5 {
+    padding-left: 2em;
+  }
+  
+  .sign_in_email {
+    float: right;
+    padding-right: 2em;
+    color: #B3D47E;
+  }
+  .membership_image{
+    margin-top: -30px;
+    margin-left: -500px;
+  }
+  /* Responsive Styles */
+  
+  @media (max-width: 768px) {
+    .container-fluid {
+      max-width: 90%;
+      margin: 1em auto;
+    }
+    .main_header {
+      margin-bottom: 1em;
+    }
+    .button1_block {
+      flex-direction: column;
+    }
+    .button1 {
+      margin: 0.5em;
+    }
+  }
+  
+  @media (max-width: 460px) {
+    .container-fluid {
+      max-width: 100%;
+      padding: 1em;
+    }
+    .main_header {
+      margin-bottom: 0.5em;
+    }
+    .button1_block {
+      flex-direction: column;
+    }
+    .button1 {
+      margin: 0.5em;
+    }
+  }
