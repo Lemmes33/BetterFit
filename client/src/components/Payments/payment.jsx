@@ -8,7 +8,7 @@ const cards = [
 ];
 
 const Card = ({ title, details, button }) => (
-  <div className="card">
+  <div className="payment-card">
     <div className="content">
       <h2 className="title">{title}</h2>
       <div className="details">
