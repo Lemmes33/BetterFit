@@ -13,9 +13,10 @@ const Navbar = () => {
         <div className="logo-text">BetterFit</div>
       </div>
       <ul className="nav-links">
-        <li><Link to="/">Home</Link></li>
+      <li><Link to="/dashboard">Dashboard</Link></li>
         <li><Link to="/programs">Workout Sessions</Link></li>
         <li><Link to="#diet">Healthy Diet</Link></li>
+        
         <li><Link to="/Membership">Become A member</Link></li>
         <li><Link to="/login">Profile</Link></li>
       </ul>

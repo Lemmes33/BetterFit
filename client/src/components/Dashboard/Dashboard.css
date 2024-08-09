@@ -2,8 +2,9 @@
 .dashboard {
   display: flex;
   height: 100vh;
+  width: 100vw;
   font-family: 'Arial', sans-serif;
-  background-color: #ffffff;
+  background-color: #4b4b4b;
   overflow: hidden; /* Prevents overflow if content exceeds the viewport */
 }
 
@@ -11,7 +12,7 @@
 .sidebar {
   width: 250px;
   background: rgb(56,255,0);
-background: linear-gradient(180deg, rgba(56,255,0,1) 4%, rgb(71, 92, 66) 58%, rgb(0, 0, 0) 91%);
+background: linear-gradient(180deg, rgba(56,255,0,1) 14%, rgb(26, 95, 9) 58%, rgb(0, 0, 0) 91%);
   color: rgb(0, 0, 0);
   display: flex;
   flex-direction: column;
@@ -104,6 +105,7 @@ background: linear-gradient(180deg, rgba(56,255,0,1) 4%, rgb(71, 92, 66) 58%, rg
   justify-content: space-between;
   margin-bottom: 20px;
   background: white;
+  height: 300px;
   padding: 20px;
   border-radius: 15px;
   box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
@@ -111,6 +113,8 @@ background: linear-gradient(180deg, rgba(56,255,0,1) 4%, rgb(71, 92, 66) 58%, rg
 
 .welcome-text {
   flex: 1;
+  margin-top: 100px;
+  text-align: center;
 }
 
 .welcome-text h1 {
@@ -131,8 +135,10 @@ background: linear-gradient(180deg, rgba(56,255,0,1) 4%, rgb(71, 92, 66) 58%, rg
 }
 
 .welcome-image img {
-  max-width: 250px; /* Adjusted to fit better */
-  height: auto; /* Maintains aspect ratio */
+  width: 400px; /* Adjusted to fit better */
+  margin-right: 300px;
+  margin-top: -220px;
+  height: 550px; /* Maintains aspect ratio */
 }
 
 /* Stats Section */

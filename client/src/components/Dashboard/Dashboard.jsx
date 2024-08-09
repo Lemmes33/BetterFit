@@ -12,10 +12,7 @@ const Dashboard = () => {
         <nav className="nav">
           <ul>
             <li className="nav-item">Dashboard</li>
-            <li className="nav-item">Schedule</li>
-            <li className="nav-item">Classes</li>
-            <li className="nav-item">Nutrition</li>
-            <li className="nav-item">Profile</li>
+            
           </ul>
         </nav>
         <button className="logout-btn">Logout</button>
@@ -30,7 +27,7 @@ const Dashboard = () => {
             <input type="text" placeholder="Search" />
           </div>
           <div className="user-info">
-            <div className="user-name">Yogasana</div>
+            <div className="user-name">Aquilla</div>
             <div className="user-avatar">
               <img src={Avartar} alt="Avatar" />
             </div>
