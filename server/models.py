@@ -42,3 +42,26 @@ class User(db.Model):
             "description": self.description,
             "hobbies": self.hobbies
         }
+    
+class WorkoutPlan(db.Model):
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    title = db.Column(db.String, nullable=False)
+    description = db.Column(db.Text, nullable=True)
+    duration = db.Column(db.Integer, nullable=False)
+    start_date = db.Column(db.Date, nullable=False, default=date.today)
+    end_date = db.Column(db.Date, nullable=False)
+
+    @validates('duration')
+    def validate_duration(self, key, duration):
+        assert duration > 0, "Duration must be a positive integer"
+        return duration
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "title": self.title,
+            "description": self.description,
+            "duration": self.duration,
+            "start_date": self.start_date,
+            "end_date": self.end_date
+        }
