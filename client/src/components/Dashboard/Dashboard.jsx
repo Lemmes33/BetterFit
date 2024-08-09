@@ -2,7 +2,7 @@ import React from "react";
 import "./Dashboard.css"; // Assuming you are using CSS Modules
 import Avartar from '../../assets/Fitness _ les exercices pour maigrir des bras et muscler les épaules.jpeg'
 import Goal from '../../assets/Bras___Girlfriend_Collective-removebg-preview.png'
-import welcomeImage from '../../assets/SEAMLESS_IS_BACK_AND_BETTER_THAN_EVER_-removebg-preview.png'
+import welcomeImage from '../../assets/The_New_Nike_Air_Zoom_SuperRep_2-removebg-preview.png'
 
 const Dashboard = () => {
   return (
@@ -12,10 +12,7 @@ const Dashboard = () => {
         <nav className="nav">
           <ul>
             <li className="nav-item">Dashboard</li>
-            <li className="nav-item">Schedule</li>
-            <li className="nav-item">Classes</li>
-            <li className="nav-item">Nutrition</li>
-            <li className="nav-item">Profile</li>
+            
           </ul>
         </nav>
         <button className="logout-btn">Logout</button>
@@ -30,7 +27,7 @@ const Dashboard = () => {
             <input type="text" placeholder="Search" />
           </div>
           <div className="user-info">
-            <div className="user-name">Yogasana</div>
+            <div className="user-name">Aquilla</div>
             <div className="user-avatar">
               <img src={Avartar} alt="Avatar" />
             </div>
