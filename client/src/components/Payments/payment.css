@@ -1,8 +1,4 @@
-/* Add this rule to make the background color black */
-body {
-  background-color: black;
-  color: white; /* Optional: Ensures text is readable */
-}
+
 
 .payment-container {
   background-color: black; /* Sets the background of the container to black */
@@ -67,6 +63,7 @@ body {
 }
 
 .content {
+  color: white;
   height: 650px;
   position: relative;
   display: flex;
