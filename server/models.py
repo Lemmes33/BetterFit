@@ -83,3 +83,19 @@ class NutritionPlan(db.Model):
             "start_date": self.start_date,
             "end_date": self.end_date
         }
+    
+class ProgressTracking(db.Model):
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    weight = db.Column(db.Float, nullable=False)
+    measurements = db.Column(db.Text, nullable=True)
+    date = db.Column(db.Date, nullable=False, default=date.today)
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "user_id": self.user_id,
+            "weight": self.weight,
+            "measurements": self.measurements,
+            "date": self.date
+        }
