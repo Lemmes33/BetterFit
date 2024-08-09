@@ -4,7 +4,7 @@
   height: 100vh;
   width: 100vw;
   font-family: 'Arial', sans-serif;
-  background-color: #4b4b4b;
+  background-color: #0f3605;
   overflow: hidden; /* Prevents overflow if content exceeds the viewport */
 }
 
@@ -104,28 +104,31 @@ background: linear-gradient(180deg, rgba(56,255,0,1) 14%, rgb(26, 95, 9) 58%, rg
   display: flex;
   justify-content: space-between;
   margin-bottom: 20px;
-  background: white;
+  background: rgb(38,171,0);
+  background: linear-gradient(305deg, rgba(38,171,0,1) 4%, rgb(47, 75, 40) 58%, rgb(0, 0, 0) 99%);
   height: 300px;
   padding: 20px;
   border-radius: 15px;
   box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
 }
 
+
 .welcome-text {
   flex: 1;
   margin-top: 100px;
+  margin-left: -430px;
   text-align: center;
 }
 
 .welcome-text h1 {
   font-size: 24px; /* Adjusted for better fit */
   margin-bottom: 10px;
-  color: #37af00;
+  color: #d7f8c8;
 }
 
 .welcome-text p {
   font-size: 16px; /* Adjusted for better fit */
-  color: #4d4b4b;
+  color: #ffffff;
 }
 
 .welcome-image {
@@ -135,10 +138,10 @@ background: linear-gradient(180deg, rgba(56,255,0,1) 14%, rgb(26, 95, 9) 58%, rg
 }
 
 .welcome-image img {
-  width: 400px; /* Adjusted to fit better */
-  margin-right: 300px;
-  margin-top: -220px;
-  height: 550px; /* Maintains aspect ratio */
+  width: 290px; /* Adjusted to fit better */
+  margin-right: 400px;
+  height: 380px; /* Maintains aspect ratio */
+  margin-top: -70px;
 }
 
 /* Stats Section */
@@ -210,8 +213,9 @@ background: linear-gradient(180deg, rgba(56,255,0,1) 14%, rgb(26, 95, 9) 58%, rg
 
 /* Side Info */
 .side-info {
-  width: 250px;
-  background: white;
+  width: 450px;
+  background: rgb(38,171,0);
+background: linear-gradient(0deg, rgba(38,171,0,1) 4%, rgb(35, 85, 22) 25%, rgb(0, 0, 0) 57%);
   padding: 20px; /* Adjusted padding */
   display: flex;
   flex-direction: column;
@@ -247,11 +251,12 @@ background: linear-gradient(180deg, rgba(56,255,0,1) 14%, rgb(26, 95, 9) 58%, rg
 .goals li {
   margin-bottom: 10px; /* Adjusted for better fit */
   font-size: 14px; /* Adjusted for better fit */
-  color: #333;
+  color: #ffffff;
 }
 
 .goal-image img {
   width: 100%; /* Adjusted to fit container */
   height: auto; /* Maintains aspect ratio */
   margin-top: 20px;
+  
 }
