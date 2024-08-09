@@ -1,3 +1,13 @@
+/* Add this rule to make the background color black */
+body {
+  background-color: black;
+  color: white; /* Optional: Ensures text is readable */
+}
+
+.payment-container {
+  background-color: black; /* Sets the background of the container to black */
+  color: white; /* Ensures text is readable */
+}
 
 .page-content {
   display: flex;
@@ -75,6 +85,7 @@
 
 .title {
   font-size: 1.3rem;
+  margin-top: 0px;
   display: flex;
   align-items: center;
   line-height: 1.2;

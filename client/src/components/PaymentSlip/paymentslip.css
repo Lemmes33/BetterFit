@@ -1,104 +1,200 @@
+/* Set the body background color to neon green */
 body {
-  background-color: #f6f9f8;
-  font-family: 'Roboto', sans-serif;
+  background-color: #39ff14; /* Neon green */
+  color: black; /* Ensures text is readable */
 }
 
-a {
-  color: #0e7aea;
-  text-decoration: none;
+.payment-container, .payment-slip-container {
+  background-color: #39ff14; /* Neon green background */
+  color: black; /* Ensure text is readable against the neon background */
 }
 
-/* Typography */
-h6 {
-  color: #9aa3ab;
-  font-weight: 300;
-  line-height: 1.5;
+.page-content {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  justify-content: center;
+  width: 100%;
+  height: 100vh;
+  padding: 2rem 0;
+  max-width: 1200px; /* Adjusted to fit the container size */
+  margin: 0 auto;
 }
 
-h5 {
-  color: #99a1aa;
-  font-weight: 300;
-}
-
-h4 {
-  font-weight: 300;
-  font-size: 13px;
-  color: #97a2ad;
-}
-
-h3 {
-  color: #58636a;
-  font-weight: 500;
-}
-
-/* Main container */
-.payment-slip-container {
-  width: 50%;
-  min-width: 636px;
-  margin: 10% auto;
+.payment-card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: flex-end;
   overflow: hidden;
-  border-radius: 5px;
-  box-shadow: 0px 5px 21px 0px rgba(0, 0, 0, 0.2);
+  padding: 10px;
+  margin: 0 15px; /* Adjusted for better spacing */
+  width: 400px;
+  min-width: 400px;
+  text-align: center;
+  color: black;
+  background-color: rgb(19, 18, 18);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2), /* Base shadow */
+              0 8px 12px rgba(0, 0, 0, 0.2), /* Larger shadow for depth */
+              0 16px 24px rgba(0, 0, 0, 0.2), /* Even larger shadow for more depth */
+              0 0 15px rgba(4, 252, 45, 0.5); /* Green glowing effect */
 }
 
-/* Left side */
-.payment-slip-left {
-  background-color: #1882ef;
-  width: 39%;
+.payment-card:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
   height: 100%;
-  border-radius: 5px 0 0 5px;
-  float: left;
-  color: #fff;
-  padding: 35px;
-  box-sizing: border-box;
+  background-size: cover;
+  background-position: center;
+  transition: transform 700ms cubic-bezier(0.19, 1, 0.22, 1);
+  pointer-events: none;
 }
 
-/* Right side */
+.payment-card:nth-child(1):before {
+  background-image: url(https://i.pinimg.com/564x/d7/4f/5c/d74f5c10cf18aeafcef8cccf95a2ce20.jpg);
+}
+
+.payment-card:nth-child(2):before {
+  background-image: url(https://i.pinimg.com/564x/55/01/f3/5501f35f8560cf662206a1eb47875291.jpg);
+}
+
+.payment-card:nth-child(3):before {
+  background-image: url(https://i.pinimg.com/564x/44/1e/85/441e8559a94328a48d7149fd645eb10b.jpg);
+}
+
+.content {
+  height: 650px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 2rem; /* Fixed padding value */
+  transition: transform 700ms cubic-bezier(0.19, 1, 0.22, 1);
+  z-index: 1;
+}
+
+.content > * + * {
+  margin-top: 5rem;
+}
+
+.title {
+  font-size: 1.3rem;
+  display: flex;
+  align-items: center;
+  line-height: 1.2;
+  font-family: 'payment-cardo', serif;
+  font-weight: 400;
+}
+
+.details {
+  font-family: 'payment-cardo', serif;
+  font-size: 1.125rem;
+  font-style: italic;
+  line-height: 1.35;
+}
+
+.btn {
+  cursor: pointer;
+  margin-top: 1.5rem;
+  padding: 0.75rem 1.5rem;
+  font-size: 0.65rem;
+  font-weight: bold;
+  letter-spacing: 0.025rem;
+  text-transform: uppercase;
+  color: rgb(3, 3, 3);
+  background-color: rgb(81, 243, 6);
+  border: none;
+}
+
+.btn:hover {
+  background-color: #4faa04;
+}
+
+.btn:focus {
+  outline: 1px dashed rgb(1, 255, 56);
+  outline-offset: 3px;
+}
+
+@media (hover: hover) and (min-width: 600px) {
+  .payment-card:after {
+    transform: translateY(0);
+  }
+
+  .content {
+    transform: translateY(calc(100% - 14rem));
+  }
+
+  .content > *:not(.title) {
+    opacity: 0;
+    transform: translateY(1rem);
+    transition: transform 700ms cubic-bezier(0.19, 1, 0.22, 1), 
+                opacity 700ms cubic-bezier(0.19, 1, 0.22, 1);
+  }
+
+  .payment-card:hover, .payment-card:focus-within {
+    align-items: center;
+  }
+
+  .payment-card:hover:before, .payment-card:focus-within:before { 
+    transform: translateY(-4%); 
+  }
+
+  .payment-card:hover:after, .payment-card:focus-within:after { 
+    transform: translateY(-50%); 
+  }
+
+  .payment-card:hover .content, .payment-card:focus-within .content { 
+    transform: translateY(0); 
+  }
+
+  .payment-card:hover .content > *:not(.title), 
+  .payment-card:focus-within .content > *:not(.title) {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: calc(700ms / 8);
+  }
+
+  .payment-card:focus-within:before,
+  .payment-card:focus-within:after,
+  .payment-card:focus-within .content,
+  .payment-card:focus-within .content > *:not(.title) {
+    transition-duration: 0s;
+  }
+}
+
+.main-title, .sub-title {
+  font-family: 'payment-cardo', serif; 
+  font-weight: 500;
+  color: black;
+}
+
+.main-title {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.sub-title {
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
+  letter-spacing: 0.1rem;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.payment-slip-left,
 .payment-slip-right {
-  width: 61%;
-  height: 100%;
-  float: left;
-  border-radius: 0 5px 5px 0;
-  padding: 50px 40px;
-  box-sizing: border-box;
+  background-color: #39ff14; /* Neon green background */
+  color: black; /* Ensure text is readable */
 }
 
-/* Information box */
-.payment-slip-info-box {
-  /* ... */
-}
-
-/* Receipt */
-.payment-slip-receipt {
-  /* ... */
-}
-
-/* Entry */
-.payment-slip-entry {
-  /* ... */
-}
-
-/* Content */
 .payment-slip-content {
-  /* ... */
-}
-
-/* Header */
-.payment-slip-header {
-  /* ... */
-}
-
-/* Main */
-.payment-slip-main {
-  /* ... */
-}
-
-/* Message */
-.payment-slip-message {
-  /* ... */
-}
-
-/* Footer */
-.payment-slip-footer {
-  /* ... */
+  background-color: #39ff14; /* Neon green background */
+  color: black; /* Ensure text is readable */
 }
