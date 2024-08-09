@@ -6,6 +6,7 @@ import Home from "./components/Home/Home.jsx"
 import PaymentSlip from "./components/PaymentSlip/PaymentSlip.jsx"
 import PaymentMethod from "./components/PaymentMethod/PaymentMethod.jsx"
 import Membership from "./components/Membership/Membership.jsx"
+import Checkout from "./components/Checkout/Checkout.jsx"
 import Dashboard from "./components/Dashboard/Dashboard.jsx"
 import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
@@ -35,6 +36,10 @@ const router = createBrowserRouter([
     path: "/dashboard",
     element:<Dashboard />
   },
+  {
+    path: "/checkout",
+    element: <Checkout />,
+  }
 ]);
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>

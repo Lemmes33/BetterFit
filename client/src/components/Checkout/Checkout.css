@@ -1,0 +1,132 @@
+/* Global Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    font-size: 17px;
+    padding: 8px;
+    background-color: #1e1e1e; /* Dark gray background for better contrast */
+    color: #ffffff; /* Light text for readability */
+    display: flex;
+    justify-content: center; /* Horizontally centers the form */
+    align-items: center; /* Vertically centers the form */
+    margin: 0;
+    width: 100vw;
+    height: 100vh; /* Full viewport height for centering */
+}
+
+h1 {
+    text-align: center;
+    color: #ffffff; /* White color for heading */
+    margin-bottom: 20px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 -16px;
+}
+
+.col-25 {
+    flex: 25%;
+}
+
+.col-50 {
+    flex: 50%;
+}
+
+.col-75 {
+    flex: 75%;
+}
+
+.col-25,
+.col-50,
+.col-75 {
+    padding: 0 16px;
+}
+
+.container {
+    background-color: #333; /* Slightly lighter background for contrast */
+    padding: 40px; /* Increased padding for a more spacious feel */
+    border: 1px solid #444; /* Darker border */
+    border-radius: 10px; /* More rounded corners */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3); /* More prominent shadow for depth */
+    width: 80%; /* Wider container to occupy more space */
+    max-width: 900px; /* Set a max width for larger screens */
+}
+
+input[type=text] {
+    width: 100%;
+    margin-bottom: 20px;
+    padding: 15px; /* Increased padding for better touch interaction */
+    background-color: #444; /* Darker input background */
+    border: 1px solid #666; /* Slightly darker border */
+    border-radius: 5px;
+    color: #e6e6e6; /* Light text color */
+    font-size: 16px; /* Slightly larger text for readability */
+}
+
+input[type=text]::placeholder {
+    color: #999; /* Lighter placeholder color */
+}
+
+label {
+    margin-bottom: 10px;
+    display: block;
+    color: #e0e0e0; /* Slightly lighter label color */
+    font-weight: bold; /* Bold labels for emphasis */
+}
+
+.icon-container {
+    margin-bottom: 20px;
+    padding: 7px 0;
+    font-size: 24px;
+    color: #cccccc; /* Light icon color */
+}
+
+.btn {
+    background-color: #28a745; /* Brighter green for buttons */
+    color: white;
+    padding: 15px; /* Increased padding for better touch interaction */
+    margin: 10px 0;
+    border: none;
+    width: 100%;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px; /* Slightly larger font size for buttons */
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #218838; /* Darker green on hover */
+}
+
+a {
+    color: #2196F3;
+}
+
+hr {
+    border: 1px solid #555; /* Darker border for horizontal line */
+    margin: 20px 0; /* Add margin above and below the line */
+}
+
+span.price {
+    float: right;
+    color: #b3b3b3; /* Slightly lighter price color */
+}
+
+/* Responsive layout */
+@media (max-width: 800px) {
+    .row {
+        flex-direction: column-reverse;
+    }
+    .col-25 {
+        margin-bottom: 20px;
+    }
+    .container {
+        width: 100%;
+        padding: 20px; /* Adjust padding for smaller screens */
+    }
+}
