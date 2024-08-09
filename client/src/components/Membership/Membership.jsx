@@ -1,6 +1,7 @@
 import React from "react";
 import "./membership.css";
 import Chroma from '../../assets/___3_-removebg-preview.png'
+import { Link } from "react-router-dom";
 
 const Membership = () => {
   return (
@@ -27,28 +28,13 @@ const Membership = () => {
             {" "}
             {/* Container for button1s */}
             <div className="button1">
-              <img
-                src="http://www.picshare.ru/uploads/161004/3EX8EfXzgK.png"
-                className="button1_img"
-                alt="Regular Member"
-              />
-              <h4>Regular Member+</h4>
+            <Link to='/Checkout'><h4>Regular Member+</h4></Link>
             </div>
             <div className="button1">
-              <img
-                src="http://www.picshare.ru/uploads/161004/NUqA07voFD.png"
-                className="button1_img"
-                alt="Pro Member"
-              />
-              <h4>Pro Member+</h4>
+            <Link to='/Checkout'><h4>Pro Member+</h4></Link>
             </div>
             <div className="button1">
-              <img
-                src="http://www.picshare.ru/uploads/161004/V77aR3V9yX.png"
-                className="button1_img"
-                alt="Premium Member"
-              />
-              <h4>Premium Member+</h4>
+            <Link to='/Checkout'><h4>Premium Member+</h4></Link>
             </div>
           </div>
         </div>
