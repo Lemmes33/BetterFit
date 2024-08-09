@@ -5,6 +5,7 @@ import Training from './components/PersonalTraining/Training';
 import Home from './components/Home/Home'
 import Trainers from './components/Trainers/Trainers';
 import Nutrition from './components/Nutrition/Nutrition'
+
 import './App.css'; // Import stylesheet
 
 function App() {
@@ -16,7 +17,7 @@ function App() {
       <section id="nutrition"><Nutrition /></section>
       <section id="payment"><Payment /></section>
       <section id="trainers"><Trainers /></section>
-      <section id="footer"><Footer /></section>
+      
     </div>
   );
 }
