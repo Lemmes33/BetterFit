@@ -1,8 +1,8 @@
 
 
-.payment-container {
-  background-color: black; /* Sets the background of the container to black */
-  color: white; /* Ensures text is readable */
+.payment-container, .payment-slip-container {
+ 
+  color: white; /* Ensure text is readable against the neon background */
 }
 
 .page-content {
@@ -29,7 +29,7 @@
   width: 400px;
   min-width: 400px;
   text-align: center;
-  color: whitesmoke;
+  color: black;
   background-color: rgb(19, 18, 18);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2), /* Base shadow */
               0 8px 12px rgba(0, 0, 0, 0.2), /* Larger shadow for depth */
@@ -63,7 +63,6 @@
 }
 
 .content {
-  color: white;
   height: 650px;
   position: relative;
   display: flex;
@@ -82,7 +81,6 @@
 
 .title {
   font-size: 1.3rem;
-  margin-top: 0px;
   display: flex;
   align-items: center;
   line-height: 1.2;
@@ -169,7 +167,7 @@
 .main-title, .sub-title {
   font-family: 'payment-cardo', serif; 
   font-weight: 500;
-  color: rgb(248, 241, 241);
+  color: black;
 }
 
 .main-title {
@@ -184,4 +182,15 @@
   letter-spacing: 0.1rem;
   text-transform: uppercase;
   text-align: center;
+}
+
+.payment-slip-left,
+.payment-slip-right {
+  background-color: #39ff14; /* Neon green background */
+  color: black; /* Ensure text is readable */
+}
+
+.payment-slip-content {
+  background-color: #39ff14; /* Neon green background */
+  color: black; /* Ensure text is readable */
 }

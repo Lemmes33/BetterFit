@@ -83,3 +83,76 @@ class Logout(Resource):
     def post(self):
         session.pop('user_id', None)
         return {"message": "Logged out successfully"}, 200
+class UserResource(Resource):
+    def get(self, user_id=None):
+        if user_id:
+            user = User.query.get(user_id)
+            if user:
+                return user.to_dict(), 200
+            return {"error": "User not found"}, 404
+
+        users = User.query.all()
+        return {"users": [user.to_dict() for user in users]}, 200
+    
+class WorkoutPlanResource(Resource):
+    def post(self):
+        data = request.get_json()
+        new_plan = WorkoutPlan(
+            title=encrypt(data['title']),
+            description=encrypt(data['description']) if data.get('description') else None,
+            duration=data['duration'],
+            start_date=data['start_date'],
+            end_date=data['end_date']
+        )
+        db.session.add(new_plan)
+        db.session.commit()
+        return new_plan.to_dict(), 201
+
+    def get(self, plan_id=None):
+        if plan_id:
+            plan = WorkoutPlan.query.get(plan_id)
+            if plan:
+                return plan.to_dict(), 200
+            return {"error": "Plan not found"}, 404
+        
+        plans = WorkoutPlan.query.all()
+        return [plan.to_dict() for plan in plans], 200
+
+    def patch(self, plan_id):
+        plan = WorkoutPlan.query.get(plan_id)
+        if not plan:
+            return {"error": "Plan not found"}, 404
+        
+        data = request.get_json()
+        if 'title' in data:
+            plan.title = data['title']
+        if 'description' in data:
+            plan.description = data['description']
+        if 'duration' in data:
+            plan.duration = data['duration']
+        if 'start_date' in data:
+            plan.start_date = data['start_date']
+        if 'end_date' in data:
+            plan.end_date = data['end_date']
+
+        db.session.commit()
+        return {"message": "Plan updated"}, 200
+
+    def delete(self, plan_id):
+        plan = WorkoutPlan.query.get(plan_id)
+        if not plan:
+            return {"error": "Plan not found"}, 404
+
+        db.session.delete(plan)
+        db.session.commit()
+        return {"message": "Plan deleted"}, 200
+    
+api.add_resource(Register, '/register')
+api.add_resource(Login, '/login')
+api.add_resource(Logout, '/logout')
+api.add_resource(UserResource, '/users', '/users/<int:user_id>')
+api.add_resource(WorkoutPlanResource, '/workout_plans', '/workout_plans/<int:plan_id>')
+
+
+if __name__ == '__main__':
+    app.run(debug=True)

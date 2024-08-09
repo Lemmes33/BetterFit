@@ -8,7 +8,7 @@ const cards = [
 ];
 
 const Card = ({ title, details, button }) => (
-  <div className="card">
+  <div className="payment-card">
     <div className="content">
       <h2 className="title">{title}</h2>
       <div className="details">
@@ -22,7 +22,7 @@ const Card = ({ title, details, button }) => (
 );
 
 const Payment = () => (
-  <div>
+  <div className="payment-container"> {/* New wrapper div */}
     <h1 className="main-title">Choose a Plan</h1>
     <h2 className="sub-title">PRICING PACKAGE</h2>
     <main className="page-content">

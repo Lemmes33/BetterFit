@@ -1,4 +1,4 @@
-body, html {
+/* body, html {
   margin:0;
   padding:0;
   font-family:Arial, sans-serif;
@@ -17,11 +17,14 @@ body, html {
   background-color: #e0e0e0;
 }
 
+.section.programs {
+background-color: white;
+}
 .section.payment {
-  background-color: #fffdfd;
+background-color: black;
 }
 
 .section.footer {
   background-color: #c0c0c0;
   text-align: center;
-}
+} */

@@ -2,14 +2,15 @@
 .home-container {
   text-align: center;
   width: 100vw;
+  
 }
 
 .hero-section {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: rgb(0,255,16);
-  background: linear-gradient(90deg, rgba(0,255,16,1) 11%, rgba(4,46,27,0.8911939775910365) 98%);
+  background: rgb(0,0,0);
+background: linear-gradient(51deg, rgba(0,0,0,1) 14%, rgba(26,255,0,1) 50%);
   color: rgb(26, 24, 24);
   padding: 50px;
 }
@@ -17,13 +18,14 @@
 .hero-text {
   flex: 1;
   color: black;
-  text-align: left;
-  margin-left: -10px;
+  text-align: right;
+  margin-right: -1500px;
 }
 
 .hero-text h1 {
   color: black;
-  margin-left: -130px;
+  margin-left: 800px;
+  text-align: right;
   font-size: 2.5em;
 }
 
@@ -39,6 +41,7 @@
   border: none;
   cursor: pointer;
   margin-top: 20px;
+  
 }
 
 .hero-image {
@@ -48,6 +51,8 @@
 .hero-image img {
   width: 100%;
   max-width: 550px;
+  margin-left: -1600px;
+  
 
   
 }
