@@ -37,3 +37,33 @@ def encrypt(data):
 
 def decrypt(data):
     return cipher.decrypt(data.encode()).decode()
+
+class Register(Resource):
+    def post(self):
+        username = request.json.get("username")
+        email = request.json.get("email")
+        password = request.json.get("password")
+        age = request.json.get("age")
+        nationality = request.json.get("nationality")
+        description = request.json.get("description")
+        hobbies = request.json.get("hobbies")
+
+        if not username or not email or not password or not age:
+            return {"error": "Missing fields"}, 400
+
+        if User.query.filter_by(email=email).first():
+            return {"error": "Email already exists"}, 400
+
+        hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
+        new_user = User(
+            username=username, 
+            email=email, 
+            password=hashed_password, 
+            age=age, 
+            nationality=encrypt(nationality) if nationality else None,
+            description=encrypt(description) if description else None,
+            hobbies=encrypt(hobbies) if hobbies else None
+        )
+        db.session.add(new_user)
+        db.session.commit()
+        return new_user.to_dict(), 201
