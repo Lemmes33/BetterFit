@@ -23,3 +23,17 @@ bcrypt = Bcrypt(app)
 migrate = Migrate(app, db)
 CORS(app, supports_credentials=True)
 api = Api(app) 
+
+
+encryption_key = os.getenv('ENCRYPTION_KEY')
+if not encryption_key:
+    encryption_key = Fernet.generate_key().decode()
+    with open('.env', 'a') as f:
+        f.write(f'\nENCRYPTION_KEY={encryption_key}\n')
+cipher = Fernet(encryption_key.encode())
+
+def encrypt(data):
+    return cipher.encrypt(data.encode()).decode()
+
+def decrypt(data):
+    return cipher.decrypt(data.encode()).decode()
