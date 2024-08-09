@@ -1,5 +1,7 @@
 import React from 'react';
 import './trainers.css'
+import Footer from '../Footer/Footer'
+
 
 const trainers = [
   {
@@ -64,6 +66,7 @@ const Trainers = () => {
           </div>
         ))}
       </div>
+      <Footer/>
     </section>
   );
 };

@@ -1,12 +1,8 @@
-/* Set the body background color to neon green */
-body {
-  background-color: #39ff14; /* Neon green */
-  color: black; /* Ensures text is readable */
-}
+
 
 .payment-container, .payment-slip-container {
-  background-color: #39ff14; /* Neon green background */
-  color: black; /* Ensure text is readable against the neon background */
+ 
+  color: white; /* Ensure text is readable against the neon background */
 }
 
 .page-content {

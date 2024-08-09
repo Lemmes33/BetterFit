@@ -10,7 +10,7 @@ body {
 }
 
 .nutrition-container {
-  background-image: url(https://i.pinimg.com/564x/59/92/36/59923645efae4a5e25fc819c8deeee5d.jpg);
+  background-color: azure;
   background-size: cover;
   display: flex;
   flex-wrap: wrap;
