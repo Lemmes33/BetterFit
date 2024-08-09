@@ -67,3 +67,19 @@ class Register(Resource):
         db.session.add(new_user)
         db.session.commit()
         return new_user.to_dict(), 201
+    
+class Login(Resource):
+    def post(self):
+        email = request.json.get("email")
+        password = request.json.get("password")
+
+        user = User.query.filter_by(email=email).first()
+        if user and bcrypt.check_password_hash(user.password, password):
+            session['user_id'] = user.id
+            return {"message": "Logged in successfully"}, 200
+        return {"error": "Invalid credentials"}, 401
+
+class Logout(Resource):
+    def post(self):
+        session.pop('user_id', None)
+        return {"message": "Logged out successfully"}, 200
