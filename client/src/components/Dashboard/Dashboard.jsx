@@ -4,13 +4,16 @@ import Avatar from '../../assets/Fitness _ les exercices pour maigrir des bras e
 import Goal from '../../assets/Bras___Girlfriend_Collective-removebg-preview.png'
 import Dashy from '../../assets/dashy.png'
 import { Line, Bar } from 'react-chartjs-2';
+import { Link } from "react-router-dom";
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
+import Profile from "../Profile/Profile";
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
 const Dashboard = () => {
   const [isAvatarDropdownOpen, setIsAvatarDropdownOpen] = useState(false);
   const [isUsernameDropdownOpen, setIsUsernameDropdownOpen] = useState(false);
+  const [isLogoutPopupOpen, setIsLogoutPopupOpen] = useState(false); // State for logout popup
   const [chartType, setChartType] = useState('day'); // State to manage chart type
 
   const handleAvatarClick = () => {
@@ -23,6 +26,19 @@ const Dashboard = () => {
 
   const handleChartTypeChange = (type) => {
     setChartType(type);
+  };
+
+  const handleLogoutClick = () => {
+    setIsLogoutPopupOpen(true);
+  };
+
+  const handleConfirmLogout = () => {
+    setIsLogoutPopupOpen(false);
+    // Add logout functionality here
+  };
+
+  const handleCancelLogout = () => {
+    setIsLogoutPopupOpen(false);
   };
 
   // Sample chart data
@@ -48,7 +64,7 @@ const Dashboard = () => {
             <li className="nav-item">Dashboard</li>
           </ul>
         </nav>
-        <button className="logout-btn">Logout</button>
+        <button className="logout-btn" onClick={handleLogoutClick}>Logout</button>
       </aside>
 
       <main className="main-content">
@@ -77,9 +93,9 @@ const Dashboard = () => {
               {isAvatarDropdownOpen && (
                 <div className="dropdown-menu">
                   <ul>
-                    <li>Edit Profile</li>
+                    <Link to="/profile"><li>Edit Profile</li></Link>
                     <li>Settings</li>
-                    <li>Logout</li>
+                    <li onClick={handleLogoutClick}>Logout</li>
                   </ul>
                 </div>
               )}
@@ -151,6 +167,20 @@ const Dashboard = () => {
           <img src={Goal} alt="Goal" />
         </div>
       </aside>
+
+      {/* Logout Confirmation Popup */}
+      {isLogoutPopupOpen && (
+        <div className="logout-popup">
+          <div className="logout-popup-content">
+            <h2>Confirm Logout</h2>
+            <p>Are you sure you want to log out of this profile?</p>
+            <div className="logout-popup-buttons">
+              <button onClick={handleConfirmLogout}>Yes, Logout</button>
+              <button onClick={handleCancelLogout}>Cancel</button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
