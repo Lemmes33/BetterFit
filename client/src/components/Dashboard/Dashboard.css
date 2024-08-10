@@ -146,8 +146,8 @@
 .welcome-image img {
   width: 290px; /* Adjusted to fit better */
   margin-right: 400px;
-  height: 380px; /* Maintains aspect ratio */
-  margin-top: -70px;
+  height: 420px; /* Maintains aspect ratio */
+  margin-top: -140px;
 }
 
 /* Stats Section */
