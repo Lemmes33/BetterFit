@@ -3,12 +3,12 @@ import './Nutrition.css';
 
 const NutriPlannerCard = ({ imageUrl, title, author, description }) => {
   return (
-    <div className="nutriPlanner-card">
-      <div className="nutriPlanner-image" style={{ backgroundImage: `url(${imageUrl})` }}></div>
-      <div className="nutriPlanner-content">
-        <div className="nutriPlanner-header">{title}</div>
-        <div className="nutriPlanner-meta">By {author}</div>
-        <div className="nutriPlanner-description">{description}</div>
+    <div className="card">
+      <div className="image" style={{ backgroundImage: `url(${imageUrl})` }}></div>
+      <div className="content">
+        <div className="header">{title}</div>
+        <div className="meta">By {author}</div>
+        <div className="description">{description}</div>
       </div>
     </div>
   );

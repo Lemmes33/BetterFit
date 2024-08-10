@@ -60,9 +60,15 @@ body {
   
 }
 
+<<<<<<< HEAD
+.card .header1 {
+=======
 .nutriPlanner-card .nutriPlanner-header {
+>>>>>>> main
   font-size: 1.5rem;
   font-weight: 700;
+  color: rgb(226, 225, 225);
+  
 }
 
 .nutriPlanner-card .nutriPlanner-meta {
