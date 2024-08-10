@@ -1,5 +1,6 @@
 import React from 'react';
 import './payment.css';
+import { Link } from 'react-router-dom';
 
 const cards = [
   { title: '1 Month Subscription', details: ['120 minutes workout', '5 personal trainers', 'A nutrition program', '24/7 customer service'], button: 'Select' },
@@ -16,7 +17,7 @@ const Card = ({ title, details, button }) => (
           <p key={index}>{detail}</p>
         ))}
       </div>
-      <button className="btn">{button}</button>
+      <Link to='/checkout'>{button}</Link>
     </div>
   </div>
 );

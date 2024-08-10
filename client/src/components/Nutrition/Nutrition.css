@@ -7,12 +7,14 @@ body {
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
+  font-family: 'Open Sans', Helvetica, sans-serif;
 }
 
 .nutriPlanner-section {
   background-color: #ffffff; /* White background color */
   color: #000;
   padding: 40px 20px; /* Add padding around the entire section */
+  width: 100%;
 }
 
 .nutriPlanner-container {
@@ -28,8 +30,7 @@ body {
   height: 500px;
   cursor: pointer;
   overflow: hidden;
-  box-shadow: 1px 1px 4px 0 rgba(0,0,0,0.05), 2px 4px 32px 0 rgba(0,0,0,0.1), 0 0 64px 0 rgba(0,0,0,0.2);
-  font-family: 'Open Sans', Helvetica, sans-serif;
+  box-shadow: 1px 1px 4px rgba(0,0,0,0.05), 2px 4px 32px rgba(0,0,0,0.1), 0 0 64px rgba(0,0,0,0.2);
   font-weight: 300;
   transition: transform 300ms ease;
   margin: 20px;
@@ -54,7 +55,7 @@ body {
   height: 100%;
   background: rgb(27, 27, 27);
   transform: translateY(314px);
-  transition: transform 300ms ease;
+  transition: transform 300ms ease, opacity 300ms ease;
 }
 
 .nutriPlanner-card .nutriPlanner-header {
@@ -66,7 +67,7 @@ body {
 .nutriPlanner-card .nutriPlanner-meta {
   font-size: 0.8rem;
   color: #888;
-  margin-bottom: 0rem;
+  margin-bottom: 0.5rem;
 }
 
 .nutriPlanner-card .nutriPlanner-description {
@@ -99,6 +100,6 @@ body {
   color: #000;
 }
 
-span {
+.span2 {
   color: rgb(0, 177, 0);
 }
