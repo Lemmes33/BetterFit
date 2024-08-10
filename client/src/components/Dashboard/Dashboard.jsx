@@ -1,24 +1,19 @@
 import React, { useState } from "react";
 import "./Dashboard.css";
-import Avatar from '../../assets/Fitness _ les exercices pour maigrir des bras et muscler les épaules.jpeg'
-import Goal from '../../assets/Bras___Girlfriend_Collective-removebg-preview.png'
-import Dashy from '../../assets/dashy.png'
-import { Line, Doughnut } from 'react-chartjs-2';
+import Avatar from '../../assets/Fitness _ les exercices pour maigrir des bras et muscler les épaules.jpeg';
+import Goal from '../../assets/Bras___Girlfriend_Collective-removebg-preview.png';
+import Dashy from '../../assets/dashy.png';
+import { Line } from 'react-chartjs-2';
 import { Link } from "react-router-dom";
-import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, ArcElement } from 'chart.js';
-import Profile from "../Profile/Profile";
+import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
 
-ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, ArcElement);
+ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
 const Dashboard = () => {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isAvatarDropdownOpen, setIsAvatarDropdownOpen] = useState(false);
   const [isUsernameDropdownOpen, setIsUsernameDropdownOpen] = useState(false);
+  const [isLogoutPopupOpen, setIsLogoutPopupOpen] = useState(false); // State for logout popup
   const [chartType, setChartType] = useState('day'); // State to manage chart type
-
-  const handleSidebarToggle = () => {
-    setIsSidebarOpen(!isSidebarOpen);
-  };
 
   const handleAvatarClick = () => {
     setIsAvatarDropdownOpen(!isAvatarDropdownOpen);
@@ -30,6 +25,19 @@ const Dashboard = () => {
 
   const handleChartTypeChange = (type) => {
     setChartType(type);
+  };
+
+  const handleLogoutClick = () => {
+    setIsLogoutPopupOpen(true);
+  };
+
+  const handleConfirmLogout = () => {
+    setIsLogoutPopupOpen(false);
+    // Add logout functionality here
+  };
+
+  const handleCancelLogout = () => {
+    setIsLogoutPopupOpen(false);
   };
 
   // Sample chart data
@@ -46,55 +54,19 @@ const Dashboard = () => {
     ]
   };
 
-  // Donut chart data for Heart Rate, Calories Burned, and Cardio Training
-  const heartRateData = {
-    labels: ['Resting', 'Active'],
-    datasets: [{
-      data: [72, 100 - 72],
-      backgroundColor: ['#09ff00', '#000000'],
-      hoverBackgroundColor: ['#09ff00', '#000000'],
-    }]
-  };
-
-  const caloriesBurnedData = {
-    labels: ['Burned', 'Remaining'],
-    datasets: [{
-      data: [120, 500 - 120],
-      backgroundColor: ['#09ff00', '#000000'],
-      hoverBackgroundColor: ['#09ff00', '#000000'],
-    }]
-  };
-
-  const cardioTrainingData = {
-    labels: ['Completed', 'Remaining'],
-    datasets: [{
-      data: [60, 60],
-      backgroundColor: ['#09ff00', '#000000'],
-      hoverBackgroundColor: ['#09ff00', '#000000'],
-    }]
-  };
-
-  // Chart options for animation
-  const chartOptions = {
-    animation: {
-      animateScale: true,
-      animateRotate: true
-    }
-  };
-
   return (
     <div className="dashboard">
-      <aside className={`sidebar ${isSidebarOpen ? 'sidebar-open' : ''}`}>
+      <aside className="sidebar">
         <div className="logo">BetterFit</div>
         <nav className="nav">
           <ul>
             <li className="nav-item">Dashboard</li>
           </ul>
         </nav>
-        <button className="logout-btn">Logout</button>
+        <button className="logout-btn" onClick={handleLogoutClick}>Logout</button>
       </aside>
 
-      <main className={`main-content ${isSidebarOpen ? 'shifted' : ''}`}>
+      <main className="main-content">
         <header className="header">
           <div className="date-picker">
             <input type="date" name="date" id="date" />
@@ -103,15 +75,14 @@ const Dashboard = () => {
             <input type="text" placeholder="Search" />
           </div>
           <div className="user-info">
-            
             <div className="user-name-dropdown" onClick={handleUsernameClick}>
               Aquilla
               <span className="dropdown-arrow">▼</span>
               {isUsernameDropdownOpen && (
                 <div className="account-dropdown-menu">
                   <ul>
-                    <li>Aquilla</li>
-                    <li>+ Add Another Account</li>
+                    <li>Switch to Account 1 (Aquilla)</li>
+                    <li>Add Another Account</li>
                   </ul>
                 </div>
               )}
@@ -123,7 +94,7 @@ const Dashboard = () => {
                   <ul>
                     <Link to="/profile"><li>Edit Profile</li></Link>
                     <li>Settings</li>
-                    <li>Logout</li>
+                    <li onClick={handleLogoutClick}>Logout</li>
                   </ul>
                 </div>
               )}
@@ -144,15 +115,15 @@ const Dashboard = () => {
         <section className="stats-section">
           <div className="stat-item">
             <h3>Heart Rate</h3>
-            <Doughnut data={heartRateData} options={chartOptions} />
+            <p>72 bpm</p>
           </div>
           <div className="stat-item">
             <h3>Calories Burn</h3>
-            <Doughnut data={caloriesBurnedData} options={chartOptions} />
+            <p>120 Kcal</p>
           </div>
           <div className="stat-item">
             <h3>Cardio Full Training</h3>
-            <Doughnut data={cardioTrainingData} options={chartOptions} />
+            <p>01 hr</p>
           </div>
         </section>
 
@@ -195,6 +166,20 @@ const Dashboard = () => {
           <img src={Goal} alt="Goal" />
         </div>
       </aside>
+
+      {/* Logout Confirmation Popup */}
+      {isLogoutPopupOpen && (
+        <div className="logout-popup">
+          <div className="logout-popup-content">
+            <h2>Confirm Logout</h2>
+            <p>Are you sure you want to log out of this profile?</p>
+            <div className="logout-popup-buttons">
+              <button onClick={handleConfirmLogout}>Yes, Logout</button>
+              <button onClick={handleCancelLogout}>Cancel</button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
