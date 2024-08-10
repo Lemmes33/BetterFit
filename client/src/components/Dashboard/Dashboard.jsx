@@ -3,18 +3,22 @@ import "./Dashboard.css";
 import Avatar from '../../assets/Fitness _ les exercices pour maigrir des bras et muscler les épaules.jpeg'
 import Goal from '../../assets/Bras___Girlfriend_Collective-removebg-preview.png'
 import Dashy from '../../assets/dashy.png'
-import { Line, Bar } from 'react-chartjs-2';
+import { Line, Doughnut } from 'react-chartjs-2';
 import { Link } from "react-router-dom";
-import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
+import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, ArcElement } from 'chart.js';
 import Profile from "../Profile/Profile";
 
-ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
+ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, ArcElement);
 
 const Dashboard = () => {
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isAvatarDropdownOpen, setIsAvatarDropdownOpen] = useState(false);
   const [isUsernameDropdownOpen, setIsUsernameDropdownOpen] = useState(false);
-  const [isLogoutPopupOpen, setIsLogoutPopupOpen] = useState(false); // State for logout popup
   const [chartType, setChartType] = useState('day'); // State to manage chart type
+
+  const handleSidebarToggle = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+  };
 
   const handleAvatarClick = () => {
     setIsAvatarDropdownOpen(!isAvatarDropdownOpen);
@@ -26,19 +30,6 @@ const Dashboard = () => {
 
   const handleChartTypeChange = (type) => {
     setChartType(type);
-  };
-
-  const handleLogoutClick = () => {
-    setIsLogoutPopupOpen(true);
-  };
-
-  const handleConfirmLogout = () => {
-    setIsLogoutPopupOpen(false);
-    // Add logout functionality here
-  };
-
-  const handleCancelLogout = () => {
-    setIsLogoutPopupOpen(false);
   };
 
   // Sample chart data
@@ -55,19 +46,55 @@ const Dashboard = () => {
     ]
   };
 
+  // Donut chart data for Heart Rate, Calories Burned, and Cardio Training
+  const heartRateData = {
+    labels: ['Resting', 'Active'],
+    datasets: [{
+      data: [72, 100 - 72],
+      backgroundColor: ['#09ff00', '#000000'],
+      hoverBackgroundColor: ['#09ff00', '#000000'],
+    }]
+  };
+
+  const caloriesBurnedData = {
+    labels: ['Burned', 'Remaining'],
+    datasets: [{
+      data: [120, 500 - 120],
+      backgroundColor: ['#09ff00', '#000000'],
+      hoverBackgroundColor: ['#09ff00', '#000000'],
+    }]
+  };
+
+  const cardioTrainingData = {
+    labels: ['Completed', 'Remaining'],
+    datasets: [{
+      data: [60, 60],
+      backgroundColor: ['#09ff00', '#000000'],
+      hoverBackgroundColor: ['#09ff00', '#000000'],
+    }]
+  };
+
+  // Chart options for animation
+  const chartOptions = {
+    animation: {
+      animateScale: true,
+      animateRotate: true
+    }
+  };
+
   return (
     <div className="dashboard">
-      <aside className="sidebar">
+      <aside className={`sidebar ${isSidebarOpen ? 'sidebar-open' : ''}`}>
         <div className="logo">BetterFit</div>
         <nav className="nav">
           <ul>
             <li className="nav-item">Dashboard</li>
           </ul>
         </nav>
-        <button className="logout-btn" onClick={handleLogoutClick}>Logout</button>
+        <button className="logout-btn">Logout</button>
       </aside>
 
-      <main className="main-content">
+      <main className={`main-content ${isSidebarOpen ? 'shifted' : ''}`}>
         <header className="header">
           <div className="date-picker">
             <input type="date" name="date" id="date" />
@@ -76,14 +103,15 @@ const Dashboard = () => {
             <input type="text" placeholder="Search" />
           </div>
           <div className="user-info">
+            
             <div className="user-name-dropdown" onClick={handleUsernameClick}>
               Aquilla
               <span className="dropdown-arrow">▼</span>
               {isUsernameDropdownOpen && (
                 <div className="account-dropdown-menu">
                   <ul>
-                    <li>Switch to Account 1 (Aquilla)</li>
-                    <li>Add Another Account</li>
+                    <li>Aquilla</li>
+                    <li>+ Add Another Account</li>
                   </ul>
                 </div>
               )}
@@ -95,7 +123,7 @@ const Dashboard = () => {
                   <ul>
                     <Link to="/profile"><li>Edit Profile</li></Link>
                     <li>Settings</li>
-                    <li onClick={handleLogoutClick}>Logout</li>
+                    <li>Logout</li>
                   </ul>
                 </div>
               )}
@@ -116,15 +144,15 @@ const Dashboard = () => {
         <section className="stats-section">
           <div className="stat-item">
             <h3>Heart Rate</h3>
-            <p>72 bpm</p>
+            <Doughnut data={heartRateData} options={chartOptions} />
           </div>
           <div className="stat-item">
             <h3>Calories Burn</h3>
-            <p>120 Kcal</p>
+            <Doughnut data={caloriesBurnedData} options={chartOptions} />
           </div>
           <div className="stat-item">
             <h3>Cardio Full Training</h3>
-            <p>01 hr</p>
+            <Doughnut data={cardioTrainingData} options={chartOptions} />
           </div>
         </section>
 
@@ -167,20 +195,6 @@ const Dashboard = () => {
           <img src={Goal} alt="Goal" />
         </div>
       </aside>
-
-      {/* Logout Confirmation Popup */}
-      {isLogoutPopupOpen && (
-        <div className="logout-popup">
-          <div className="logout-popup-content">
-            <h2>Confirm Logout</h2>
-            <p>Are you sure you want to log out of this profile?</p>
-            <div className="logout-popup-buttons">
-              <button onClick={handleConfirmLogout}>Yes, Logout</button>
-              <button onClick={handleCancelLogout}>Cancel</button>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 };
