@@ -6,7 +6,6 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  
   flex-wrap: wrap;
 }
 
@@ -18,7 +17,6 @@ body {
 
 .nutriPlanner-container {
   display: flex;
-  
   flex-wrap: wrap;
   justify-content: center;
   gap: 20px;
@@ -57,18 +55,12 @@ body {
   background: rgb(27, 27, 27);
   transform: translateY(314px);
   transition: transform 300ms ease;
-  
 }
 
-<<<<<<< HEAD
-.card .header1 {
-=======
 .nutriPlanner-card .nutriPlanner-header {
->>>>>>> main
   font-size: 1.5rem;
   font-weight: 700;
   color: rgb(226, 225, 225);
-  
 }
 
 .nutriPlanner-card .nutriPlanner-meta {
@@ -98,16 +90,15 @@ body {
   opacity: 1;
 }
 
-
 .h3 {
-  
   margin-bottom: 50px;
   text-align: center;
 }
-.span1{
+
+.span1 {
   color: #000;
 }
 
-span  {
+span {
   color: rgb(0, 177, 0);
 }
