@@ -101,7 +101,26 @@ const Dashboard = () => {
     },
   };
 
-  // Sample data for donut charts
+  // Custom plugin to add text to the middle of donut charts
+  const centerTextPlugin = {
+    id: 'centerText',
+    beforeDraw: (chart) => {
+      const { ctx, chartArea: { width, height } } = chart;
+      ctx.save();
+      ctx.font = 'bold 24px Arial';
+      ctx.fillStyle = '#09ff00';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+
+      const text = `${chart.data.datasets[0].data[0]}%`;
+      const textX = width / 2;
+      const textY = height / 2;
+
+      ctx.fillText(text, textX, textY);
+      ctx.restore();
+    }
+  };
+
   const heartRateData = {
     datasets: [
       {
@@ -149,7 +168,6 @@ const Dashboard = () => {
 
       <main className="main-content">
         <header className="header">
-          
           <div className="search-bar">
             <input type="text" placeholder="Search" />
           </div>
@@ -194,21 +212,21 @@ const Dashboard = () => {
         <section className="stats-section">
           <div className="stat-item">
             <h3>Heart Rate</h3>
-            <Doughnut data={heartRateData} />
+            <Doughnut data={heartRateData} options={{ plugins: { centerText: {} } }} plugins={[centerTextPlugin]} />
           </div>
           <div className="stat-item">
             <h3>Calories Burn</h3>
-            <Doughnut data={caloriesData} />
+            <Doughnut data={caloriesData} options={{ plugins: { centerText: {} } }} plugins={[centerTextPlugin]} />
           </div>
           <div className="stat-item">
             <h3>Cardio Full Training</h3>
-            <Doughnut data={cardioTrainingData} />
+            <Doughnut data={cardioTrainingData} options={{ plugins: { centerText: {} } }} plugins={[centerTextPlugin]} />
           </div>
         </section>
 
         <section className="chart-section">
           <div className="chart-header">
-            
+            {/* Additional content for chart header can go here */}
           </div>
           <div className="chart">
             <Line data={chartData} options={chartOptions} />
@@ -222,17 +240,17 @@ const Dashboard = () => {
           <div>4012</div>
         </div>
         <div className="summary">
-          <div>Average heart rate</div>
-          <div>100</div>
+          <div>Average Heart Rate</div>
+          <div>100 bpm</div>
         </div>
         <div className="summary">
-          <div>Total Distance traveled</div>
-          <div>20km</div>
+          <div>Total Distance Traveled</div>
+          <div>20 km</div>
         </div>
         <div className="goals">
-          <h3>My Goal</h3>
+          <h3>My Goals</h3>
           <ul>
-            <li>Do 5 Workouts in 1 day</li>
+            <li>Do 5 Workouts in 1 Day</li>
             <li>Do 15 Workouts in 1 Week</li>
             <li>Do 30 Workouts in 1 Month</li>
             <li>Do 365 Workouts in 1 Year</li>
@@ -242,16 +260,15 @@ const Dashboard = () => {
       </aside>
 
       {isLogoutPopupOpen && (
-  <div className="logout-popup-overlay">
-    <div className="logout-popup">
-      <h3>Logout</h3>
-      <p>Are you sure you want to logout?</p>
-      <button onClick={handleConfirmLogout}>Confirm</button>
-      <button className="cancel" onClick={handleCancelLogout}>Cancel</button>
-    </div>
-  </div>
-)}
-
+        <div className="logout-popup-overlay">
+          <div className="logout-popup">
+            <h3>Logout</h3>
+            <p>Are you sure you want to logout?</p>
+            <button onClick={handleConfirmLogout}>Confirm</button>
+            <button className="cancel" onClick={handleCancelLogout}>Cancel</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
