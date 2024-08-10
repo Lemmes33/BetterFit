@@ -3,12 +3,15 @@ import './Nutrition.css';
 
 const NutriPlannerCard = ({ imageUrl, title, author, description }) => {
   return (
-    <div className="card">
-      <div className="image" style={{ backgroundImage: `url(${imageUrl})` }}></div>
-      <div className="content">
-        <div className="header">{title}</div>
-        <div className="meta">By {author}</div>
-        <div className="description">{description}</div>
+    <div className="nutriPlanner-card">
+      <div
+        className="nutriPlanner-image"
+        style={{ backgroundImage: `url(${imageUrl})` }}
+      ></div>
+      <div className="nutriPlanner-content">
+        <div className="nutriPlanner-header">{title}</div>
+        <div className="nutriPlanner-meta">By {author}</div>
+        <div className="nutriPlanner-description">{description}</div>
       </div>
     </div>
   );
@@ -17,13 +20,15 @@ const NutriPlannerCard = ({ imageUrl, title, author, description }) => {
 const NutriPlanner = () => {
   return (
     <section className="nutriPlanner-section">
-      <h1><span className='span1'>NUTRITION</span> <span className='span2'>PLAN</span></h1>
+      <h1>
+        <span className='span1'>NUTRITION</span> <span className='span2'>PLAN</span>
+      </h1>
       <div className="nutriPlanner-intro">
         <h3>
           Meal planning saves time, reduces stress, and helps maintain a balanced diet by allowing you to make healthier food choices in advance.
-          <br /> 
-          It minimizes food waste and supports consistent eating habits, which can aid in weight management. By controlling portion sizes and meal composition, meal planning can help 
-          <br /> 
+          <br />
+          It minimizes food waste and supports consistent eating habits, which can aid in weight management. By controlling portion sizes and meal composition, meal planning can help
+          <br />
           prevent overeating and promote weight loss or maintenance. Additionally, it ensures you have nutritious options readily available, reducing the temptation to opt for unhealthy, high-calorie foods.
         </h3>
       </div>
