@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { Formik, Form, Field } from 'formik';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { Link } from 'react-router-dom';
 import './Profile.css';
+import { Link } from 'react-router-dom';
 
 const Profile = () => {
   const [profileImage, setProfileImage] = useState(null);
@@ -26,46 +26,48 @@ const Profile = () => {
   };
 
   return (
-    <div className="bg-cover">
-      <div className="container">
-        <h1>MY PROFILE</h1>
-        <div className="profile-picture" onClick={() => document.getElementById('file-input').click()}>
+    <div className="profile-bg-cover">
+      <div className="profile-container">
+        <h1 className="profile-header">MY PROFILE</h1>
+        <div className="profile-image-upload" onClick={() => document.getElementById('file-input').click()}>
           {profileImage ? (
-            <img src={profileImage} alt="Profile" />  // Ensure the image is displayed
+            <img src={profileImage} alt="Profile" className="profile-image" />
           ) : (
-            <p>Upload</p>
+            <p className="profile-upload-text">Upload</p>
           )}
         </div>
-        <input id="file-input" type="file" accept="image/*" onChange={handleImageChange} />
+        <input id="file-input" type="file" accept="image/*" onChange={handleImageChange} className="profile-file-input" />
         <Formik
           initialValues={{ name: '', email: '', description: '' }}
           onSubmit={handleSubmit}
         >
           {({ values, handleChange }) => (
-            <Form>
-              <label htmlFor="name">Name:</label>
+            <Form className="profile-form">
+              <label htmlFor="name" className="profile-form-label">Name:</label>
               <Field
                 id="name"
                 name="name"
                 type="text"
                 placeholder="Enter your name"
+                className="profile-form-input"
               />
-              <label htmlFor="email">Email:</label>
+              <label htmlFor="email" className="profile-form-label">Email:</label>
               <Field
                 id="email"
                 name="email"
                 type="email"
                 placeholder="Enter your email"
+                className="profile-form-input"
               />
-              <label htmlFor="description">Description:</label>
+              <label htmlFor="description" className="profile-form-label">Description:</label>
               <Field
                 id="description"
                 name="description"
                 type="text"
                 placeholder="Tell us about yourself"
-                className="description"
+                className="profile-form-description"
               />
-              <button type="submit">Save</button>
+              <button type="submit" className="profile-submit-button">Save</button>
             </Form>
           )}
         </Formik>
