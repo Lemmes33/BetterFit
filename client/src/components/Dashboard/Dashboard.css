@@ -32,7 +32,7 @@
 
 /* Main content area */
 .main-content {
-  flex: 1;
+  flex-grow: 1;
   margin-left: 0;
   padding: 20px;
   overflow-y: auto;
@@ -197,6 +197,9 @@
   box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
   width: 30%;
   position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 /* Donut Chart Container */
@@ -259,7 +262,7 @@
 .chart {
   height: 500px; /* Increased height for better visibility */
   width: 100%;
-  background: #9a9b9a;
+  background: #393a39;
   border-radius: 12px;
   display: flex;
   justify-content: center;
@@ -349,116 +352,134 @@
 }
 
 .dropdown-menu li {
-  padding: 8px 15px;
-  cursor: pointer;
-  transition: background 0.3s ease;
+  padding: 10px;
   color: #ffffff;
+  cursor: pointer;
+  transition: background 0.3s;
 }
 
 .dropdown-menu li:hover {
-  background-color: #03310b;
+  background: #35ff00;
 }
 
-.account-dropdown-menu {
+/* Account dropdown menu */
+.user-name-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.user-name-dropdown:after {
+  content: '';
+  border: 6px solid transparent;
+  border-top-color: #09ff00;
+  display: inline-block;
+  margin-left: 8px;
+  vertical-align: middle;
+}
+
+.user-name-dropdown:hover .dropdown-menu {
+  display: block;
+}
+
+.user-name-dropdown {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  color: #ffffff;
+}
+
+.dropdown-arrow {
+  margin-left: 8px;
+  font-size: 12px;
+}
+
+.user-name-dropdown-menu {
   position: absolute;
   top: 100%;
   left: 0;
   background-color: #1c4e05;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  border-radius: 6px;
-  overflow: hidden;
-  z-index: 1000;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  z-index: 10;
   margin-left: -100px;
   width: 230px;
-  display: none;
 }
 
-.account-dropdown-menu ul {
+.user-name-dropdown-menu ul {
   list-style: none;
   margin: 0;
-  padding: 0;
+  padding: 8px 0;
 }
 
-.account-dropdown-menu li {
-  padding: 8px 12px;
+.user-name-dropdown-menu li {
+  padding: 10px 20px;
   cursor: pointer;
-  transition: background 0.3s ease;
-  color: white;
+  color: #f2f3f1;
 }
 
-.account-dropdown-menu li:hover {
-  background-color:  #03310b;
+.user-name-dropdown-menu li:hover {
+  background-color: #35ff00;
 }
 
-/* Show/Hide Dropdowns */
-.user-avatar-dropdown:hover .dropdown-menu {
-  display: block;
-}
-
-.user-name-dropdown:hover .account-dropdown-menu {
-  display: block;
-}
-/* Logout Popup */
-.logout-popup {
+/* Overlay for popup background */
+.logout-popup-overlay {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5); /* Dark overlay */
   display: flex;
-  align-items: center;
   justify-content: center;
-  z-index: 1000; /* Ensure it's above other content */
+  align-items: center;
+  z-index: 999; /* Ensure it appears on top of everything else */
 }
 
-.logout-popup-content {
-  background: #fff;
+/* Popup container */
+.logout-popup {
+  background-color: #ffffff;
   border-radius: 8px;
   padding: 20px;
-  width: 300px;
-  max-width: 80%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  max-width: 400px;
+  width: 100%;
   text-align: center;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-.logout-popup h2 {
-  margin: 0;
-  font-size: 18px;
-  color: #333;
+/* Popup header */
+.logout-popup h3 {
+  margin: 0 0 10px;
+  color: #000000;
 }
 
+/* Popup message */
 .logout-popup p {
-  margin: 10px 0 20px;
-  color: #666;
+  margin: 0 0 20px;
+  color: #000000;
 }
 
-.logout-popup-buttons {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-}
-
-.logout-popup-buttons button {
-  background: #09ff00;
+/* Popup buttons */
+.logout-popup button {
+  background-color: #09ff00;
   border: none;
-  color: #000;
   padding: 10px 20px;
-  border-radius: 6px;
+  color: #000;
   cursor: pointer;
-  font-size: 14px;
+  border-radius: 6px;
+  font-size: 16px;
+  margin: 5px;
   transition: background 0.3s ease;
 }
 
-.logout-popup-buttons button:hover {
-  background: #1eff00;
+.logout-popup button:hover {
+  background-color: #146803;
 }
 
-.logout-popup-buttons button:last-child {
-  background: #fa4842;
-  color: #fff;
+/* Cancel button */
+.logout-popup button.cancel {
+  background-color: #d9534f;
 }
 
-.logout-popup-buttons button:last-child:hover {
-  background: #d81912;
+.logout-popup button.cancel:hover {
+  background-color: #c9302c;
 }

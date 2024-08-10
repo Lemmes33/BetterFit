@@ -3,11 +3,11 @@ import "./Dashboard.css";
 import Avatar from '../../assets/Fitness _ les exercices pour maigrir des bras et muscler les épaules.jpeg';
 import Goal from '../../assets/Bras___Girlfriend_Collective-removebg-preview.png';
 import Dashy from '../../assets/dashy.png';
-import { Line } from 'react-chartjs-2';
+import { Line, Doughnut } from 'react-chartjs-2';
 import { Link } from "react-router-dom";
-import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
+import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, ArcElement } from 'chart.js';
 
-ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
+ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, ArcElement);
 
 const Dashboard = () => {
   const [isAvatarDropdownOpen, setIsAvatarDropdownOpen] = useState(false);
@@ -40,18 +40,99 @@ const Dashboard = () => {
     setIsLogoutPopupOpen(false);
   };
 
-  // Sample chart data
+  // Enhanced line chart data with gradient, customized points, and tooltips
   const chartData = {
     labels: chartType === 'day' ? ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'] : chartType === 'weekly' ? ['Week 1', 'Week 2', 'Week 3', 'Week 4'] : ['Month 1', 'Month 2', 'Month 3', 'Month 4'],
     datasets: [
       {
         label: 'Calories Burned',
         data: chartType === 'day' ? [150, 200, 180, 220, 250, 230, 210] : chartType === 'weekly' ? [1200, 1400, 1600, 1800] : [5000, 6000, 7000, 8000],
-        fill: false,
+        fill: true, // Set to true for gradient fill
+        backgroundColor: (context) => {
+          const ctx = context.chart.ctx;
+          const gradient = ctx.createLinearGradient(0, 0, 0, 400);
+          gradient.addColorStop(0, 'rgba(9, 255, 0, 0.7)');
+          gradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
+          return gradient;
+        },
         borderColor: '#09ff00',
-        tension: 0.1
+        pointBackgroundColor: '#000', // Customize point color
+        pointBorderColor: '#09ff00',
+        pointBorderWidth: 2,
+        pointRadius: 5, // Customize point radius
+        tension: 0.4, // Make line smoother
       }
     ]
+  };
+
+  const chartOptions = {
+    scales: {
+      x: {
+        grid: {
+          color: 'rgba(255, 255, 255, 0.1)', // Lighten grid lines
+        },
+        ticks: {
+          color: '#ffffff', // Axis labels color
+          font: {
+            size: 14,
+          },
+        },
+      },
+      y: {
+        grid: {
+          color: 'rgba(255, 255, 255, 0.1)', // Lighten grid lines
+        },
+        ticks: {
+          color: '#ffffff', // Axis labels color
+          font: {
+            size: 14,
+          },
+        },
+      }
+    },
+    plugins: {
+      tooltip: {
+        backgroundColor: '#000',
+        titleColor: '#09ff00',
+        bodyColor: '#ffffff',
+        borderColor: '#09ff00',
+        borderWidth: 1,
+      },
+    },
+  };
+
+  // Sample data for donut charts
+  const heartRateData = {
+    datasets: [
+      {
+        data: [72, 28], // 72% green, 28% black
+        backgroundColor: ['#09ff00', '#000'],
+        borderWidth: 0,
+        cutout: '80%', // To make the donut thinner
+      },
+    ],
+  };
+
+  const caloriesData = {
+    datasets: [
+      {
+        data: [50, 50], // 50% green, 50% black
+        backgroundColor: ['#09ff00', '#000'],
+        borderWidth: 0,
+        cutout: '80%', // To make the donut thinner
+      },
+    ],
+  };
+
+  const cardioTrainingData = {
+    datasets: [
+      {
+        data: [60, 40], // 60% green, 40% black
+        backgroundColor: ['#09ff00', '#000'],
+        borderWidth: 0,
+        cutout: '80%', // To make the donut thinner
+      },
+    ],
   };
 
   return (
@@ -77,12 +158,12 @@ const Dashboard = () => {
           <div className="user-info">
             <div className="user-name-dropdown" onClick={handleUsernameClick}>
               Aquilla
-              <span className="dropdown-arrow">▼</span>
+              
               {isUsernameDropdownOpen && (
-                <div className="account-dropdown-menu">
+                <div className="user-name-dropdown-menu">
                   <ul>
-                    <li>Switch to Account 1 (Aquilla)</li>
-                    <li>Add Another Account</li>
+                    <li>Aquilla</li>
+                    <li> + Add Another Account</li>
                   </ul>
                 </div>
               )}
@@ -115,27 +196,24 @@ const Dashboard = () => {
         <section className="stats-section">
           <div className="stat-item">
             <h3>Heart Rate</h3>
-            <p>72 bpm</p>
+            <Doughnut data={heartRateData} />
           </div>
           <div className="stat-item">
             <h3>Calories Burn</h3>
-            <p>120 Kcal</p>
+            <Doughnut data={caloriesData} />
           </div>
           <div className="stat-item">
             <h3>Cardio Full Training</h3>
-            <p>01 hr</p>
+            <Doughnut data={cardioTrainingData} />
           </div>
         </section>
 
         <section className="chart-section">
           <div className="chart-header">
-            <button onClick={() => handleChartTypeChange('day')}>Day</button>
-            <button onClick={() => handleChartTypeChange('weekly')}>Weekly</button>
-            <button onClick={() => handleChartTypeChange('monthly')}>Monthly</button>
-            <button onClick={() => handleChartTypeChange('yearly')}>Yearly</button>
+            
           </div>
           <div className="chart">
-            <Line data={chartData} />
+            <Line data={chartData} options={chartOptions} />
           </div>
         </section>
       </main>
@@ -157,29 +235,25 @@ const Dashboard = () => {
           <h3>My Goal</h3>
           <ul>
             <li>Do 5 Workouts in 1 day</li>
-            <li>Do 15 Workouts in 3 day</li>
-            <li>Burn 5000 Kcal in 1 week</li>
-            <li>Run 50km</li>
+            <li>Do 15 Workouts in 1 Week</li>
+            <li>Do 30 Workouts in 1 Month</li>
+            <li>Do 365 Workouts in 1 Year</li>
           </ul>
-        </div>
-        <div className="goal-image">
-          <img src={Goal} alt="Goal" />
+          <img src={Goal} alt="Goal" className="goal-image" />
         </div>
       </aside>
 
-      {/* Logout Confirmation Popup */}
       {isLogoutPopupOpen && (
-        <div className="logout-popup">
-          <div className="logout-popup-content">
-            <h2>Confirm Logout</h2>
-            <p>Are you sure you want to log out of this profile?</p>
-            <div className="logout-popup-buttons">
-              <button onClick={handleConfirmLogout}>Yes, Logout</button>
-              <button onClick={handleCancelLogout}>Cancel</button>
-            </div>
-          </div>
-        </div>
-      )}
+  <div className="logout-popup-overlay">
+    <div className="logout-popup">
+      <h3>Logout</h3>
+      <p>Are you sure you want to logout?</p>
+      <button onClick={handleConfirmLogout}>Confirm</button>
+      <button className="cancel" onClick={handleCancelLogout}>Cancel</button>
+    </div>
+  </div>
+)}
+
     </div>
   );
 };
