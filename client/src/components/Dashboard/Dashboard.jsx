@@ -1,10 +1,179 @@
-import React from "react";
-import "./Dashboard.css"; // Assuming you are using CSS Modules
-import Avartar from '../../assets/Fitness _ les exercices pour maigrir des bras et muscler les épaules.jpeg'
-import Goal from '../../assets/Bras___Girlfriend_Collective-removebg-preview.png'
-import welcomeImage from '../../assets/The_New_Nike_Air_Zoom_SuperRep_2-removebg-preview.png'
+import React, { useState } from "react";
+import "./Dashboard.css";
+import Avatar from '../../assets/Fitness _ les exercices pour maigrir des bras et muscler les épaules.jpeg';
+import Goal from '../../assets/Bras___Girlfriend_Collective-removebg-preview.png';
+import Dashy from '../../assets/dashy.png';
+import { Line, Doughnut } from 'react-chartjs-2';
+import { Link } from "react-router-dom";
+import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, ArcElement } from 'chart.js';
+
+ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, ArcElement);
 
 const Dashboard = () => {
+  const [isAvatarDropdownOpen, setIsAvatarDropdownOpen] = useState(false);
+  const [isUsernameDropdownOpen, setIsUsernameDropdownOpen] = useState(false);
+  const [isLogoutPopupOpen, setIsLogoutPopupOpen] = useState(false);
+  const [chartType, setChartType] = useState('day');
+  const [goals, setGoals] = useState([
+    'Do 5 Workouts in 1 Day',
+    'Do 15 Workouts in 1 Week',
+    'Do 30 Workouts in 1 Month',
+    'Do 365 Workouts in 1 Year'
+  ]);
+  const [newGoal, setNewGoal] = useState('');
+
+  const handleAvatarClick = () => {
+    setIsAvatarDropdownOpen(!isAvatarDropdownOpen);
+  };
+
+  const handleUsernameClick = () => {
+    setIsUsernameDropdownOpen(!isUsernameDropdownOpen);
+  };
+
+  const handleChartTypeChange = (type) => {
+    setChartType(type);
+  };
+
+  const handleLogoutClick = () => {
+    setIsLogoutPopupOpen(true);
+  };
+
+  const handleConfirmLogout = () => {
+    setIsLogoutPopupOpen(false);
+    // Add logout functionality here
+  };
+
+  const handleCancelLogout = () => {
+    setIsLogoutPopupOpen(false);
+  };
+
+  const handleGoalChange = (e) => {
+    setNewGoal(e.target.value);
+  };
+
+  const handleAddGoal = () => {
+    if (newGoal.trim()) {
+      setGoals([...goals, newGoal.trim()]);
+      setNewGoal('');
+    }
+  };
+
+  const handleDeleteGoal = (index) => {
+    setGoals(goals.filter((_, i) => i !== index));
+  };
+
+  const chartData = {
+    labels: chartType === 'day' ? ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'] : chartType === 'weekly' ? ['Week 1', 'Week 2', 'Week 3', 'Week 4'] : ['Month 1', 'Month 2', 'Month 3', 'Month 4'],
+    datasets: [
+      {
+        label: 'Calories Burned',
+        data: chartType === 'day' ? [150, 200, 180, 220, 250, 230, 210] : chartType === 'weekly' ? [1200, 1400, 1600, 1800] : [5000, 6000, 7000, 8000],
+        fill: true,
+        backgroundColor: (context) => {
+          const ctx = context.chart.ctx;
+          const gradient = ctx.createLinearGradient(0, 0, 0, 400);
+          gradient.addColorStop(0, 'rgba(9, 255, 0, 0.7)');
+          gradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
+          return gradient;
+        },
+        borderColor: '#09ff00',
+        pointBackgroundColor: '#000',
+        pointBorderColor: '#09ff00',
+        pointBorderWidth: 2,
+        pointRadius: 5,
+        tension: 0.4,
+      }
+    ]
+  };
+
+  const chartOptions = {
+    scales: {
+      x: {
+        grid: {
+          color: 'rgba(255, 255, 255, 0.1)',
+        },
+        ticks: {
+          color: '#ffffff',
+          font: {
+            size: 14,
+          },
+        },
+      },
+      y: {
+        grid: {
+          color: 'rgba(255, 255, 255, 0.1)',
+        },
+        ticks: {
+          color: '#ffffff',
+          font: {
+            size: 14,
+          },
+        },
+      }
+    },
+    plugins: {
+      tooltip: {
+        backgroundColor: '#000',
+        titleColor: '#09ff00',
+        bodyColor: '#ffffff',
+        borderColor: '#09ff00',
+        borderWidth: 1,
+      },
+    },
+  };
+
+  const centerTextPlugin = {
+    id: 'centerText',
+    beforeDraw: (chart) => {
+      const { ctx, chartArea: { width, height } } = chart;
+      ctx.save();
+      ctx.font = 'bold 24px Arial';
+      ctx.fillStyle = '#09ff00';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+
+      const text = `${chart.data.datasets[0].data[0]}%`;
+      const textX = width / 2;
+      const textY = height / 2;
+
+      ctx.fillText(text, textX, textY);
+      ctx.restore();
+    }
+  };
+
+  const heartRateData = {
+    datasets: [
+      {
+        data: [72, 28],
+        backgroundColor: ['#09ff00', '#000'],
+        borderWidth: 0,
+        cutout: '80%',
+      },
+    ],
+  };
+
+  const caloriesData = {
+    datasets: [
+      {
+        data: [50, 50],
+        backgroundColor: ['#09ff00', '#000'],
+        borderWidth: 0,
+        cutout: '80%',
+      },
+    ],
+  };
+
+  const cardioTrainingData = {
+    datasets: [
+      {
+        data: [60, 40],
+        backgroundColor: ['#09ff00', '#000'],
+        borderWidth: 0,
+        cutout: '80%',
+      },
+    ],
+  };
+
   return (
     <div className="dashboard">
       <aside className="sidebar">
@@ -12,64 +181,75 @@ const Dashboard = () => {
         <nav className="nav">
           <ul>
             <li className="nav-item">Dashboard</li>
-            
           </ul>
         </nav>
-        <button className="logout-btn">Logout</button>
+        <button className="logout-btn" onClick={handleLogoutClick}>Logout</button>
       </aside>
 
       <main className="main-content">
         <header className="header">
-          <div className="date-picker">
-            <input type="date" name="date" id="date" />
-          </div>
           <div className="search-bar">
             <input type="text" placeholder="Search" />
           </div>
           <div className="user-info">
-            <div className="user-name">Aquilla</div>
-            <div className="user-avatar">
-              <img src={Avartar} alt="Avatar" />
+            <div className="user-name-dropdown" onClick={handleUsernameClick}>
+              Aquilla
+              
+              {isUsernameDropdownOpen && (
+                <div className="user-name-dropdown-menu">
+                  <ul>
+                    <li>Aquilla</li>
+                    
+                  </ul>
+                </div>
+              )}
+            </div>
+            <div className="user-avatar-dropdown" onClick={handleAvatarClick}>
+              <img src={Avatar} alt="Avatar" />
+              {isAvatarDropdownOpen && (
+                <div className="dropdown-menu">
+                  <ul>
+                    <Link to="/profile"><li>Edit Profile</li></Link>
+                    
+                    <li onClick={handleLogoutClick}>Logout</li>
+                  </ul>
+                </div>
+              )}
             </div>
           </div>
         </header>
 
         <section className="welcome-section">
-        <div className="welcome-image">
-            <img src={welcomeImage}alt="Fitness" />
+          <div className="welcome-image">
+            <img src={Dashy} alt="Fitness" />
           </div>
           <div className="welcome-text">
             <h1>Welcome to Fitness!</h1>
             <p>Move Your Body, Shape Your Future</p>
           </div>
-          
         </section>
 
         <section className="stats-section">
           <div className="stat-item">
-          <h3>Heart Rate</h3>
-            <p>72 bpm</p>
+            <h3>Heart Rate</h3>
+            <Doughnut data={heartRateData} options={{ plugins: { centerText: {} } }} plugins={[centerTextPlugin]} />
           </div>
           <div className="stat-item">
             <h3>Calories Burn</h3>
-            <p>120 Kcal</p>
+            <Doughnut data={caloriesData} options={{ plugins: { centerText: {} } }} plugins={[centerTextPlugin]} />
           </div>
           <div className="stat-item">
             <h3>Cardio Full Training</h3>
-            <p>01 hr</p>
+            <Doughnut data={cardioTrainingData} options={{ plugins: { centerText: {} } }} plugins={[centerTextPlugin]} />
           </div>
         </section>
 
         <section className="chart-section">
           <div className="chart-header">
-            <button>Day</button>
-            <button>Weekly</button>
-            <button>Monthly</button>
-            <button>Yearly</button>
+            {/* Additional content for chart header can go here */}
           </div>
           <div className="chart">
-            {/* Chart placeholder */}
-            <div className="chart-placeholder">[Chart]</div>
+            <Line data={chartData} options={chartOptions} />
           </div>
         </section>
       </main>
@@ -80,26 +260,44 @@ const Dashboard = () => {
           <div>4012</div>
         </div>
         <div className="summary">
-          <div>Average heart rate</div>
-          <div>100</div>
+          <div>Average Heart Rate</div>
+          <div>100 bpm</div>
         </div>
         <div className="summary">
-          <div>Total Distance traveled</div>
-          <div>20km</div>
+          <div>Total Distance Traveled</div>
+          <div>20 km</div>
         </div>
         <div className="goals">
-          <h3>My Goal</h3>
+          <h3>My Goals</h3>
           <ul>
-            <li>Do 5 Workouts in 1 day</li>
-            <li>Do 15 Workouts in 3 day</li>
-            <li>Burn 5000 Kcal in 1 week</li>
-            <li>Run 50km</li>
+            {goals.map((goal, index) => (
+              <li key={index}>
+                {goal}
+                <button className="delete-goal-btn" onClick={() => handleDeleteGoal(index)}>Delete</button>
+              </li>
+            ))}
           </ul>
-        </div>
-        <div className="goal-image">
-          <img src={Goal} alt="Goal" />
+          <input
+            type="text"
+            value={newGoal}
+            onChange={handleGoalChange}
+            placeholder="Add new goal"
+          />
+          <button className="add-goal-btn" onClick={handleAddGoal}>Add Goal</button>
+          <img src={Goal} alt="Goal" className="goal-image" />
         </div>
       </aside>
+
+      {isLogoutPopupOpen && (
+        <div className="logout-popup-overlay">
+          <div className="logout-popup">
+            <h3>Logout</h3>
+            <p>Are you sure you want to logout?</p>
+            <button onClick={handleConfirmLogout}>Confirm</button>
+            <button className="cancel" onClick={handleCancelLogout}>Cancel</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

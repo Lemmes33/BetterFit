@@ -4,19 +4,25 @@
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
 }
+.programs-section{
+  height: 100vh;
+  background-color: #ffffff;
+  color: #000;
+}
 
 h1{
   font-size: 2.5rem;
   font-family: 'Montserrat';
   font-weight: normal;
-  color: #444;
+  color: #000000;
   text-align: center;
-  margin: 2rem 0;
+  /* margin: 2rem 0; */
 }
 
 .wrapper1{
   width: 90%;
   margin: 0 auto;
+  color: #000;
   max-width: 80rem;
 }
 
@@ -43,7 +49,9 @@ h1{
 	-webkit-perspective: 1000px;
 	        perspective: 1000px;
 }
-
+p{
+  color: #ffffff;
+}
 .front1,
 .back1{
   background-size: cover;
@@ -61,7 +69,7 @@ h1{
 	min-height: 280px;
 	height: auto;
 	border-radius: 10px;
-	color: #fff;
+	color: #000000;
 	font-size: 1.5rem;
 }
 
