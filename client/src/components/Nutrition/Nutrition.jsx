@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from "react-router-dom";
 import './Nutrition.css';
 
 const NutriPlannerCard = ({ imageUrl, title, author, description }) => {
@@ -39,6 +40,7 @@ const NutriPlanner = () => {
           author="Oballa"
           description="A vegan diet focuses on plant-based foods and excludes all animal products. It's rich in fruits, vegetables, grains, nuts, and seeds, providing essential nutrients and antioxidants. This diet can promote heart health, reduce the risk of chronic diseases, and support weight management. However, it's important to plan meals carefully to ensure adequate intake of protein, iron, calcium, and vitamin B12."
         />
+        
         <NutriPlannerCard
           imageUrl="https://i.pinimg.com/564x/48/ff/38/48ff38738c9f8251a0ce7ecec4d58265.jpg"
           title="Gluten-Free Diet"

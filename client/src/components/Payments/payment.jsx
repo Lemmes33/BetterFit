@@ -17,13 +17,13 @@ const Card = ({ title, details, button }) => (
           <p key={index}>{detail}</p>
         ))}
       </div>
-      <Link to='/checkout'>{button}</Link>
+      <Link to='/checkout' className="btn">{button}</Link>
     </div>
   </div>
 );
 
 const Payment = () => (
-  <div className="payment-container"> {/* New wrapper div */}
+  <div className="payment-container">
     <h1 className="main-title">Choose a Plan</h1>
     <h2 className="sub-title">PRICING PACKAGE</h2>
     <main className="page-content">
