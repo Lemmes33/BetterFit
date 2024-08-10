@@ -149,9 +149,7 @@ const Dashboard = () => {
 
       <main className="main-content">
         <header className="header">
-          <div className="date-picker">
-            <input type="date" name="date" id="date" />
-          </div>
+          
           <div className="search-bar">
             <input type="text" placeholder="Search" />
           </div>
