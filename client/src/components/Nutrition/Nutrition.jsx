@@ -6,7 +6,7 @@ const NutritionCard = ({ imageUrl, title, author, description }) => {
     <div className="card">
       <div className="image" style={{ backgroundImage: `url(${imageUrl})` }}></div>
       <div className="content">
-        <div className="header">{title}</div>
+        <div className="header1">{title}</div>
         <div className="meta">By {author}</div>
         <div className="description">{description}</div>
       </div>

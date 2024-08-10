@@ -56,9 +56,11 @@ body {
   margin-bottom: 50px;
 }
 
-.card .header {
+.card .header1 {
   font-size: 1.5rem;
   font-weight: 700;
+  color: rgb(226, 225, 225);
+  
 }
 
 .card .meta {
