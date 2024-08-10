@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./Dashboard.css";
 import Avatar from '../../assets/Fitness _ les exercices pour maigrir des bras et muscler les épaules.jpeg'
 import Goal from '../../assets/Bras___Girlfriend_Collective-removebg-preview.png'
-import welcomeImage from '../../assets/The_New_Nike_Air_Zoom_SuperRep_2-removebg-preview.png'
+import Dashy from '../../assets/dashy.png'
 import { Line, Bar } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
 
@@ -89,7 +89,7 @@ const Dashboard = () => {
 
         <section className="welcome-section">
           <div className="welcome-image">
-            <img src={welcomeImage} alt="Fitness" />
+            <img src={Dashy} alt="Fitness" />
           </div>
           <div className="welcome-text">
             <h1>Welcome to Fitness!</h1>
