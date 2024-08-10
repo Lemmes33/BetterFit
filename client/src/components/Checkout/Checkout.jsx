@@ -183,7 +183,7 @@ function Checkout() {
                     name="plan"
                     value={plan}
                     onChange={handlePlanChange}
-                    className={errors.plan ? 'error-input' : 'btn'}
+                    className={errors.plan ? 'error-input' : ''}
                   >
                     <option value="">Select a plan</option>
                     <option value="basic">Basic Plan</option>
@@ -240,7 +240,7 @@ function Checkout() {
                     name="payment-method"
                     value={paymentMethod}
                     onChange={(e) => setPaymentMethod(e.target.value)}
-                    className={errors.paymentMethod ? 'error-input' : 'btn'}
+                    className={errors.paymentMethod ? 'error-input' : ''}
                   >
                     <option value="">Select a payment method</option>
                     <option value="paypal">PayPal</option>
