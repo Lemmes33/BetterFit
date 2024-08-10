@@ -1,10 +1,44 @@
-import React from "react";
-import "./Dashboard.css"; // Assuming you are using CSS Modules
-import Avartar from '../../assets/Fitness _ les exercices pour maigrir des bras et muscler les épaules.jpeg'
+import React, { useState } from "react";
+import "./Dashboard.css";
+import Avatar from '../../assets/Fitness _ les exercices pour maigrir des bras et muscler les épaules.jpeg'
 import Goal from '../../assets/Bras___Girlfriend_Collective-removebg-preview.png'
 import welcomeImage from '../../assets/The_New_Nike_Air_Zoom_SuperRep_2-removebg-preview.png'
+import { Line, Bar } from 'react-chartjs-2';
+import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
+
+ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
 const Dashboard = () => {
+  const [isAvatarDropdownOpen, setIsAvatarDropdownOpen] = useState(false);
+  const [isUsernameDropdownOpen, setIsUsernameDropdownOpen] = useState(false);
+  const [chartType, setChartType] = useState('day'); // State to manage chart type
+
+  const handleAvatarClick = () => {
+    setIsAvatarDropdownOpen(!isAvatarDropdownOpen);
+  };
+
+  const handleUsernameClick = () => {
+    setIsUsernameDropdownOpen(!isUsernameDropdownOpen);
+  };
+
+  const handleChartTypeChange = (type) => {
+    setChartType(type);
+  };
+
+  // Sample chart data
+  const chartData = {
+    labels: chartType === 'day' ? ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'] : chartType === 'weekly' ? ['Week 1', 'Week 2', 'Week 3', 'Week 4'] : ['Month 1', 'Month 2', 'Month 3', 'Month 4'],
+    datasets: [
+      {
+        label: 'Calories Burned',
+        data: chartType === 'day' ? [150, 200, 180, 220, 250, 230, 210] : chartType === 'weekly' ? [1200, 1400, 1600, 1800] : [5000, 6000, 7000, 8000],
+        fill: false,
+        borderColor: '#09ff00',
+        tension: 0.1
+      }
+    ]
+  };
+
   return (
     <div className="dashboard">
       <aside className="sidebar">
@@ -12,7 +46,6 @@ const Dashboard = () => {
         <nav className="nav">
           <ul>
             <li className="nav-item">Dashboard</li>
-            
           </ul>
         </nav>
         <button className="logout-btn">Logout</button>
@@ -27,27 +60,46 @@ const Dashboard = () => {
             <input type="text" placeholder="Search" />
           </div>
           <div className="user-info">
-            <div className="user-name">Aquilla</div>
-            <div className="user-avatar">
-              <img src={Avartar} alt="Avatar" />
+            <div className="user-name-dropdown" onClick={handleUsernameClick}>
+              Aquilla
+              <span className="dropdown-arrow">▼</span>
+              {isUsernameDropdownOpen && (
+                <div className="account-dropdown-menu">
+                  <ul>
+                    <li>Switch to Account 1 (Aquilla)</li>
+                    <li>Add Another Account</li>
+                  </ul>
+                </div>
+              )}
+            </div>
+            <div className="user-avatar-dropdown" onClick={handleAvatarClick}>
+              <img src={Avatar} alt="Avatar" />
+              {isAvatarDropdownOpen && (
+                <div className="dropdown-menu">
+                  <ul>
+                    <li>Edit Profile</li>
+                    <li>Settings</li>
+                    <li>Logout</li>
+                  </ul>
+                </div>
+              )}
             </div>
           </div>
         </header>
 
         <section className="welcome-section">
-        <div className="welcome-image">
-            <img src={welcomeImage}alt="Fitness" />
+          <div className="welcome-image">
+            <img src={welcomeImage} alt="Fitness" />
           </div>
           <div className="welcome-text">
             <h1>Welcome to Fitness!</h1>
             <p>Move Your Body, Shape Your Future</p>
           </div>
-          
         </section>
 
         <section className="stats-section">
           <div className="stat-item">
-          <h3>Heart Rate</h3>
+            <h3>Heart Rate</h3>
             <p>72 bpm</p>
           </div>
           <div className="stat-item">
@@ -62,14 +114,13 @@ const Dashboard = () => {
 
         <section className="chart-section">
           <div className="chart-header">
-            <button>Day</button>
-            <button>Weekly</button>
-            <button>Monthly</button>
-            <button>Yearly</button>
+            <button onClick={() => handleChartTypeChange('day')}>Day</button>
+            <button onClick={() => handleChartTypeChange('weekly')}>Weekly</button>
+            <button onClick={() => handleChartTypeChange('monthly')}>Monthly</button>
+            <button onClick={() => handleChartTypeChange('yearly')}>Yearly</button>
           </div>
           <div className="chart">
-            {/* Chart placeholder */}
-            <div className="chart-placeholder">[Chart]</div>
+            <Line data={chartData} />
           </div>
         </section>
       </main>

@@ -3,6 +3,7 @@ import './Programs.css';
 
 const Programs = () => {
   return (
+    <section className='programs-section'>
     <div className="wrapper1">
       <h1>Our Training Programs</h1>
       <h2>Embark on your fitness journey with us and discover a range of programs tailored to help you achieve your health and wellness goals. Whether you're a beginner looking to start fresh or an experienced athlete seeking new challenges, our expertly designed programs offer something for everyone. Join us today and take the first step towards a healthier, stronger you!</h2>
@@ -26,6 +27,7 @@ const Programs = () => {
         ))}
       </div>
     </div>
+    </section>
   );
 };
 
@@ -52,7 +54,7 @@ const cardData = [
     link: '/programs/muscle-toning'
   },
   {
-    image: 'https://thecore.balancedbody.com/wp-content/uploads/2021/02/Martin-Reid-Teaser-scaled-e1613418047330.jpeg',
+    image: 'https://i.pinimg.com/564x/49/21/d7/4921d715c30efe4208d103fc1a65ef60.jpg',
     title: 'Pilates',
     subtitle: 'Core strength and stability',
     description: 'Enhance your core strength and stability through controlled movements.',

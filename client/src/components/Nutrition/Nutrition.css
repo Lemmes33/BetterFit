@@ -6,44 +6,50 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  
   flex-wrap: wrap;
 }
 
-.nutrition-container {
-  background-color: azure;
-  background-size: cover;
+.nutriPlanner-section {
+  background-color: #ffffff; /* White background color */
+  color: #000;
+  padding: 40px 20px; /* Add padding around the entire section */
+}
+
+.nutriPlanner-container {
   display: flex;
+  
   flex-wrap: wrap;
   justify-content: center;
+  gap: 20px;
 }
 
-.card {
+.nutriPlanner-card {
   position: relative;
   width: 400px;
   height: 500px;
-  margin-left: 32px;
-  margin-top: 42px;
-  margin-bottom: 32px;
   cursor: pointer;
   overflow: hidden;
   box-shadow: 1px 1px 4px 0 rgba(0,0,0,0.05), 2px 4px 32px 0 rgba(0,0,0,0.1), 0 0 64px 0 rgba(0,0,0,0.2);
   font-family: 'Open Sans', Helvetica, sans-serif;
   font-weight: 300;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
   transition: transform 300ms ease;
+  margin: 20px;
 }
 
-.card .image {
+.nutriPlanner-card .nutriPlanner-image {
   position: absolute;
-  top: 0; right: 0; bottom: 70px; left: 0;
+  top: 0;
+  right: 0;
+  bottom: 70px;
+  left: 0;
   background-position: center;
   background-size: cover;
   transition: bottom 300ms ease;
 }
 
-.card .content {
-  color: #fafafa;
+.nutriPlanner-card .nutriPlanner-content {
+  color: #ffffff;
   position: absolute;
   z-index: 10;
   padding: 2rem;
@@ -51,43 +57,51 @@ body {
   background: rgb(27, 27, 27);
   transform: translateY(314px);
   transition: transform 300ms ease;
-}
-.h3{
-  margin-bottom: 50px;
+  
 }
 
-.card .header {
+.nutriPlanner-card .nutriPlanner-header {
   font-size: 1.5rem;
   font-weight: 700;
 }
 
-.card .meta {
+.nutriPlanner-card .nutriPlanner-meta {
   font-size: 0.8rem;
   color: #888;
   margin-bottom: 0rem;
 }
 
-.card .description {
+.nutriPlanner-card .nutriPlanner-description {
   opacity: 0;
   transition: opacity 500ms ease 100ms;
 }
 
-.card:hover {
+.nutriPlanner-card:hover {
   transform: translateY(-16px);
 }
 
-.card:hover .image {
+.nutriPlanner-card:hover .nutriPlanner-image {
   bottom: 280px;
 }
 
-.card:hover .content {
+.nutriPlanner-card:hover .nutriPlanner-content {
   transform: translateY(104px);
 }
 
-.card:hover .description {
+.nutriPlanner-card:hover .nutriPlanner-description {
   opacity: 1;
 }
 
-span{
-  color: green;
+
+.h3 {
+  
+  margin-bottom: 50px;
+  text-align: center;
+}
+.span1{
+  color: #000;
+}
+
+span  {
+  color: rgb(0, 177, 0);
 }

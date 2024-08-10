@@ -12,7 +12,7 @@
 .sidebar {
   width: 250px;
   background: rgb(56,255,0);
-background: linear-gradient(180deg, rgba(56,255,0,1) 14%, rgb(26, 95, 9) 58%, rgb(0, 0, 0) 91%);
+  background: linear-gradient(180deg, rgba(56,255,0,1) 14%, rgb(26, 95, 9) 58%, rgb(0, 0, 0) 91%);
   color: rgb(0, 0, 0);
   display: flex;
   flex-direction: column;
@@ -87,13 +87,20 @@ background: linear-gradient(180deg, rgba(56,255,0,1) 14%, rgb(26, 95, 9) 58%, rg
   align-items: center;
 }
 
-.user-name {
+.user-name-dropdown {
   margin-right: 15px;
   font-size: 18px;
   font-weight: bold;
+  position: relative; /* Position relative for dropdown positioning */
+  cursor: pointer;
 }
 
-.user-avatar img {
+.user-avatar-dropdown {
+  position: relative;
+  cursor: pointer;
+}
+
+.user-avatar-dropdown img {
   width: 50px;
   height: 50px;
   border-radius: 50%;
@@ -111,7 +118,6 @@ background: linear-gradient(180deg, rgba(56,255,0,1) 14%, rgb(26, 95, 9) 58%, rg
   border-radius: 15px;
   box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
 }
-
 
 .welcome-text {
   flex: 1;
@@ -153,28 +159,28 @@ background: linear-gradient(180deg, rgba(56,255,0,1) 14%, rgb(26, 95, 9) 58%, rg
 
 .stat-item {
   text-align: center;
-  background: white;
-  padding: 20px; /* Adjusted padding */
+  background: rgb(5, 63, 10);
+  padding: 20px;
   border-radius: 15px;
   box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
   width: 30%;
 }
 
 .stat-item h3 {
-  font-size: 18px; /* Adjusted for better fit */
+  font-size: 18px;
   margin-bottom: 10px;
-  color: #2a8500;
+  color: #ffffff;
 }
 
 .stat-item p {
-  font-size: 20px; /* Adjusted for better fit */
-  color: #333;
+  font-size: 20px;
+  color: #8b8484;
 }
 
 /* Chart Section */
 .chart-section {
-  background: white;
-  padding: 20px; /* Adjusted padding */
+  background: rgb(25, 26, 25);
+  padding: 20px;
   border-radius: 15px;
   box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
 }
@@ -189,10 +195,10 @@ background: linear-gradient(180deg, rgba(56,255,0,1) 14%, rgb(26, 95, 9) 58%, rg
   background: #09ff00;
   color: rgb(0, 0, 0);
   border: none;
-  padding: 10px 15px; /* Adjusted padding */
+  padding: 10px 15px;
   border-radius: 8px;
   cursor: pointer;
-  font-size: 14px; /* Adjusted for better fit */
+  font-size: 14px;
   transition: background 0.3s ease;
 }
 
@@ -201,22 +207,22 @@ background: linear-gradient(180deg, rgba(56,255,0,1) 14%, rgb(26, 95, 9) 58%, rg
 }
 
 .chart-placeholder {
-  height: 200px; /* Adjusted height */
-  background: #ddd;
+  height: 200px;
+  background: #3c4e31;
   border-radius: 15px;
   display: flex;
   justify-content: center;
   align-items: center;
   color: #888;
-  font-size: 20px; /* Adjusted for better fit */
+  font-size: 20px;
 }
 
 /* Side Info */
 .side-info {
   width: 450px;
   background: rgb(38,171,0);
-background: linear-gradient(0deg, rgba(38,171,0,1) 4%, rgb(35, 85, 22) 25%, rgb(0, 0, 0) 57%);
-  padding: 20px; /* Adjusted padding */
+  background: linear-gradient(0deg, rgba(38,171,0,1) 4%, rgb(35, 85, 22) 25%, rgb(0, 0, 0) 57%);
+  padding: 20px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -225,7 +231,7 @@ background: linear-gradient(0deg, rgba(38,171,0,1) 4%, rgb(35, 85, 22) 25%, rgb(
 }
 
 .summary {
-  font-size: 14px; /* Adjusted for better fit */
+  font-size: 14px;
   margin-bottom: 20px;
   display: flex;
   justify-content: space-between;
@@ -237,8 +243,8 @@ background: linear-gradient(0deg, rgba(38,171,0,1) 4%, rgb(35, 85, 22) 25%, rgb(
 }
 
 .goals h3 {
-  margin-bottom: 15px; /* Adjusted for better fit */
-  font-size: 18px; /* Adjusted for better fit */
+  margin-bottom: 15px;
+  font-size: 18px;
   color: #37af00;
 }
 
@@ -249,14 +255,143 @@ background: linear-gradient(0deg, rgba(38,171,0,1) 4%, rgb(35, 85, 22) 25%, rgb(
 }
 
 .goals li {
-  margin-bottom: 10px; /* Adjusted for better fit */
-  font-size: 14px; /* Adjusted for better fit */
+  margin-bottom: 10px;
+  font-size: 14px;
   color: #ffffff;
 }
 
 .goal-image img {
-  width: 100%; /* Adjusted to fit container */
-  height: auto; /* Maintains aspect ratio */
+  width: 100%;
+  height: auto;
   margin-top: 20px;
-  
+}
+
+/* Dropdown Styles for Username and Avatar */
+.user-avatar-dropdown {
+  position: relative;
+  cursor: pointer;
+}
+
+.dropdown-menu {
+  position: absolute;
+  width: 130px;
+  top: 60px; /* Adjust based on your avatar size */
+  right: 0;
+  background-color: #1c4e05;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+  z-index: 1000;
+}
+
+.dropdown-menu ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.dropdown-menu li {
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  color: #ffffff; /* Text color */
+}
+
+.dropdown-menu li:hover {
+  background-color: #03310b;
+}
+
+.account-dropdown-menu {
+  position: absolute;
+  top: 100%; /* Position the dropdown directly below the username */
+  left: 0;
+  background-color: #ffffff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+  z-index: 1000;
+  min-width: 150px; /* Ensure the dropdown has a minimum width */
+  display: none; /* Hidden by default */
+}
+
+.account-dropdown-menu ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.account-dropdown-menu li {
+  padding: 10px 15px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  color: #333; /* Text color */
+}
+
+.account-dropdown-menu li:hover {
+  background-color: #f0f0f0;
+}
+
+.account-dropdown-menu.show {
+  display: block;
+}
+
+/* Dropdown Arrow */
+.dropdown-arrow {
+  margin-left: 5px;
+  font-size: 14px; /* Adjust for better fit */
+}
+/* Chart Section */
+.chart-section {
+  background: rgb(25, 26, 25);
+  width: 900px;
+  margin-left: 130px;
+  align-items: center;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+}
+
+.chart-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.chart-header button {
+  background: #09ff00;
+  color: rgb(0, 0, 0);
+  border: none;
+  padding: 10px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.3s ease;
+}
+
+.chart-header button:hover {
+  background: #146803;
+}
+
+.chart {
+  height: 280px; /* Adjust as needed */
+  width: 100%; /* Make the chart take full width of its container */
+  background: #3c4e31;
+  border-radius: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative; /* Position relative for potential absolute positioning of chart elements */
+}
+
+.chart-placeholder {
+  height: 100%;
+  width: 100%;
+  background: #3c4e31;
+  border-radius: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #888;
+  font-size: 20px;
 }
