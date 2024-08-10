@@ -5,7 +5,7 @@
   width: 100vw;
   font-family: 'Arial', sans-serif;
   background: rgb(0,0,0);
-background: linear-gradient(90deg, rgba(0,0,0,1) 7%, rgba(13,128,1,1) 43%);
+  background: linear-gradient(90deg, rgba(0,0,0,1) 7%, rgba(27,91,20,1) 43%);
   overflow: hidden;
   transition: margin-left 0.3s ease;
 }
