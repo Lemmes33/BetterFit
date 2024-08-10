@@ -12,8 +12,15 @@ ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, T
 const Dashboard = () => {
   const [isAvatarDropdownOpen, setIsAvatarDropdownOpen] = useState(false);
   const [isUsernameDropdownOpen, setIsUsernameDropdownOpen] = useState(false);
-  const [isLogoutPopupOpen, setIsLogoutPopupOpen] = useState(false); // State for logout popup
-  const [chartType, setChartType] = useState('day'); // State to manage chart type
+  const [isLogoutPopupOpen, setIsLogoutPopupOpen] = useState(false);
+  const [chartType, setChartType] = useState('day');
+  const [goals, setGoals] = useState([
+    'Do 5 Workouts in 1 Day',
+    'Do 15 Workouts in 1 Week',
+    'Do 30 Workouts in 1 Month',
+    'Do 365 Workouts in 1 Year'
+  ]);
+  const [newGoal, setNewGoal] = useState('');
 
   const handleAvatarClick = () => {
     setIsAvatarDropdownOpen(!isAvatarDropdownOpen);
@@ -40,14 +47,28 @@ const Dashboard = () => {
     setIsLogoutPopupOpen(false);
   };
 
-  // Enhanced line chart data with gradient, customized points, and tooltips
+  const handleGoalChange = (e) => {
+    setNewGoal(e.target.value);
+  };
+
+  const handleAddGoal = () => {
+    if (newGoal.trim()) {
+      setGoals([...goals, newGoal.trim()]);
+      setNewGoal('');
+    }
+  };
+
+  const handleDeleteGoal = (index) => {
+    setGoals(goals.filter((_, i) => i !== index));
+  };
+
   const chartData = {
     labels: chartType === 'day' ? ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'] : chartType === 'weekly' ? ['Week 1', 'Week 2', 'Week 3', 'Week 4'] : ['Month 1', 'Month 2', 'Month 3', 'Month 4'],
     datasets: [
       {
         label: 'Calories Burned',
         data: chartType === 'day' ? [150, 200, 180, 220, 250, 230, 210] : chartType === 'weekly' ? [1200, 1400, 1600, 1800] : [5000, 6000, 7000, 8000],
-        fill: true, // Set to true for gradient fill
+        fill: true,
         backgroundColor: (context) => {
           const ctx = context.chart.ctx;
           const gradient = ctx.createLinearGradient(0, 0, 0, 400);
@@ -56,11 +77,11 @@ const Dashboard = () => {
           return gradient;
         },
         borderColor: '#09ff00',
-        pointBackgroundColor: '#000', // Customize point color
+        pointBackgroundColor: '#000',
         pointBorderColor: '#09ff00',
         pointBorderWidth: 2,
-        pointRadius: 5, // Customize point radius
-        tension: 0.4, // Make line smoother
+        pointRadius: 5,
+        tension: 0.4,
       }
     ]
   };
@@ -69,10 +90,10 @@ const Dashboard = () => {
     scales: {
       x: {
         grid: {
-          color: 'rgba(255, 255, 255, 0.1)', // Lighten grid lines
+          color: 'rgba(255, 255, 255, 0.1)',
         },
         ticks: {
-          color: '#ffffff', // Axis labels color
+          color: '#ffffff',
           font: {
             size: 14,
           },
@@ -80,10 +101,10 @@ const Dashboard = () => {
       },
       y: {
         grid: {
-          color: 'rgba(255, 255, 255, 0.1)', // Lighten grid lines
+          color: 'rgba(255, 255, 255, 0.1)',
         },
         ticks: {
-          color: '#ffffff', // Axis labels color
+          color: '#ffffff',
           font: {
             size: 14,
           },
@@ -101,7 +122,6 @@ const Dashboard = () => {
     },
   };
 
-  // Custom plugin to add text to the middle of donut charts
   const centerTextPlugin = {
     id: 'centerText',
     beforeDraw: (chart) => {
@@ -124,10 +144,10 @@ const Dashboard = () => {
   const heartRateData = {
     datasets: [
       {
-        data: [72, 28], // 72% green, 28% black
+        data: [72, 28],
         backgroundColor: ['#09ff00', '#000'],
         borderWidth: 0,
-        cutout: '80%', // To make the donut thinner
+        cutout: '80%',
       },
     ],
   };
@@ -135,10 +155,10 @@ const Dashboard = () => {
   const caloriesData = {
     datasets: [
       {
-        data: [50, 50], // 50% green, 50% black
+        data: [50, 50],
         backgroundColor: ['#09ff00', '#000'],
         borderWidth: 0,
-        cutout: '80%', // To make the donut thinner
+        cutout: '80%',
       },
     ],
   };
@@ -146,10 +166,10 @@ const Dashboard = () => {
   const cardioTrainingData = {
     datasets: [
       {
-        data: [60, 40], // 60% green, 40% black
+        data: [60, 40],
         backgroundColor: ['#09ff00', '#000'],
         borderWidth: 0,
-        cutout: '80%', // To make the donut thinner
+        cutout: '80%',
       },
     ],
   };
@@ -179,7 +199,7 @@ const Dashboard = () => {
                 <div className="user-name-dropdown-menu">
                   <ul>
                     <li>Aquilla</li>
-                    <li> + Add Another Account</li>
+                    
                   </ul>
                 </div>
               )}
@@ -190,7 +210,7 @@ const Dashboard = () => {
                 <div className="dropdown-menu">
                   <ul>
                     <Link to="/profile"><li>Edit Profile</li></Link>
-                    <li>Settings</li>
+                    
                     <li onClick={handleLogoutClick}>Logout</li>
                   </ul>
                 </div>
@@ -250,11 +270,20 @@ const Dashboard = () => {
         <div className="goals">
           <h3>My Goals</h3>
           <ul>
-            <li>Do 5 Workouts in 1 Day</li>
-            <li>Do 15 Workouts in 1 Week</li>
-            <li>Do 30 Workouts in 1 Month</li>
-            <li>Do 365 Workouts in 1 Year</li>
+            {goals.map((goal, index) => (
+              <li key={index}>
+                {goal}
+                <button className="delete-goal-btn" onClick={() => handleDeleteGoal(index)}>Delete</button>
+              </li>
+            ))}
           </ul>
+          <input
+            type="text"
+            value={newGoal}
+            onChange={handleGoalChange}
+            placeholder="Add new goal"
+          />
+          <button className="add-goal-btn" onClick={handleAddGoal}>Add Goal</button>
           <img src={Goal} alt="Goal" className="goal-image" />
         </div>
       </aside>
