@@ -198,5 +198,19 @@ span.price {
   .icon-container i {
     font-size: 24px;
     margin-right: 10px;
-  }
-  
+  }/* Error message styling */
+.error-message {
+    color: red; /* Set text color to red for errors */
+    font-size: 14px; /* Adjust font size if needed */
+    margin-left: 5px; /* Space between the input field and the error message */
+}
+
+/* Error input styling */
+.error-input {
+    border: 1px solid red; /* Red border for input fields with errors */
+}
+
+/* Optional: styling for placeholder errors */
+input.error::placeholder {
+    color: red; /* Set placeholder color to red if it's indicating an error */
+}
