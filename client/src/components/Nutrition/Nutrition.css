@@ -103,3 +103,25 @@ body {
 .span2 {
   color: rgb(0, 177, 0);
 }
+.card-button {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  color: #fff;
+  background-color: #34662b; /* Aluminous green color */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 300ms ease, transform 200ms ease;
+}
+
+.card-button:hover {
+  background-color: #57864d; /* Slightly darker shade for hover effect */
+  transform: translateY(-3px);
+}
+
+.card-button:active {
+  background-color: #0b3a02; /* Even darker shade for active state */
+}
