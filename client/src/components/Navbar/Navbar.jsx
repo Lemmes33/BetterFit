@@ -15,7 +15,7 @@ const Navbar = () => {
       <ul className="nav-links">
       <li><Link to="/dashboard">Dashboard</Link></li>
         <li><Link to="/programs">Workout Sessions</Link></li>
-        <li><Link to="#diet">Healthy Diet</Link></li>
+        <li><Link to="/nutrition">Healthy Diet</Link></li>
         <li><Link to="/profile">Profile</Link></li>
         <li><Link to="/Membership">Become A member</Link></li>
         <li><Link to="/login">Log In</Link></li>

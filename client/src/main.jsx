@@ -11,6 +11,8 @@ import Dashboard from "./components/Dashboard/Dashboard.jsx"
 import Protein from "./components/Protein/Protein.jsx"
 import Gluten from "./components/Gluten/Gluten.jsx"
 import Vegan from "./components/Vegan/Vegan .jsx"
+import Nutrition from "./components/Nutrition/Nutrition.jsx"
+import Programs from "./components/Programs/Programs.jsx"
 import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
@@ -63,7 +65,14 @@ const router = createBrowserRouter([
     path: "/protein",
     element: <Protein />,
   },
-  
+  {
+    path: "/nutrition",
+    element: <Nutrition />,
+  },
+  {
+    path: "/programs",
+    element: <Programs />,
+  },
   
 ]);
 ReactDOM.createRoot(document.getElementById("root")).render(
