@@ -1,18 +1,14 @@
-
 .home-container {
   text-align: center;
   width: 100vw;
   margin-bottom: -20px;
-  
 }
 
 .hero-section {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  
-  background: rgb(0,0,0);
-background: linear-gradient(51deg, rgba(0,0,0,1) 14%, rgb(21, 197, 1) 50%);
+  background: linear-gradient(51deg, rgba(0, 0, 0, 1) 14%, rgb(21, 197, 1) 50%);
   color: rgb(0, 0, 0);
   padding: 50px;
 }
@@ -21,15 +17,16 @@ background: linear-gradient(51deg, rgba(0,0,0,1) 14%, rgb(21, 197, 1) 50%);
   flex: 1;
   color: black;
   text-align: right;
-  margin-right: -1500px;
+  margin-right: 50px; /* Adjusted for proper alignment */
 }
 
 .hero-text h1 {
   color: black;
-  margin-left: 800px;
   text-align: right;
   font-size: 2.5em;
+  margin: 0; /* Removed left margin for better alignment */
 }
+
 .start-now-link {
   color: white;
   background-color: #cd908b;
@@ -41,9 +38,8 @@ background: linear-gradient(51deg, rgba(0,0,0,1) 14%, rgb(21, 197, 1) 50%);
 }
 
 .start-now-link:hover {
-  background-color: #a36a73; /* A slightly darker shade for hover effect */
+  background-color: #a36a73;
 }
-
 
 .hero-text p {
   font-size: 1.2em;
@@ -57,20 +53,17 @@ background: linear-gradient(51deg, rgba(0,0,0,1) 14%, rgb(21, 197, 1) 50%);
   border: none;
   cursor: pointer;
   margin-top: 20px;
-  
 }
 
 .hero-image {
   flex: 1;
+  display: flex;
+  margin-left: -50px;
 }
 
 .hero-image img {
   width: 100%;
   max-width: 550px;
-  margin-left: -1600px;
-  
-
-  
 }
 
 .push-forward-section {
@@ -99,7 +92,6 @@ background: linear-gradient(51deg, rgba(0,0,0,1) 14%, rgb(21, 197, 1) 50%);
   margin: 0 50px;
   text-align: center;
   color: black;
-  size-adjust: 100px;
 }
 
 .feature img {
@@ -109,22 +101,18 @@ background: linear-gradient(51deg, rgba(0,0,0,1) 14%, rgb(21, 197, 1) 50%);
 
 .stats-section {
   display: flex;
-margin-bottom: -50px;
   justify-content: space-around;
   background-color: #02b602;
   color: white;
   padding: 50px;
+  margin-bottom: 0;
 }
 
 .stat h3 {
   font-size: 2em;
   margin: 0;
 }
-p{
-  
-}
 
 .stat p {
   font-size: 1em;
-  
 }

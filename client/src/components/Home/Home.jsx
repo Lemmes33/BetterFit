@@ -10,16 +10,17 @@ const Home = () => {
     <div className="home-container">
       <Navbar />
       <div className="hero-section">
+        
+        <div className="hero-image">
+          <img src={HomeImage} alt="Fitness" />
+        </div>
         <div className="hero-text" >
           <h1>REACH NEW HEIGHTS IN FITNESS</h1>
           <p>Join and transform your fitness today.</p>
-          <Link to="/login" style={{ color: 'white', backgroundColor: '#cd908b', padding: '10px 20px', borderRadius: '5px', textDecoration: 'none' }}>
+          <Link to="/login" style={{ color: 'white', backgroundColor: '#000', padding: '10px 20px', borderRadius: '5px', textDecoration: 'none' }}>
   START NOW
 </Link>
 
-        </div>
-        <div className="hero-image">
-          <img src={HomeImage} alt="Fitness" />
         </div>
       </div>
       <div className="push-forward-section">
