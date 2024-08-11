@@ -1,5 +1,4 @@
 from datetime import date
-from app import db
 from sqlalchemy.orm import validates
 
 user_workout_plan = db.Table('user_workout_plan',
@@ -99,3 +98,4 @@ class ProgressTracking(db.Model):
             "measurements": self.measurements,
             "date": self.date
         }
+from app import db
