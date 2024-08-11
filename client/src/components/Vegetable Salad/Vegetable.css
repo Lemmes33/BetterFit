@@ -1,0 +1,96 @@
+/* Existing styles */
+
+.vegetable-salad-wrapper {
+    display: flex;
+    justify-content: center;
+    margin: 20px;
+}
+  
+.vegetable-salad {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+  
+.vegetable-image-and-content {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+  
+.vegetable-image-container {
+    flex: 1;
+    max-width: 100%;
+}
+  
+.vegetable-image-container img {
+    width: 100%;
+    height: 726px;
+}
+  
+.vegetable-content {
+    flex: 1;
+    max-width: 100%;
+}
+  
+.vegetable-rating {
+    margin: 10px 0;
+    padding: 0;
+    list-style-type: none;
+}
+  
+.vegetable-star {
+    display: inline-block;
+    margin-right: 2px;
+}
+  
+.vegetable-ingredients, .vegetable-recipe-steps {
+    margin-top: 20px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #ffffff;
+    text-align: left;
+    box-sizing: border-box;
+    font-size: 25px;
+}
+  
+.vegetable-ingredients h2, .vegetable-recipe-steps h2 {
+    margin-bottom: 10px;
+    font-size: 22px;
+}
+  
+.vegetable-ingredients ul, .vegetable-recipe-steps ol {
+    padding-left: 20px;
+}
+  
+.link-vegetable-salad {
+    display: block;
+    margin-top: 20px;
+    color: #007bff;
+    text-decoration: none;
+}
+  
+.link-vegetable-salad:hover {
+    text-decoration: underline;
+}
+  
+/* Hover styles for vegetable-recipe-steps */
+.vegetable-recipe-steps {
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+  
+.vegetable-recipe-steps:hover {
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+  
+/* Hover styles for vegetable-ingredients */
+.vegetable-ingredients {
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+  
+.vegetable-ingredients:hover {
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
