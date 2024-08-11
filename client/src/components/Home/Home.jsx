@@ -1,6 +1,7 @@
 import React from 'react';
 import Navbar from '../Navbar/Navbar'
 import { Link } from 'react-router-dom'
+
 import './home.css';
 import HomeImage from "../../assets/fitness-removebg-preview.png"
 
@@ -12,7 +13,10 @@ const Home = () => {
         <div className="hero-text" >
           <h1>REACH NEW HEIGHTS IN FITNESS</h1>
           <p>Join and transform your fitness today.</p>
-          <button>Start Now</button>
+          <Link to="/login" style={{ color: 'white', backgroundColor: '#cd908b', padding: '10px 20px', borderRadius: '5px', textDecoration: 'none' }}>
+  START NOW
+</Link>
+
         </div>
         <div className="hero-image">
           <img src={HomeImage} alt="Fitness" />

@@ -30,6 +30,20 @@ background: linear-gradient(51deg, rgba(0,0,0,1) 14%, rgb(21, 197, 1) 50%);
   text-align: right;
   font-size: 2.5em;
 }
+.start-now-link {
+  color: white;
+  background-color: #cd908b;
+  padding: 10px 20px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+.start-now-link:hover {
+  background-color: #a36a73; /* A slightly darker shade for hover effect */
+}
+
 
 .hero-text p {
   font-size: 1.2em;
