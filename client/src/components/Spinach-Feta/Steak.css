@@ -1,0 +1,85 @@
+/* Spinach Feta Steak Styles */
+
+.recipe-wrapper {
+    display: flex;
+    justify-content: center;
+    margin: 20px;
+}
+
+.recipe {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.image-and-content {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+.image-container {
+    flex: 1;
+    max-width: 100%;
+}
+
+.image-container img {
+    width: 100%;
+    height: 880px;
+}
+
+.content {
+    flex: 1;
+    max-width: 100%;
+}
+
+.rating {
+    margin: 10px 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+.star {
+    display: inline-block;
+    margin-right: 2px;
+}
+
+.ingredients, .recipe_steps {
+    margin-top: 20px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #ffffff;
+    text-align: left;
+    box-sizing: border-box;
+    font-size: 25px;
+}
+
+.ingredients h2, .recipe_steps h2 {
+    margin-bottom: 10px;
+    font-size: 22px;
+}
+
+.ingredients ul, .recipe_steps ol {
+    padding-left: 20px;
+}
+
+/* Hover styles for recipe_steps */
+.recipe_steps {
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.recipe_steps:hover {
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Hover styles for ingredients */
+.ingredients {
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.ingredients:hover {
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
