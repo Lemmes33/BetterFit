@@ -1,0 +1,111 @@
+/* Follow me on:
+  https://dribbble.com/Curtis_A_Lee
+*/
+
+/* Check out my website:
+  https://thatboycurt.com/
+*/
+
+/* RESET */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+
+@media (max-width: 60em) {
+  body {
+    padding: 3rem;
+  }
+}
+
+/* MAIN CONTENT */
+.grid {
+  display: grid;
+  width: 114rem;
+  grid-gap: 3rem;
+  grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
+}
+
+@media (max-width: 60em) {
+  .grid {
+    grid-gap: 3rem;
+  }
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  border-radius: 0.4rem;
+  overflow: hidden;
+  box-shadow: 0 3rem 6rem rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-0.5%);
+  box-shadow: 0 4rem 8rem rgba(0, 0, 0, 0.2);
+}
+
+.card__img {
+  display: block;
+  width: 100%;
+  height: 18rem;
+  object-fit: cover;
+}
+
+.card__content {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  grid-row-gap: 2rem;
+  padding: 2rem;
+  height: 100%;
+}
+
+.card__header {
+  font-size: 3rem;
+  font-weight: 500;
+  color: #0d0d0d;
+}
+
+.card__text {
+  font-size: 1.5rem;
+  letter-spacing: 0.1rem;
+  line-height: 1.7;
+  color: #3b3b3b;
+  margin-bottom: 2.5rem;
+}
+
+.card__btn {
+  display: block;
+  width: 100%;
+  padding: 1.5rem;
+  font-size: 2rem;
+  text-align: center;
+  color: #3363ff;
+  background-color: #e6ecff;
+  border: none;
+  border-radius: 0.4rem;
+  transition: 0.2s;
+  cursor: pointer;
+}
+
+.card__btn span {
+  margin-left: 1rem;
+  transition: 0.2s;
+}
+
+.card__btn:hover,
+.card__btn:active {
+  background-color: #ccd9ff;
+}
+
+.card__btn:hover span,
+.card__btn:active span {
+  margin-left: 1.5rem;
+}

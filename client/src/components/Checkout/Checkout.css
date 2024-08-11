@@ -3,19 +3,19 @@ body {
     font-family: 'Arial', sans-serif;
     font-size: 17px;
     padding: 8px;
-    background-color: #1e1e1e; /* Dark gray background for better contrast */
-    color: #ffffff; /* Light text for readability */
+    background-color: #1e1e1e;
+    color: #ffffff;
     display: flex;
-    justify-content: center; /* Horizontally centers the form */
-    align-items: center; /* Vertically centers the form */
+    justify-content: center;
+    align-items: center;
     margin: 0;
     width: 100vw;
-    height: 100vh; /* Full viewport height for centering */
+    height: 100vh;
 }
 
 h1 {
     text-align: center;
-    color: #ffffff; /* White color for heading */
+    color: #ffffff;
     margin-bottom: 20px;
 }
 
@@ -46,61 +46,60 @@ h1 {
 .col-75 {
     padding: 0 16px;
 }
-
 .container {
     background-color: #333; /* Slightly lighter background for contrast */
-    padding: 40px; /* Increased padding for a more spacious feel */
+    padding: 70px; /* Increased padding for a more spacious feel */
     border: 1px solid #444; /* Darker border */
     border-radius: 10px; /* More rounded corners */
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3); /* More prominent shadow for depth */
-    width: 80%; /* Wider container to occupy more space */
-    max-width: 900px; /* Set a max width for larger screens */
+    width: 800px; /* Wider container to occupy more space */
+ 
 }
 
 input[type=text] {
     width: 100%;
     margin-bottom: 20px;
-    padding: 15px; /* Increased padding for better touch interaction */
-    background-color: #444; /* Darker input background */
-    border: 1px solid #666; /* Slightly darker border */
+    padding: 15px;
+    background-color: #444;
+    border: 1px solid #666;
     border-radius: 5px;
-    color: #e6e6e6; /* Light text color */
-    font-size: 16px; /* Slightly larger text for readability */
+    color: #e6e6e6;
+    font-size: 16px;
 }
 
 input[type=text]::placeholder {
-    color: #999; /* Lighter placeholder color */
+    color: #999;
 }
 
 label {
     margin-bottom: 10px;
     display: block;
-    color: #e0e0e0; /* Slightly lighter label color */
-    font-weight: bold; /* Bold labels for emphasis */
+    color: #e0e0e0;
+    font-weight: bold;
 }
 
 .icon-container {
     margin-bottom: 20px;
     padding: 7px 0;
     font-size: 24px;
-    color: #cccccc; /* Light icon color */
+    color: #cccccc;
 }
 
 .btn {
-    background-color: #28a745; /* Brighter green for buttons */
+    background-color: #28a745;
     color: white;
-    padding: 15px; /* Increased padding for better touch interaction */
+    padding: 15px;
     margin: 10px 0;
     border: none;
     width: 100%;
     border-radius: 5px;
     cursor: pointer;
-    font-size: 18px; /* Slightly larger font size for buttons */
+    font-size: 18px;
     transition: background-color 0.3s ease;
 }
 
 .btn:hover {
-    background-color: #218838; /* Darker green on hover */
+    background-color: #218838;
 }
 
 a {
@@ -108,13 +107,13 @@ a {
 }
 
 hr {
-    border: 1px solid #555; /* Darker border for horizontal line */
-    margin: 20px 0; /* Add margin above and below the line */
+    border: 1px solid #555;
+    margin: 20px 0;
 }
 
 span.price {
     float: right;
-    color: #b3b3b3; /* Slightly lighter price color */
+    color: #b3b3b3;
 }
 
 /* Responsive layout */
@@ -127,6 +126,91 @@ span.price {
     }
     .container {
         width: 100%;
-        padding: 20px; /* Adjust padding for smaller screens */
+        padding: 20px;
     }
+}.checkout-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: auto;
+  }
+  
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .col-50 {
+    flex: 50%;
+    padding: 0 16px;
+  }
+  
+  .container {
+    background-color: black;
+    padding: 20px;
+    border-radius: 5px;
+  }
+  
+  .phone-container {
+    display: flex;
+    align-items: center;
+  }
+  
+  .phone-dropdown {
+    width: 30%;
+    padding: 12px 20px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+  }
+  
+  #phone {
+    width: 70%;
+    padding: 12px 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+  }
+  
+  input[type="text"], input[type="date"], select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+  
+  .btn {
+    width: 100%;
+    padding: 14px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .btn:hover {
+    background-color: #45a049;
+  }
+  
+  .icon-container i {
+    font-size: 24px;
+    margin-right: 10px;
+  }/* Error message styling */
+.error-message {
+    color: red; /* Set text color to red for errors */
+    font-size: 14px; /* Adjust font size if needed */
+    margin-left: 5px; /* Space between the input field and the error message */
+}
+
+/* Error input styling */
+.error-input {
+    border: 1px solid red; /* Red border for input fields with errors */
+}
+
+/* Optional: styling for placeholder errors */
+input.error::placeholder {
+    color: red; /* Set placeholder color to red if it's indicating an error */
 }
