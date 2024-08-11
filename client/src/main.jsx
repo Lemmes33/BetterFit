@@ -8,7 +8,7 @@ import PaymentMethod from "./components/PaymentMethod/PaymentMethod.jsx"
 import Membership from "./components/Membership/Membership.jsx"
 import Checkout from "./components/Checkout/Checkout.jsx"
 import Dashboard from "./components/Dashboard/Dashboard.jsx"
-import Protein from "./components/Profile/Profile.jsx"
+import Protein from "./components/Protein/Protein.jsx"
 import Gluten from "./components/Gluten/Gluten.jsx"
 import Vegan from "./components/Vegan/Vegan .jsx"
 import "./index.css";
