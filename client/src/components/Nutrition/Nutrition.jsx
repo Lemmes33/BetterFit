@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from "react-router-dom";
 import './Nutrition.css';
 
-const NutriPlannerCard = ({ imageUrl, title, author, description }) => {
+const NutriPlannerCard = ({ imageUrl, title, author, description, route }) => {
   return (
     <div className="nutriPlanner-card">
       <div
@@ -13,7 +13,9 @@ const NutriPlannerCard = ({ imageUrl, title, author, description }) => {
         <div className="nutriPlanner-header">{title}</div>
         <div className="nutriPlanner-meta">By {author}</div>
         <div className="nutriPlanner-description">{description}</div>
-        <button className="card-button">More</button>
+        <Link to={route}>
+          <button className="card-button">More</button>
+        </Link>
       </div>
     </div>
   );
@@ -40,6 +42,7 @@ const NutriPlanner = () => {
           title="Vegan Diet"
           author="Oballa"
           description="A vegan diet focuses on plant-based foods and excludes all animal products. It's rich in fruits, vegetables, grains, nuts, and seeds, providing essential nutrients and antioxidants. This diet can promote heart health, reduce the risk of chronic diseases, and support weight management. However, it's important to plan meals carefully to ensure adequate intake of, calcium, and vitamin B12(Cobalamin)."
+          route="/vegan"
         />
         
         <NutriPlannerCard
@@ -47,12 +50,14 @@ const NutriPlanner = () => {
           title="Gluten-Free Diet"
           author="Oballa"
           description="A gluten-free diet eliminates all forms of gluten, a protein found in wheat, barley, and rye. It's essential for individuals with celiac disease or gluten sensitivity. This diet involves eating naturally gluten-free foods like fruits, vegetables, meat, and dairy, as well as gluten-free grains like quinoa and rice. Careful label reading is necessary to avoid hidden gluten in processed foods."
+          route="/gluten"
         />
         <NutriPlannerCard
           imageUrl="https://i.pinimg.com/564x/ca/5d/e9/ca5de9e75f0873f3d38f56fddd854b55.jpg"
           title="Protein-Based Diet"
           author="Oballa"
           description="A protein-based diet focuses on protein-rich foods like lean meats, fish, eggs, dairy, legumes, and tofu. It's popular for supporting muscle growth and aiding in weight management by promoting fullness and reducing calorie intake. However, balance is crucial to avoid excess saturated fat."
+          route="/protein"
         />
       </div>
     </section>
