@@ -1,6 +1,5 @@
 from datetime import date
 from sqlalchemy.orm import validates
-from extensions import db  
 from app import db 
 
 user_workout_plan = db.Table('user_workout_plan',
