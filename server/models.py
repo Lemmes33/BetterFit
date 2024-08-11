@@ -1,4 +1,5 @@
 from datetime import date
+from app import db
 from sqlalchemy.orm import validates
 
 user_workout_plan = db.Table('user_workout_plan',
@@ -98,4 +99,38 @@ class ProgressTracking(db.Model):
             "measurements": self.measurements,
             "date": self.date
         }
-from app import db
+    
+class Trainer(db.Model):
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    name = db.Column(db.String, nullable=False)
+    email = db.Column(db.String, unique=True, nullable=False)
+    specialization = db.Column(db.String, nullable=False)
+    description = db.Column(db.Text, nullable=True)
+    experience_years = db.Column(db.Integer, nullable=False)
+    certifications = db.Column(db.Text, nullable=True)
+
+    # Relationships
+    workout_plans = db.relationship('WorkoutPlan', backref='trainer', lazy=True)
+    nutrition_plans = db.relationship('NutritionPlan', backref='trainer', lazy=True)
+
+    @validates('email')
+    def validate_email(self, key, address):
+        assert '@' in address, "Provided email is invalid"
+        return address
+
+    @validates('experience_years')
+    def validate_experience_years(self, key, years):
+        assert years >= 0, "Experience years must be a non-negative integer"
+        return years
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "email": self.email,
+            "specialization": self.specialization,
+            "description": self.description,
+            "experience_years": self.experience_years,
+            "certifications": self.certifications
+        }
+
