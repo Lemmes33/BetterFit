@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Dashboard.css";
-import Avatar from '../../assets/Fitness _ les exercices pour maigrir des bras et muscler les épaules.jpeg';
 import Goal from '../../assets/Bras___Girlfriend_Collective-removebg-preview.png';
 import Dashy from '../../assets/dashy.png';
 import { Line, Doughnut } from 'react-chartjs-2';
 import { Link } from "react-router-dom";
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, ArcElement } from 'chart.js';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, ArcElement);
 
@@ -14,13 +15,31 @@ const Dashboard = () => {
   const [isUsernameDropdownOpen, setIsUsernameDropdownOpen] = useState(false);
   const [isLogoutPopupOpen, setIsLogoutPopupOpen] = useState(false);
   const [chartType, setChartType] = useState('day');
-  const [goals, setGoals] = useState([
-    'Do 5 Workouts in 1 Day',
-    'Do 15 Workouts in 1 Week',
-    'Do 30 Workouts in 1 Month',
-    'Do 365 Workouts in 1 Year'
-  ]);
+  const [goals, setGoals] = useState([]);
   const [newGoal, setNewGoal] = useState('');
+
+  // Get avatar from local storage
+  const [avatar, setAvatar] = useState(localStorage.getItem('avatar') || '../../assets/Fitness _ les exercices pour maigrir des bras et muscler les épaules.jpeg');
+
+  useEffect(() => {
+    // Load goals from local storage
+    const storedGoals = JSON.parse(localStorage.getItem('goals')) || [];
+    setGoals(storedGoals);
+  }, []);
+
+  useEffect(() => {
+    // Save goals to local storage
+    localStorage.setItem('goals', JSON.stringify(goals));
+  }, [goals]);
+
+  useEffect(() => {
+    // Update avatar when it changes
+    const storedAvatar = localStorage.getItem('avatar');
+    if (storedAvatar) {
+      setAvatar(storedAvatar);
+      toast.success("Profile updated successfully!"); // Show success toast
+    }
+  }, []);
 
   const handleAvatarClick = () => {
     setIsAvatarDropdownOpen(!isAvatarDropdownOpen);
@@ -196,21 +215,20 @@ const Dashboard = () => {
               Aquilla
               
               {isUsernameDropdownOpen && (
-                <div className="user-name-dropdown-menu">
-                  <ul>
-                    <li>Aquilla</li>
-                    
-                  </ul>
-                </div>
-              )}
+              <div className="user-name-dropdown-menu">
+                <ul>
+                  <li>Aquilla</li>
+                  {/* Add more menu items here if needed */}
+                </ul>
+              </div>
+            )}
             </div>
             <div className="user-avatar-dropdown" onClick={handleAvatarClick}>
-              <img src={Avatar} alt="Avatar" />
+              <img src={avatar} alt="Avatar" />
               {isAvatarDropdownOpen && (
                 <div className="dropdown-menu">
                   <ul>
                     <Link to="/profile"><li>Edit Profile</li></Link>
-                    
                     <li onClick={handleLogoutClick}>Logout</li>
                   </ul>
                 </div>
@@ -293,11 +311,14 @@ const Dashboard = () => {
           <div className="logout-popup">
             <h3>Logout</h3>
             <p>Are you sure you want to logout?</p>
-            <Link to="/" className="button-link">Confirm</Link>
+            <Link to="/" className="button-link" onClick={handleConfirmLogout}>Confirm</Link>
             <button className="cancel" onClick={handleCancelLogout}>Cancel</button>
           </div>
         </div>
       )}
+
+      {/* Toast container for notifications */}
+      <ToastContainer />
     </div>
   );
 };

@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
 import './Profile.css';
 import ProfileImg from "../../assets/___4_-removebg-preview.png";
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import { Link } from 'react-router-dom';
 
 const Profile = () => {
   const [name, setName] = useState('');
@@ -9,7 +13,9 @@ const Profile = () => {
   const [funFact, setFunFact] = useState('');
   const [instagram, setInstagram] = useState('');
   const [twitter, setTwitter] = useState('');
-  const [avatar, setAvatar] = useState(null);
+  const [avatar, setAvatar] = useState(localStorage.getItem('avatar') || '');
+
+  const navigate = useNavigate(); // Initialize useNavigate
 
   const handleAvatarChange = (e) => {
     const file = e.target.files[0];
@@ -17,26 +23,34 @@ const Profile = () => {
       const reader = new FileReader();
       reader.onloadend = () => {
         setAvatar(reader.result);
+        localStorage.setItem('avatar', reader.result); // Save to localStorage
       };
       reader.readAsDataURL(file);
     }
   };
 
   const handleAvatarRemove = () => {
-    setAvatar(null);
+    setAvatar('');
+    localStorage.removeItem('avatar'); // Remove from localStorage
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle form submission here
-    console.log({ name, email, contact, funFact, instagram, twitter, avatar });
+    // Save profile data here (e.g., send to server)
+    toast.success("Profile saved successfully!"); // Show success toast
+  };
+
+  const handleBackClick = () => {
+    navigate(-1); // Navigate to the previous page
   };
 
   return (
     <div className="profile-container">
       <header className="profile-header">
-        <h1 className="profile-title">Your Profile</h1>
-        <div className="header-image-container">
+      <Link to="/dashboard" className="back-button-link">Back</Link>
+
+        <h1 className="profile-title1">Your Profile</h1>
+        <div className="header-image-container1">
           <img src={ProfileImg} alt="Header" className="header-image1" />
         </div>
       </header>
@@ -52,7 +66,7 @@ const Profile = () => {
             )}
             <div className="profile-avatar-overlay">
               <label htmlFor="avatar" className="profile-avatar-label">
-                
+                {/* Add label text if needed */}
               </label>
               {avatar && (
                 <button
@@ -117,6 +131,8 @@ const Profile = () => {
        
         <button type="submit" className="profile-submit">Save Profile</button>
       </form>
+
+      <ToastContainer />
     </div>
   );
 };

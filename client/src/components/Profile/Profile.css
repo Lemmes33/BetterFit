@@ -1,57 +1,123 @@
+/* Container for the profile page */
 .profile-container {
   background-color: #000000;
   color: #39FF14;
   font-family: 'Arial', sans-serif;
-  padding: 70px;
-  margin-top: -30px;
+  padding: 20px;
+  margin-top: 20px;
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  width: 1000px;
+  width: 1200px;
   height: 910px;
-  border-radius: 10%;
+  border-radius: 15px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
 }
 
-.profile-container h1 {
-  margin-top: -350px;
-  margin-right: 220px;
+/* Header styling */
+.profile-header {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  position: relative;
+  margin-bottom: 30px;
 }
 
+/* Back button styling */
+.back-button1 {
+  background-color: #09ff00;
+  border: none;
+  color: #000000;
+  margin-top: -750px;
+  padding: 10px 20px;
+  font-size: 20px;
+  cursor: pointer;
+  height: 60px;
+  margin-left: -30px;
+  border-radius: 5px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  margin-right: 0px;
+}
+
+.back-button1:hover {
+  background-color: #07d600;
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Title styling */
+.profile-title1 {
+  font-size: 40px;
+  text-shadow: 0 0 10px #39FF14;
+  margin-top: -600px;
+  text-align: center;
+  flex: 1;
+}
+
+/* Header image container */
+.header-image-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+  position: relative; /* Allows easy adjustment */
+}
+.back-button-link {
+  background-color: #09ff00;
+  color: #000000;
+  margin-top: -730px ;
+  font-size: 20px;
+  height: 50px;
+  width: 100px;
+  margin-left: -50px;
+  text-align: center;
+  font-size: larger;
+  font-weight: 700;
+  border-radius: 5px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.back-button-link:hover {
+  background-color: #07d600;
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3);
+}
+
+
+.header-image1 {
+  margin: 0;
+  position: relative;
+  left: -329px; /* Adjusts position horizontally */
+  top: 160px; /* Adjusts position vertically */
+  border-radius: 8px;
+}
+
+/* Profile content layout */
 .profile-content {
-  flex: 2; /* The form section now takes up more space on the left */
+  flex: 2;
   display: flex;
   flex-direction: column;
+  margin-right: 30px;
 }
 
 .profile-image-container {
-  flex: 1; /* The image container now takes up space on the right side */
+  flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding-left: 50px; /* Adds space between the form and the image */
 }
 
 .profile-image {
   width: 250px;
   height: 250px;
-  border-radius: 10%;
+  border-radius: 15px;
   object-fit: cover;
   box-shadow: 0 0 15px #39FF14;
 }
 
-.profile-header {
-  text-align: center;
-  margin-bottom: 30px;
-  margin-left: 30px;
-  margin-top: -30px;
-}
-
-.profile-title {
-  font-size: 2.5em;
-  text-shadow: 0 0 10px #39FF14;
-}
-
+/* Profile form styling */
 .profile-form {
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
   display: grid;
   gap: 20px;
 }
@@ -66,7 +132,8 @@
   font-weight: bold;
 }
 
-.profile-input, .profile-textarea {
+.profile-input,
+.profile-textarea {
   background-color: #111;
   border: 1px solid #39FF14;
   color: #39FF14;
@@ -74,55 +141,72 @@
   border-radius: 5px;
 }
 
-.header-image1 {
-  margin-top: 120px;
-  height: 600px;
-  margin-left: -230px;
-  margin-bottom: -600px;
+.profile-textarea {
+  height: 100px;
+  resize: vertical;
 }
 
-.profile-input:focus, .profile-textarea:focus {
+.profile-input:focus,
+.profile-textarea:focus {
   outline: none;
   box-shadow: 0 0 5px #39FF14;
 }
 
+.profile-submit {
+  background-color: #39FF14;
+  color: #000;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1em;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.profile-submit:hover {
+  background-color: #2bff00;
+  box-shadow: 0 0 10px #39FF14;
+}
+
+/* Avatar styling */
 .profile-avatar-container {
   display: flex;
   align-items: center;
   justify-content: center;
   margin-bottom: 20px;
-  position: relative; /* Allows the overlay to be positioned relative to the avatar */
+  position: relative;
 }
 
 .profile-avatar-wrapper {
   position: relative;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .profile-avatar {
-  width: 150px;
-  height: 150px;
-  border-radius: 50%;
-  border: 2px solid #39FF14;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
+  border: 2px solid #39FF14;
   box-shadow: 0 0 15px #39FF14;
-  background-color: #333; /* Default background color when no image is provided */
+  background-color: #333;
 }
 
 .profile-avatar-placeholder {
-  width: 150px;
-  height: 150px;
-  border-radius: 50%;
-  border: 2px solid #39FF14;
+  width: 100%;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #333;
   color: #39FF14;
   font-size: 3em;
-  box-shadow: 0 0 15px #39FF14;
+  border: 2px solid #39FF14;
+  background-color: #333;
 }
 
 .profile-avatar-overlay {
@@ -135,14 +219,14 @@
   background-color: rgba(0, 0, 0, 0.6);
   border-bottom-left-radius: 75px;
   border-bottom-right-radius: 75px;
-  display: none; /* Hidden by default */
+  display: none;
   align-items: center;
   justify-content: center;
   flex-direction: column;
 }
 
 .profile-avatar-container:hover .profile-avatar-overlay {
-  display: flex; /* Show overlay on hover */
+  display: flex;
 }
 
 .profile-avatar-label {
@@ -152,11 +236,11 @@
   border-radius: 5px;
   cursor: pointer;
   transition: all 0.3s ease;
-  opacity: 0; /* Hidden by default */
+  opacity: 0;
 }
 
 .profile-avatar-container:hover .profile-avatar-label {
-  opacity: 1; /* Show label on hover */
+  opacity: 1;
 }
 
 .profile-avatar-remove {
@@ -174,18 +258,7 @@
   background-color: #ff1e1e;
 }
 
-.profile-submit {
-  background-color: #39FF14;
-  color: #000;
-  border: none;
-  padding: 10px 20px;
-  font-size: 1em;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.profile-submit:hover {
-  background-color: #2bff00;
-  box-shadow: 0 0 10px #39FF14;
+/* Toast container styling */
+.Toastify__toast-container {
+  font-size: 16px;
 }
