@@ -293,7 +293,7 @@ const Dashboard = () => {
           <div className="logout-popup">
             <h3>Logout</h3>
             <p>Are you sure you want to logout?</p>
-            <button onClick={handleConfirmLogout}>Confirm</button>
+            <Link to="/" className="button-link">Confirm</Link>
             <button className="cancel" onClick={handleCancelLogout}>Cancel</button>
           </div>
         </div>

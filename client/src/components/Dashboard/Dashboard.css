@@ -479,3 +479,28 @@
 .logout-popup button.cancel:hover {
   background-color: #c9302c;
 }
+/* Button link styles */
+.button-link {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-family: Helvetica, sans-serif;
+  color: #fff;
+  background-color: #1aa52c;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.button-link:hover {
+  background-color: #159b27;
+  color: #fff;
+}
+
+.button-link:active {
+  background-color: #128c21;
+}
+
