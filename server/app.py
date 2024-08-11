@@ -10,10 +10,8 @@ import re
 from datetime import datetime
 from cryptography.fernet import Fernet
 
-# Load environment variables
 load_dotenv()
 
-# Initialize the app and configure the database
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URI', 'sqlite:///app.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -27,7 +25,6 @@ migrate = Migrate(app, db)
 api = Api(app)
 CORS(app, supports_credentials=True)
 
-# Generate or load encryption key
 encryption_key = os.getenv('ENCRYPTION_KEY')
 if not encryption_key:
     encryption_key = Fernet.generate_key().decode()
@@ -382,11 +379,5 @@ api.add_resource(WorkoutPlanResource, '/workout_plans', '/workout_plans/<int:pla
 api.add_resource(NutritionPlanResource, '/nutrition_plans', '/nutrition_plans/<int:plan_id>')
 api.add_resource(ProgressTrackingResource, '/progress_tracking', '/progress_tracking/<int:progress_id>')
 
-# Basic endpoint to check if the server is running
-@app.route('/')
-def hello_world():
-    return 'Hello, World!'
-
-# Run the application
 if __name__ == '__main__':
     app.run(debug=True, port=5555)
