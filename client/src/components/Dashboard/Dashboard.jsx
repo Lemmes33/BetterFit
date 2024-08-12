@@ -215,9 +215,6 @@ const Dashboard = () => {
 
       <main className="main-content">
         <header className="header">
-          <div className="search-bar">
-            <input type="text" placeholder="Search" />
-          </div>
           <div className="user-info">
             <div className="user-name-dropdown" onClick={handleUsernameClick}>
               {username}

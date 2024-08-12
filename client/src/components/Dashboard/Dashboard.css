@@ -52,7 +52,8 @@
   align-items: center;
   justify-content: space-between;
   padding: 10px;
-  background: rgba(0, 0, 0, 0.1);
+  margin-left: 1000px;
+  
   position: relative;
   z-index: 1;
 }
@@ -106,16 +107,17 @@
 /* Date Picker and Search Bar */
 .date-picker input,
 .search-bar input {
-  padding: 8px;
+  
   border-radius: 6px;
   border: 1px solid #ddd;
-  width: 180px;
+  
 }
 
 /* User Info */
 .user-info {
   display: flex;
   align-items: center;
+  
 }
 
 .user-name-dropdown {
