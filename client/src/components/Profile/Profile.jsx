@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Profile.css';
 import ProfileImg from "../../assets/___4_-removebg-preview.png";
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import { Link } from 'react-router-dom';
 
 const Profile = () => {
@@ -14,8 +13,24 @@ const Profile = () => {
   const [instagram, setInstagram] = useState('');
   const [twitter, setTwitter] = useState('');
   const [avatar, setAvatar] = useState(localStorage.getItem('avatar') || '');
+  const [isProfileUpdated, setIsProfileUpdated] = useState(false); // State to track if profile was updated
 
-  const navigate = useNavigate(); // Initialize useNavigate
+  useEffect(() => {
+    // Load existing profile data from local storage
+    setName(localStorage.getItem('name') || '');
+    setEmail(localStorage.getItem('email') || '');
+    setContact(localStorage.getItem('contact') || '');
+    setFunFact(localStorage.getItem('funFact') || '');
+    setInstagram(localStorage.getItem('instagram') || '');
+    setTwitter(localStorage.getItem('twitter') || '');
+  }, []);
+
+  useEffect(() => {
+    if (isProfileUpdated) {
+      toast.success("Profile saved successfully!");
+      setIsProfileUpdated(false); // Reset the flag
+    }
+  }, [isProfileUpdated]);
 
   const handleAvatarChange = (e) => {
     const file = e.target.files[0];
@@ -36,19 +51,21 @@ const Profile = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Save profile data here (e.g., send to server)
-    toast.success("Profile saved successfully!"); // Show success toast
-  };
+    // Save profile data to local storage
+    localStorage.setItem('name', name);
+    localStorage.setItem('email', email);
+    localStorage.setItem('contact', contact);
+    localStorage.setItem('funFact', funFact);
+    localStorage.setItem('instagram', instagram);
+    localStorage.setItem('twitter', twitter);
 
-  const handleBackClick = () => {
-    navigate(-1); // Navigate to the previous page
+    setIsProfileUpdated(true); // Set flag to show toast
   };
 
   return (
     <div className="profile-container">
       <header className="profile-header">
-      <Link to="/dashboard" className="back-button-link">Back</Link>
-
+        <Link to="/dashboard" className="back-button-link">Back</Link>
         <h1 className="profile-title1">Your Profile</h1>
         <div className="header-image-container1">
           <img src={ProfileImg} alt="Header" className="header-image1" />
@@ -128,7 +145,6 @@ const Profile = () => {
             className="profile-textarea"
           />
         </div>
-       
         <button type="submit" className="profile-submit">Save Profile</button>
       </form>
 
