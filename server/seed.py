@@ -1,58 +1,120 @@
-from app import create_app, db
-from models import User, WorkoutPlan, NutritionPlan, ProgressTracking, Trainer
-from flask_bcrypt import Bcrypt
-from datetime import date
+from datetime import date, timedelta
+from werkzeug.security import generate_password_hash
+from app import app, db
+from models import User, WorkoutPlan, NutritionPlan, ProgressTracking
+import logging
 
-app = create_app()
-bcrypt = Bcrypt(app)
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+def create_users():
+    if User.query.count() > 0:
+        logger.info("Users already exist, skipping user creation.")
+        return User.query.all()
+    
+    users = [
+        User(
+            username='john_doe',
+            email='john@example.com',
+            password=generate_password_hash('john123'),
+            age=28,
+        ),
+        User(
+            username='jane_smith',
+            email='jane@example.com',
+            password=generate_password_hash('jane123'),
+            age=32,
+        )
+    ]
+    db.session.bulk_save_objects(users)
+    db.session.commit()
+    return users
+
+def create_workout_plans(users):
+    if WorkoutPlan.query.count() > 0:
+        logger.info("Workout plans already exist, skipping workout plan creation.")
+        return WorkoutPlan.query.all()
+    
+    workout_plans = [
+        WorkoutPlan(
+            title='Beginner Cardio',
+            description='A beginner-friendly cardio workout plan.',
+            duration=30,
+            start_date=date.today(),
+            end_date=date.today() + timedelta(days=30),
+            user_id=users[0].id  # Associate with the first user
+        ),
+        WorkoutPlan(
+            title='Strength Training',
+            description='An advanced strength training program.',
+            duration=60,
+            start_date=date.today(),
+            end_date=date.today() + timedelta(days=60),
+            user_id=users[1].id  # Associate with the second user
+        )
+    ]
+    db.session.bulk_save_objects(workout_plans)
+    db.session.commit()
+    return workout_plans
+
+def create_nutrition_plans(users):
+    if NutritionPlan.query.count() > 0:
+        logger.info("Nutrition plans already exist, skipping nutrition plan creation.")
+        return NutritionPlan.query.all()
+    
+    nutrition_plans = [
+        NutritionPlan(
+            user=users[0],
+            title='Weight Loss Plan',
+            description='Low-calorie diet to aid weight loss.',
+            start_date=date.today(),
+            end_date=date.today() + timedelta(days=30)
+        ),
+        NutritionPlan(
+            user=users[1],
+            title='Muscle Gain Plan',
+            description='High-protein diet for muscle building.',
+            start_date=date.today(),
+            end_date=date.today() + timedelta(days=45)
+        )
+    ]
+    db.session.bulk_save_objects(nutrition_plans)
+    db.session.commit()
+    return nutrition_plans
+
+def create_progress_tracking(users):
+    if ProgressTracking.query.count() > 0:
+        logger.info("Progress tracking entries already exist, skipping progress tracking creation.")
+        return ProgressTracking.query.all()
+    
+    progress_entries = [
+        ProgressTracking(
+            user=users[0],
+            weight=75.5,
+            measurements='Chest: 90 cm, Waist: 80 cm',
+            date=date.today()
+        ),
+        ProgressTracking(
+            user=users[1],
+            weight=68.0,
+            measurements='Chest: 85 cm, Waist: 70 cm',
+            date=date.today()
+        )
+    ]
+    db.session.bulk_save_objects(progress_entries)
+    db.session.commit()
 
 def seed():
     with app.app_context():
-        # Clear existing data
-        db.drop_all()
-        db.create_all()
-
-        trainer1 = Trainer(name='Mary Jane', email='mary.jane@example.com', phone='123-456-7890', specialty='zumba instructor', bio='Expert in zumba and cardio training.')
-        trainer2 = Trainer(name='Walter Black', email='walter.black@example.com', phone='987-654-3210', specialty='Yoga', bio='Certified yoga instructor with over 10 years of experience.')
-
-        db.session.add(trainer1)
-        db.session.add(trainer2)
-        db.session.commit()
-
-        # Create users
-        hashed_password = bcrypt.generate_password_hash('password123').decode('utf-8')
-        user1 = User(username='alice', email='alice@example.com', password=hashed_password, age=25, nationality='American', description='Fitness enthusiast', hobbies='Running, Cycling', trainer_id=trainer1.id)
-        user2 = User(username='bob', email='bob@example.com', password=hashed_password, age=30, nationality='Canadian', description='Health conscious', hobbies='Swimming', trainer_id=trainer2.id)
-
-        db.session.add(user1)
-        db.session.add(user2)
-        db.session.commit()
-
-        # Create workout plans
-        workout_plan1 = WorkoutPlan(title='Full Body Workout', description='A comprehensive full-body workout plan.', duration=30, start_date=date.today(), end_date=date.today())
-        workout_plan2 = WorkoutPlan(title='Yoga for Beginners', description='An introductory yoga plan for beginners.', duration=45, start_date=date.today(), end_date=date.today())
-
-        db.session.add(workout_plan1)
-        db.session.add(workout_plan2)
-        db.session.commit()
-
-        # Create nutrition plans
-        nutrition_plan1 = NutritionPlan(user_id=user1.id, title='High Protein Diet', description='A diet plan rich in protein to build muscle.', start_date=date.today(), end_date=date.today())
-        nutrition_plan2 = NutritionPlan(user_id=user2.id, title='Balanced Diet', description='A well-balanced diet for overall health.', start_date=date.today(), end_date=date.today())
-
-        db.session.add(nutrition_plan1)
-        db.session.add(nutrition_plan2)
-        db.session.commit()
-
-        # Create progress tracking records
-        progress1 = ProgressTracking(user_id=user1.id, weight=70.5, measurements='Chest: 90cm, Waist: 80cm', date=date.today())
-        progress2 = ProgressTracking(user_id=user2.id, weight=82.0, measurements='Chest: 100cm, Waist: 90cm', date=date.today())
-
-        db.session.add(progress1)
-        db.session.add(progress2)
-        db.session.commit()
-
-        print("Database seeded successfully.")
+        try:
+            users = create_users()
+            create_workout_plans(users)
+            create_nutrition_plans(users)
+            create_progress_tracking(users)
+            logger.info("Database seeded successfully!")
+        except Exception as e:
+            db.session.rollback()
+            logger.error(f"An error occurred while seeding the database: {e}")
 
 if __name__ == '__main__':
     seed()
