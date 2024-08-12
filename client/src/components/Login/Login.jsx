@@ -1,60 +1,61 @@
-import React, { useState } from 'react';
-import './Login.css';
-import { wrappedFetch } from '../../utils';
+import React, { useState } from "react";
+import "./Login.css";
+import { Link } from "react-router-dom";
+import { wrappedFetch } from "../../utils";
 
 const Login = () => {
   const [showSignUp, setShowSignUp] = useState(false);
-  const [email, setemail] = useState()
-  const [password, setPassword] = useState()
-  const [username,setUsername] = useState()
-  const [age,setAge] = useState()
+  const [email, setemail] = useState();
+  const [password, setPassword] = useState();
+  const [username, setUsername] = useState();
+  const [age, setAge] = useState();
   const toggleSignUp = () => setShowSignUp(!showSignUp);
- 
+
   const login = async (event) => {
-    event.preventDefault()
-  
-    const res = await wrappedFetch('/login', {
+    event.preventDefault();
+
+    const res = await wrappedFetch("/login", {
       method: "POST",
       body: JSON.stringify({ email, password }),
       headers: {
         "Content-Type": "application/json",
       },
-    })
-  
-    const data = await res.json()
-    if(data.error){
-      alert(data.error)
+    });
+
+    const data = await res.json();
+    if (data.error) {
+      alert(data.error);
     } else {
       //Handle navigation to next page, save token, etc
       // Basically, handle logic for a successful login
     }
-  }
+  };
   const signup = async (event) => {
-    event.preventDefault()
-  
-    const res = await wrappedFetch('/register', {
+    event.preventDefault();
+
+    const res = await wrappedFetch("/register", {
       method: "POST",
-      body: JSON.stringify({ email, password ,username ,age }),
+      body: JSON.stringify({ email, password, username, age }),
       headers: {
         "Content-Type": "application/json",
       },
-    })
-  
-    const data = await res.json()
-    if(data.error){
-      alert(data.error)
+    });
+
+    const data = await res.json();
+    if (data.error) {
+      alert(data.error);
     } else {
       //Handle navigation to next page, save token, etc
       // Basically, handle logic for a successful login
     }
-  }
+  };
   return (
     <div className="login-container">
       <div className="login-left-side">
-        <img 
-          className="login-left-side-img" 
-          src="https://your-direct-image-url.com/image.jpg" 
-          alt="Background" 
+        <img
+          className="login-left-side-img"
+          src="https://your-direct-image-url.com/image.jpg"
+          alt="Background"
         />
         <div className="login-left-side-bg"></div>
       </div>
@@ -63,7 +64,7 @@ const Login = () => {
           <div className="login-sign-in">
             <button
               id="signin"
-              className={`login-btn-header ${!showSignUp ? 'active' : ''}`}
+              className={`login-btn-header ${!showSignUp ? "active" : ""}`}
               type="button"
               onClick={() => setShowSignUp(false)}
             >
@@ -73,46 +74,101 @@ const Login = () => {
           <div className="login-sign-up">
             <button
               id="signup"
-              className={`login-btn-header ${showSignUp ? 'active' : ''}`}
+              className={`login-btn-header ${showSignUp ? "active" : ""}`}
               type="button"
               onClick={toggleSignUp}
             >
               Sign Up
             </button>
           </div>
-          <div id="signup-tab" className={`login-sign-up-info ${showSignUp ? '' : 'login-hidden'}`}>
+          <div
+            id="signup-tab"
+            className={`login-sign-up-info ${showSignUp ? "" : "login-hidden"}`}
+          >
             <div className="login-prompt-field">USERNAME</div>
-            <input value={username} onChange={e => setUsername(e.target.value)} type="text" name="login-name" className="login-input-field" placeholder="Create a username" />
+            <input
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              type="text"
+              name="login-name"
+              className="login-input-field"
+              placeholder="Create a username"
+            />
             <div className="login-prompt-field">PASSWORD</div>
-            <input value={password} onChange={e => setPassword(e.target.value)} type="password" name="login-password" className="login-input-field" placeholder="*************" />
+            <input
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              type="password"
+              name="login-password"
+              className="login-input-field"
+              placeholder="*************"
+            />
             <div className="login-prompt-field">E-MAIL </div>
-            <input value={email} onChange={e => setemail(e.target.value)}  type="text" name="login-email" className="login-input-field" placeholder="Enter your e-mail address" />
+            <input
+              value={email}
+              onChange={(e) => setemail(e.target.value)}
+              type="text"
+              name="login-email"
+              className="login-input-field"
+              placeholder="Enter your e-mail address"
+            />
             <div className="login-prompt-field">AGE</div>
-            <input value={age} onChange={e => setAge(e.target.value)} type="number" name="age" className="login-input-field" placeholder="age" />
+            <input
+              value={age}
+              onChange={(e) => setAge(e.target.value)}
+              type="number"
+              name="age"
+              className="login-input-field"
+              placeholder="age"
+            />
 
             <div className="login-terms-container">
-              <input  type="checkbox" className="login-terms-checkbox" value="terms_checkbox" />
+              <input
+                type="checkbox"
+                className="login-terms-checkbox"
+                value="terms_checkbox"
+              />
               <label className="login-terms-prompt">
-                I accept the <span style={{ borderBottom: '1px solid #47C1B9' }}>terms and conditions</span>
+                I accept the{" "}
+                <span style={{ borderBottom: "1px solid #47C1B9" }}>
+                  terms and conditions
+                </span>
               </label>
             </div>
             <button onClick={signup} className="login-btn-signup" type="submit">
               SIGN UP <i className="fa fa-arrow-right" aria-hidden="true"></i>
             </button>
           </div>
-          <div id="signin-tab" className={`login-sign-up-info ${showSignUp ? 'login-hidden' : ''}`}>
+          <div
+            id="signin-tab"
+            className={`login-sign-up-info ${showSignUp ? "login-hidden" : ""}`}
+          >
             <div className="login-prompt-field">email</div>
-            <input value={email} onChange={e => setemail(e.target.value)} type="text" name="login-name" className="login-input-field" />
+            <input
+              value={email}
+              onChange={(e) => setemail(e.target.value)}
+              type="text"
+              name="login-name"
+              className="login-input-field"
+            />
             <div className="login-prompt-field">PASSWORD</div>
-            <input value={password} onChange={e => setPassword(e.target.value)}type="password" name="login-password" className="login-input-field" />
+            <input
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              type="password"
+              name="login-password"
+              className="login-input-field"
+            />
             <div className="login-terms-container">
               <label className="login-terms-prompt">
-                <span style={{ borderBottom: '1px solid #47C1B9' }}>Forgot your password?</span>
+                <span style={{ borderBottom: "1px solid #47C1B9" }}>
+                  Forgot your password?
+                </span>
               </label>
             </div>
-            <button onClick={login} className="login-btn-signup" type="submit">
+            <Link to="/dashboard" className="login-btn-signup">
               SIGN IN <i className="fa fa-arrow-right" aria-hidden="true"></i>
-            </button>
+            </Link>
           </div>
         </div>
       </div>
