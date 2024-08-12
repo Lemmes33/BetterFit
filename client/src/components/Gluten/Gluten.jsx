@@ -18,9 +18,9 @@ const Gluten = () => {
           </p>
 
           </div>
-          <button className="food-item__action-btn">
+          <Link to="/">
             Explore <span>&rarr;</span>
-          </button>
+          </Link>
         </div>
       </div>
 
