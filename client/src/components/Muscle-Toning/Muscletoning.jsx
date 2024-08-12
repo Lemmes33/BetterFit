@@ -1,5 +1,5 @@
 import React from 'react';
-import './Muscle-toning.css';
+import './muscletoning.css';
 
 const MuscleToning = () => {
   return (
