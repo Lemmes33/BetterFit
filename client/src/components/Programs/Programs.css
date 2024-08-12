@@ -199,3 +199,19 @@ p{
     margin: 0 0 2rem 0;
   }
 }
+.program-button{
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  color: #6b9962;
+}
+.program-button:hover {
+  background-color: #57864d; /* Slightly darker shade for hover effect */
+  transform: translateY(-3px);
+}
+
+.program-button:active {
+  background-color: #0b3a02; /* Even darker shade for active state */
+}

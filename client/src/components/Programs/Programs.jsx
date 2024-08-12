@@ -20,6 +20,11 @@ const Programs = () => {
               <div className="back1">
                 <div className="inner1">
                   <p>{card.description}</p>
+                  <button 
+                    className="program-button" 
+                    onClick={() => console.log(`More about ${card.title}`)}>
+                    More
+                  </button>
                 </div>
               </div>
             </div>
