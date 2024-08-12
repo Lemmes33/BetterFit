@@ -1,0 +1,66 @@
+.team-hero-section {
+    font-family: 'Montserrat', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 50px 0;
+  }
+  
+  .team-card-grid {
+    display: flex;
+    gap: 20px;
+  }
+  
+  .team-card {
+    display: block;
+    width: 300px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease;
+    text-decoration: none;
+  }
+  
+  .team-card:hover {
+    transform: translateY(-10px);
+  }
+  
+  .team-card__background {
+    width: 100%;
+    height: 200px;
+    background-size: cover;
+    background-position: center;
+  }
+  
+  .team-card__content {
+    padding: 20px;
+    background-color: white;
+  }
+  
+  .team-card__category {
+    font-size: 14px;
+    color: #888;
+    margin-bottom: 5px;
+  }
+  
+  .team-card__heading {
+    font-size: 20px;
+    color: #333;
+  }
+  
+  .team-card__button {
+    margin-top: 10px;
+    padding: 8px 15px;
+    font-size: 14px;
+    color: white;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .team-card__button:hover {
+    background-color: #0056b3;
+  }
+  
