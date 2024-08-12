@@ -1,5 +1,6 @@
 import React from 'react';
 import './Protein.css';
+import { Link } from 'react-router-dom';
 
 const Protein = () => {
   return (
@@ -18,9 +19,9 @@ const Protein = () => {
           </p>
 
           </div>
-          <button className="food-card__action-btn">
+          <Link to ="/chicken">
             Explore <span>&rarr;</span>
-          </button>
+          </Link>
         </div>
       </div>
 
@@ -38,9 +39,9 @@ const Protein = () => {
           </p>
 
           </div>
-          <button className="food-card__action-btn">
+          <Link to="/steak">
             Explore <span>&rarr;</span>
-          </button>
+          </Link>
         </div>
       </div>
 
@@ -58,9 +59,9 @@ const Protein = () => {
           </p>
 
           </div>
-          <button className="food-card__action-btn">
+          <Link to="/bean">
             Explore <span>&rarr;</span>
-          </button>
+          </Link>
         </div>
       </div>
     </div>

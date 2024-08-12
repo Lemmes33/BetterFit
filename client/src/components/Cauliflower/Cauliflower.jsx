@@ -1,6 +1,7 @@
 import React from 'react';
 import './Cauliflower.css';
 
+
 const Cauliflower = () => {
   const handleClick = (e) => {
     e.preventDefault();
