@@ -146,9 +146,6 @@ class Register(Resource):
         email = request.json.get("email")
         password = request.json.get("password")
         age = request.json.get("age")
-        nationality = request.json.get("nationality")
-        description = request.json.get("description")
-        hobbies = request.json.get("hobbies")
 
         if not username or not email or not password or not age:
             return {"error": "Missing required fields"}, 400
@@ -171,9 +168,6 @@ class Register(Resource):
             email=email,
             password=hashed_password,
             age=age,
-            nationality=encrypt(nationality) if nationality else None,
-            description=encrypt(description) if description else None,
-            hobbies=encrypt(hobbies) if hobbies else None
         )
         db.session.add(new_user)
         db.session.commit()
