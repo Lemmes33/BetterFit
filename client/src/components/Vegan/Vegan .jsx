@@ -1,5 +1,6 @@
 import React from 'react';
 import './Vegan.css';
+import { Link } from 'react-router-dom';
 
 const Vegan = () => {
   return (
@@ -18,9 +19,9 @@ const Vegan = () => {
            </p>
 
           </div>
-          <button className="card__btn">
+          <Link to="/tofu">
             Explore <span>&rarr;</span>
-          </button>
+          </Link>
         </div>
       </div>
 
@@ -39,9 +40,9 @@ const Vegan = () => {
 
 
           </div>
-          <button className="card__btn">
+          <Link to="/cauliflower">
             Explore <span>&rarr;</span>
-          </button>
+          </Link>
         </div>
       </div>
 
@@ -61,9 +62,9 @@ const Vegan = () => {
 
 
           </div>
-          <button className="card__btn">
+          <Link to="/vegetable">
             Explore <span>&rarr;</span>
-          </button>
+          </Link>
         </div>
       </div>
     </div>
