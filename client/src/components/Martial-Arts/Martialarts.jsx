@@ -1,5 +1,5 @@
 import React from 'react';
-import './Martial-Arts.css';
+import './martialarts.css';
 
 const MartialArts = () => {
   return (
