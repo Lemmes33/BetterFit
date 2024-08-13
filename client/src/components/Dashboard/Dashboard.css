@@ -52,7 +52,8 @@
   align-items: center;
   justify-content: space-between;
   padding: 10px;
-  background: rgba(0, 0, 0, 0.1);
+  margin-left: 1000px;
+  
   position: relative;
   z-index: 1;
 }
@@ -65,6 +66,7 @@
   padding: 10px;
   cursor: pointer;
   border-radius: 6px;
+  transition: background 0.3s ease;
 }
 
 /* Navigation */
@@ -105,16 +107,17 @@
 /* Date Picker and Search Bar */
 .date-picker input,
 .search-bar input {
-  padding: 8px;
+  
   border-radius: 6px;
   border: 1px solid #ddd;
-  width: 180px;
+  
 }
 
 /* User Info */
 .user-info {
   display: flex;
   align-items: center;
+  
 }
 
 .user-name-dropdown {
@@ -123,6 +126,7 @@
   font-weight: bold;
   position: relative;
   cursor: pointer;
+  color: #ffffff;
 }
 
 .user-avatar-dropdown {
@@ -362,6 +366,8 @@
 .user-name-dropdown {
   position: relative;
   display: inline-block;
+  cursor: pointer;
+  color: #ffffff;
 }
 
 .user-name-dropdown:after {
@@ -375,18 +381,6 @@
 
 .user-name-dropdown:hover .dropdown-menu {
   display: block;
-}
-
-.user-name-dropdown {
-  position: relative;
-  display: inline-block;
-  cursor: pointer;
-  color: #ffffff;
-}
-
-.dropdown-arrow {
-  margin-left: 8px;
-  font-size: 12px;
 }
 
 .user-name-dropdown-menu {
@@ -478,4 +472,29 @@
 
 .logout-popup button.cancel:hover {
   background-color: #c9302c;
+}
+
+/* Button link styles */
+.button-link {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-family: Helvetica, sans-serif;
+  color: #fff;
+  background-color: #1aa52c;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.button-link:hover {
+  background-color: #159b27;
+  color: #fff;
+}
+
+.button-link:active {
+  background-color: #128c21;
 }

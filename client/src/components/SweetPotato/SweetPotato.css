@@ -1,0 +1,98 @@
+/* SweetPotatoCasserole.css */
+
+.casserole-recipe-wrapper {
+    display: flex;
+    justify-content: center;
+    margin: 20px;
+}
+
+.casserole-recipe {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.casserole-image-and-content {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+.casserole-image-container {
+    flex: 1;
+    max-width: 100%;
+}
+
+.casserole-image-container img {
+    width: 100%;
+    height: 960px; /* Adjusted to fit the image properly */
+}
+
+.casserole-content {
+    flex: 1;
+    max-width: 100%;
+}
+
+.casserole-rating {
+    margin: 10px 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+.casserole-star {
+    display: inline-block;
+    margin-right: 2px;
+}
+
+.casserole-ingredients, .casserole-recipe_steps {
+    margin-top: 20px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #ffffff;
+    text-align: left;
+    box-sizing: border-box;
+    font-size: 25px;
+}
+
+.casserole-ingredients h2, .casserole-recipe_steps h2 {
+    margin-bottom: 10px;
+    font-size: 22px;
+}
+
+.casserole-ingredients ul, .casserole-recipe_steps ol {
+    padding-left: 20px;
+}
+
+.casserole-link {
+    display: block;
+    margin-top: 20px;
+    color: #007bff;
+    text-decoration: none;
+}
+
+.casserole-link:hover {
+    text-decoration: underline;
+}
+
+/* Hover styles for casserole-recipe_steps */
+
+.casserole-recipe_steps {
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.casserole-recipe_steps:hover {
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Hover styles for casserole-ingredients */
+
+.casserole-ingredients {
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.casserole-ingredients:hover {
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}

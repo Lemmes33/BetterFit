@@ -1,6 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Profile.css';
 import ProfileImg from "../../assets/___4_-removebg-preview.png";
+<<<<<<< HEAD
+=======
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { Link } from 'react-router-dom';
+>>>>>>> 926af6ab252edecfcd9b650dd62fa342d7e87025
 
 const Profile = () => {
   const [name, setName] = useState('');
@@ -9,7 +15,25 @@ const Profile = () => {
   const [funFact, setFunFact] = useState('');
   const [instagram, setInstagram] = useState('');
   const [twitter, setTwitter] = useState('');
-  const [avatar, setAvatar] = useState(null);
+  const [avatar, setAvatar] = useState(localStorage.getItem('avatar') || '');
+  const [isProfileUpdated, setIsProfileUpdated] = useState(false); // State to track if profile was updated
+
+  useEffect(() => {
+    // Load existing profile data from local storage
+    setName(localStorage.getItem('name') || '');
+    setEmail(localStorage.getItem('email') || '');
+    setContact(localStorage.getItem('contact') || '');
+    setFunFact(localStorage.getItem('funFact') || '');
+    setInstagram(localStorage.getItem('instagram') || '');
+    setTwitter(localStorage.getItem('twitter') || '');
+  }, []);
+
+  useEffect(() => {
+    if (isProfileUpdated) {
+      toast.success("Profile saved successfully!");
+      setIsProfileUpdated(false); // Reset the flag
+    }
+  }, [isProfileUpdated]);
 
   const handleAvatarChange = (e) => {
     const file = e.target.files[0];
@@ -17,26 +41,45 @@ const Profile = () => {
       const reader = new FileReader();
       reader.onloadend = () => {
         setAvatar(reader.result);
+        localStorage.setItem('avatar', reader.result); // Save to localStorage
       };
       reader.readAsDataURL(file);
     }
   };
 
   const handleAvatarRemove = () => {
+<<<<<<< HEAD
     setAvatar(null);
+=======
+    setAvatar('');
+    localStorage.removeItem('avatar'); // Remove from localStorage
+>>>>>>> 926af6ab252edecfcd9b650dd62fa342d7e87025
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle form submission here
-    console.log({ name, email, contact, funFact, instagram, twitter, avatar });
+    // Save profile data to local storage
+    localStorage.setItem('name', name);
+    localStorage.setItem('email', email);
+    localStorage.setItem('contact', contact);
+    localStorage.setItem('funFact', funFact);
+    localStorage.setItem('instagram', instagram);
+    localStorage.setItem('twitter', twitter);
+
+    setIsProfileUpdated(true); // Set flag to show toast
   };
 
   return (
     <div className="profile-container">
       <header className="profile-header">
+<<<<<<< HEAD
         <h1 className="profile-title">Your Profile</h1>
         <div className="header-image-container">
+=======
+        <Link to="/dashboard" className="back-button-link">Back</Link>
+        <h1 className="profile-title1">Your Profile</h1>
+        <div className="header-image-container1">
+>>>>>>> 926af6ab252edecfcd9b650dd62fa342d7e87025
           <img src={ProfileImg} alt="Header" className="header-image1" />
         </div>
       </header>
@@ -52,7 +95,11 @@ const Profile = () => {
             )}
             <div className="profile-avatar-overlay">
               <label htmlFor="avatar" className="profile-avatar-label">
+<<<<<<< HEAD
                 
+=======
+                {/* Add label text if needed */}
+>>>>>>> 926af6ab252edecfcd9b650dd62fa342d7e87025
               </label>
               {avatar && (
                 <button
@@ -114,9 +161,14 @@ const Profile = () => {
             className="profile-textarea"
           />
         </div>
+<<<<<<< HEAD
        
+=======
+>>>>>>> 926af6ab252edecfcd9b650dd62fa342d7e87025
         <button type="submit" className="profile-submit">Save Profile</button>
       </form>
+
+      <ToastContainer />
     </div>
   );
 };
