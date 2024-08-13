@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './Profile.css';
+import ProfileImg from "../../assets/___4_-removebg-preview.png";
 
 const Profile = () => {
   const [name, setName] = useState('');
@@ -21,6 +22,10 @@ const Profile = () => {
     }
   };
 
+  const handleAvatarRemove = () => {
+    setAvatar(null);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     // Handle form submission here
@@ -31,10 +36,35 @@ const Profile = () => {
     <div className="profile-container">
       <header className="profile-header">
         <h1 className="profile-title">Your Profile</h1>
+        <div className="header-image-container">
+          <img src={ProfileImg} alt="Header" className="header-image1" />
+        </div>
       </header>
       <form className="profile-form" onSubmit={handleSubmit}>
         <div className="profile-avatar-container">
-          {avatar && <img src={avatar} alt="Profile" className="profile-avatar" />}
+          <div className="profile-avatar-wrapper">
+            {avatar ? (
+              <img src={avatar} alt="Profile" className="profile-avatar" />
+            ) : (
+              <div className="profile-avatar-placeholder">
+                <span>+</span>
+              </div>
+            )}
+            <div className="profile-avatar-overlay">
+              <label htmlFor="avatar" className="profile-avatar-label">
+                
+              </label>
+              {avatar && (
+                <button
+                  type="button"
+                  className="profile-avatar-remove"
+                  onClick={handleAvatarRemove}
+                >
+                  Remove
+                </button>
+              )}
+            </div>
+          </div>
           <input
             type="file"
             id="avatar"
@@ -42,9 +72,6 @@ const Profile = () => {
             onChange={handleAvatarChange}
             className="profile-avatar-input"
           />
-          <label htmlFor="avatar" className="profile-avatar-label">
-            Choose Profile Picture
-          </label>
         </div>
         <div className="profile-input-group">
           <label htmlFor="name" className="profile-label">Name:</label>
@@ -87,26 +114,7 @@ const Profile = () => {
             className="profile-textarea"
           />
         </div>
-        <div className="profile-input-group">
-          <label htmlFor="instagram" className="profile-label">Instagram:</label>
-          <input
-            type="text"
-            id="instagram"
-            value={instagram}
-            onChange={(e) => setInstagram(e.target.value)}
-            className="profile-input"
-          />
-        </div>
-        <div className="profile-input-group">
-          <label htmlFor="twitter" className="profile-label">Twitter:</label>
-          <input
-            type="text"
-            id="twitter"
-            value={twitter}
-            onChange={(e) => setTwitter(e.target.value)}
-            className="profile-input"
-          />
-        </div>
+       
         <button type="submit" className="profile-submit">Save Profile</button>
       </form>
     </div>
