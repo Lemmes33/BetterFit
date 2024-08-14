@@ -1,12 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import './Profile.css';
-import ProfileImg from "../../assets/___4_-removebg-preview.png";
-<<<<<<< HEAD
-=======
+import ProfileImg from "../../assets/__4-removebg-preview.png";
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Link } from 'react-router-dom';
->>>>>>> 926af6ab252edecfcd9b650dd62fa342d7e87025
 
 const Profile = () => {
   const [name, setName] = useState('');
@@ -48,12 +45,8 @@ const Profile = () => {
   };
 
   const handleAvatarRemove = () => {
-<<<<<<< HEAD
-    setAvatar(null);
-=======
     setAvatar('');
     localStorage.removeItem('avatar'); // Remove from localStorage
->>>>>>> 926af6ab252edecfcd9b650dd62fa342d7e87025
   };
 
   const handleSubmit = (e) => {
@@ -72,14 +65,9 @@ const Profile = () => {
   return (
     <div className="profile-container">
       <header className="profile-header">
-<<<<<<< HEAD
-        <h1 className="profile-title">Your Profile</h1>
-        <div className="header-image-container">
-=======
         <Link to="/dashboard" className="back-button-link">Back</Link>
         <h1 className="profile-title1">Your Profile</h1>
         <div className="header-image-container1">
->>>>>>> 926af6ab252edecfcd9b650dd62fa342d7e87025
           <img src={ProfileImg} alt="Header" className="header-image1" />
         </div>
       </header>
@@ -95,11 +83,7 @@ const Profile = () => {
             )}
             <div className="profile-avatar-overlay">
               <label htmlFor="avatar" className="profile-avatar-label">
-<<<<<<< HEAD
-                
-=======
                 {/* Add label text if needed */}
->>>>>>> 926af6ab252edecfcd9b650dd62fa342d7e87025
               </label>
               {avatar && (
                 <button
@@ -161,10 +145,6 @@ const Profile = () => {
             className="profile-textarea"
           />
         </div>
-<<<<<<< HEAD
-       
-=======
->>>>>>> 926af6ab252edecfcd9b650dd62fa342d7e87025
         <button type="submit" className="profile-submit">Save Profile</button>
       </form>
 
