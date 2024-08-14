@@ -8,11 +8,12 @@ function Checkout() {
   const [paymentDate, setPaymentDate] = useState('');
   const [endDate, setEndDate] = useState('');
   const [amount, setAmount] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState('');
-  const [countryCode, setCountryCode] = useState('+254');
+  const [phoneNumber, setPhoneNumber] = useState('+'); // Initialize with '+'
   const [paymentMethod, setPaymentMethod] = useState('');
 
   const [errors, setErrors] = useState({});
+  const [loading, setLoading] = useState(false);
+  const [paymentStatus, setPaymentStatus] = useState('');
 
   const handlePlanChange = (event) => {
     const selectedPlan = event.target.value;
@@ -56,8 +57,9 @@ function Checkout() {
 
   const handlePhoneNumberChange = (event) => {
     const value = event.target.value;
-    // Allow only numeric values and limit to 9 digits
-    if (/^\d{0,9}$/.test(value)) {
+
+    // Ensure the input starts with a '+' and allow only numeric values after it, limiting to 13 digits
+    if (value === '' || /^\+\d{0,12}$/.test(value)) {
       setPhoneNumber(value);
     }
   };
@@ -69,7 +71,7 @@ function Checkout() {
     if (!plan) formErrors.plan = 'Plan selection is required';
     if (!paymentDate) formErrors.paymentDate = 'Payment date is required';
     if (!amount) formErrors.amount = 'Amount is required';
-    if (!phoneNumber) formErrors.phoneNumber = 'Phone number is required';
+    if (!phoneNumber || phoneNumber === '+') formErrors.phoneNumber = 'Phone number is required';
     if (!paymentMethod) formErrors.paymentMethod = 'Payment method is required';
 
     setErrors(formErrors);
@@ -77,16 +79,51 @@ function Checkout() {
     return Object.keys(formErrors).length === 0;
   };
 
+  const handleMpesPayment = async () => {
+    setLoading(true);
+    setPaymentStatus("Prompt sent, waiting for payment...");
+
+    try {
+      const response = await fetch("http://127.0.0.1:5000/stkpush", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          phone: phoneNumber,  // No country code
+          amount: amount,
+        }),
+      });
+
+      if (response.ok) {
+        const paymentResponse = await response.json();
+
+        if (paymentResponse.success) {
+          setPaymentStatus("Payment successful!");
+          // Handle successful payment, e.g., navigate to confirmation page
+        } else {
+          setPaymentStatus("Payment failed. Please try again.");
+        }
+      } else {
+        setPaymentStatus("Payment failed. Please try again.");
+      }
+    } catch (error) {
+      console.error("Checkout failed:", error);
+      setPaymentStatus("Payment failed due to a network error. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
     
     if (!validateForm()) return;
-    
-    // Redirect based on selected payment method
+
     if (paymentMethod === 'paypal') {
       window.location.href = 'https://www.paypal.com';
     } else if (paymentMethod === 'mpesa') {
-      window.location.href = 'https://www.safaricom.co.ke/personal/m-pesa';
+      handleMpesPayment();
     } else {
       alert('Please select a payment method.');
     }
@@ -134,32 +171,16 @@ function Checkout() {
                     <i className="fa fa-phone"></i> Phone Number
                     {errors.phoneNumber && <span className="error">*</span>}
                   </label>
-                  <div className="phone-container">
-                    <select
-                      id="country-code"
-                      name="country-code"
-                      value={countryCode}
-                      onChange={(e) => setCountryCode(e.target.value)}
-                      className="phone-dropdown"
-                    >
-                      <option value="+254">+254</option>
-                      <option value="+256">+256</option>
-                      <option value="+255">+255</option>
-                      <option value="+253">+253</option>
-                      <option value="+252">+252</option>
-                      <option value="+211">+211</option>
-                    </select>
-                    <input
-                      type="text"
-                      id="phone"
-                      name="phone"
-                      value={phoneNumber}
-                      onChange={handlePhoneNumberChange}
-                      placeholder="123456789"
-                      maxLength="9"
-                      className={errors.phoneNumber ? 'error-input' : ''}
-                    />
-                  </div>
+                  <input
+                    type="text"
+                    id="phone"
+                    name="phone"
+                    value={phoneNumber}
+                    onChange={handlePhoneNumberChange}
+                    placeholder="+123456789012"
+                    maxLength="13"
+                    className={errors.phoneNumber ? 'error-input' : ''}
+                  />
 
                   <label htmlFor="email">
                     <i className="fa fa-envelope"></i> Email
@@ -217,7 +238,7 @@ function Checkout() {
                     className={errors.paymentDate ? 'error-input' : ''}
                   />
 
-                  <label htmlFor="end-date">Plan End Date</label>
+                  <label htmlFor="end-date">Subscription End Date</label>
                   <input
                     type="date"
                     id="end-date"
@@ -228,31 +249,51 @@ function Checkout() {
 
                   <h3>Payment Method</h3>
                   <label htmlFor="payment-method">
-                    Choose Payment Method
+                    Select Payment Method
                     {errors.paymentMethod && <span className="error">*</span>}
                   </label>
-                  <div className="icon-container">
-                    <i className="fa fa-paypal" style={{ color: '#003087' }} title="PayPal"></i>
-                    <i className="fa fa-mobile" style={{ color: '#00bfae' }} title="M-Pesa"></i>
+                  <div className="payment-options">
+                    <label>
+                      <input
+                        type="radio"
+                        name="payment-method"
+                        value="paypal"
+                        checked={paymentMethod === 'paypal'}
+                        onChange={(e) => setPaymentMethod(e.target.value)}
+                      />
+                      PayPal
+                    </label>
+                    <label>
+                      <input
+                        type="radio"
+                        name="payment-method"
+                        value="mpesa"
+                        checked={paymentMethod === 'mpesa'}
+                        onChange={(e) => setPaymentMethod(e.target.value)}
+                      />
+                     M-Pesa
+                    </label>
                   </div>
-                  <select
-                    id="payment-method"
-                    name="payment-method"
-                    value={paymentMethod}
-                    onChange={(e) => setPaymentMethod(e.target.value)}
-                    className={errors.paymentMethod ? 'error-input' : ''}
-                  >
-                    <option value="">Select a payment method</option>
-                    <option value="paypal">PayPal</option>
-                    <option value="mpesa">M-Pesa</option>
-                  </select>
                 </div>
               </div>
-              <label>
-                <input type="checkbox" defaultChecked name="terms" /> I agree to the terms and conditions
-              </label>
-              <input type="submit" value="Complete Purchase" className="btn" />
+              {loading && <p>Loading...</p>}
+              {paymentStatus && <p>{paymentStatus}</p>}
+              <button type="submit" className="btn">Submit</button>
             </form>
+          </div>
+        </div>
+
+        <div className="col-25">
+          <div className="container">
+            <h4>Cart 
+              <span className="price" style={{ color: 'black' }}>
+                <i className="fa fa-shopping-cart"></i> 
+                <b>1</b>
+              </span>
+            </h4>
+            <p><a href="#">Selected Plan</a> <span className="price">${amount}</span></p>
+            <hr />
+            <p>Total <span className="price"><b>${amount}</b></span></p>
           </div>
         </div>
       </div>
