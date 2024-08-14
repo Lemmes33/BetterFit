@@ -72,9 +72,6 @@ class User(db.Model):
     email = db.Column(db.String, unique=True, nullable=False)
     password = db.Column(db.String, nullable=False)
     age = db.Column(db.Integer, nullable=False)
-    nationality = db.Column(db.String, nullable=True)
-    description = db.Column(db.String, nullable=True)
-    hobbies = db.Column(db.String, nullable=True)
 
     def to_dict(self):
         return {
@@ -82,9 +79,6 @@ class User(db.Model):
             "username": self.username,
             "email": self.email,
             "age": self.age,
-            "nationality": decrypt(self.nationality) if self.nationality else None,
-            "description": decrypt(self.description) if self.description else None,
-            "hobbies": decrypt(self.hobbies) if self.hobbies else None
         }
 
 class WorkoutPlan(db.Model):
