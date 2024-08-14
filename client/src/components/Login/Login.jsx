@@ -1,60 +1,79 @@
 import React, { useState } from 'react';
 import './Login.css';
 import { wrappedFetch } from '../../utils';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const [showSignUp, setShowSignUp] = useState(false);
-  const [email, setemail] = useState()
-  const [password, setPassword] = useState()
-  const [username,setUsername] = useState()
-  const [age,setAge] = useState()
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState('');
+  const [age, setAge] = useState('');
+  const navigate = useNavigate();
+
   const toggleSignUp = () => setShowSignUp(!showSignUp);
- 
+
   const login = async (event) => {
-    event.preventDefault()
-  
-    const res = await wrappedFetch('/login', {
-      method: "POST",
-      body: JSON.stringify({ email, password }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-  
-    const data = await res.json()
-    if(data.error){
-      alert(data.error)
-    } else {
-      //Handle navigation to next page, save token, etc
-      // Basically, handle logic for a successful login
+    event.preventDefault();
+
+    try {
+      const res = await wrappedFetch('/login', {
+        method: 'POST',
+        body: JSON.stringify({ email, password }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      const data = await res.json();
+      if (data.error) {
+        alert(data.error);
+      } else {
+        // Save token or session data
+        localStorage.setItem('token', data.token);
+        // Redirect to dashboard
+        navigate('/Dashboard');
+      }
+    } catch (error) {
+      console.error('Login error:', error);
+      alert('An error occurred. Please try again.');
     }
-  }
+  };
+
   const signup = async (event) => {
-    event.preventDefault()
-  
-    const res = await wrappedFetch('/register', {
-      method: "POST",
-      body: JSON.stringify({ email, password ,username ,age }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-  
-    const data = await res.json()
-    if(data.error){
-      alert(data.error)
-    } else {
-      //Handle navigation to next page, save token, etc
-      // Basically, handle logic for a successful login
+    event.preventDefault();
+
+    try {
+      const res = await wrappedFetch('/register', {
+        method: 'POST',
+        body: JSON.stringify({ email, password, username, age }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      const data = await res.json();
+      if (data.error) {
+        alert(data.error);
+      } else {
+        // Save token or session data
+        localStorage.setItem('token', data.token);
+        // Redirect to dashboard
+        navigate('/dashboard');
+      }
+    } catch (error) {
+      console.error('Sign up error:', error);
+      alert('An error occurred. Please try again.');
     }
-  }
+  };
+
   return (
     <div className="login-container">
       <div className="login-left-side">
-        <img 
-          className="login-left-side-img" 
-          src="https://your-direct-image-url.com/image.jpg" 
-          alt="Background" 
+        <img
+          className="login-left-side-img"
+          src="https://your-direct-image-url.com/image.jpg"
+          alt="Background"
         />
         <div className="login-left-side-bg"></div>
       </div>
@@ -82,18 +101,50 @@ const Login = () => {
           </div>
           <div id="signup-tab" className={`login-sign-up-info ${showSignUp ? '' : 'login-hidden'}`}>
             <div className="login-prompt-field">USERNAME</div>
-            <input value={username} onChange={e => setUsername(e.target.value)} type="text" name="login-name" className="login-input-field" placeholder="Create a username" />
+            <input
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              type="text"
+              name="login-name"
+              className="login-input-field"
+              placeholder="Create a username"
+            />
             <div className="login-prompt-field">PASSWORD</div>
-            <input value={password} onChange={e => setPassword(e.target.value)} type="password" name="login-password" className="login-input-field" placeholder="*************" />
-            <div className="login-prompt-field">E-MAIL </div>
-            <input value={email} onChange={e => setemail(e.target.value)}  type="text" name="login-email" className="login-input-field" placeholder="Enter your e-mail address" />
+            <input
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              type="password"
+              name="login-password"
+              className="login-input-field"
+              placeholder="*****"
+            />
+            <div className="login-prompt-field">E-MAIL</div>
+            <input
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              type="text"
+              name="login-email"
+              className="login-input-field"
+              placeholder="Enter your e-mail address"
+            />
             <div className="login-prompt-field">AGE</div>
-            <input value={age} onChange={e => setAge(e.target.value)} type="number" name="age" className="login-input-field" placeholder="age" />
-
+            <input
+              value={age}
+              onChange={(e) => setAge(e.target.value)}
+              type="number"
+              name="age"
+              className="login-input-field"
+              placeholder="Age"
+            />
             <div className="login-terms-container">
-              <input  type="checkbox" className="login-terms-checkbox" value="terms_checkbox" />
+              <input
+                type="checkbox"
+                className="login-terms-checkbox"
+                value="terms_checkbox"
+              />
               <label className="login-terms-prompt">
-                I accept the <span style={{ borderBottom: '1px solid #47C1B9' }}>terms and conditions</span>
+                I accept the{' '}
+                <span style={{ borderBottom: '1px solid #47C1B9' }}>terms and conditions</span>
               </label>
             </div>
             <button onClick={signup} className="login-btn-signup" type="submit">
@@ -101,16 +152,28 @@ const Login = () => {
             </button>
           </div>
           <div id="signin-tab" className={`login-sign-up-info ${showSignUp ? 'login-hidden' : ''}`}>
-            <div className="login-prompt-field">email</div>
-            <input value={email} onChange={e => setemail(e.target.value)} type="text" name="login-name" className="login-input-field" />
+            <div className="login-prompt-field">E-MAIL</div>
+            <input
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              type="text"
+              name="login-email"
+              className="login-input-field"
+            />
             <div className="login-prompt-field">PASSWORD</div>
-            <input value={password} onChange={e => setPassword(e.target.value)}type="password" name="login-password" className="login-input-field" />
+            <input
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              type="password"
+              name="login-password"
+              className="login-input-field"
+            />
             <div className="login-terms-container">
               <label className="login-terms-prompt">
                 <span style={{ borderBottom: '1px solid #47C1B9' }}>Forgot your password?</span>
               </label>
             </div>
-            <button onClick={login} className="login-btn-signup" type="submit">
+            <button onClick={login} className="login-btn-signin" type="submit">
               SIGN IN <i className="fa fa-arrow-right" aria-hidden="true"></i>
             </button>
           </div>
