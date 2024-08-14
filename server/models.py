@@ -8,14 +8,12 @@ user_workout_plan = db.Table('user_workout_plan',
 )
 
 class User(db.Model):
+    
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     username = db.Column(db.String, nullable=False)
     email = db.Column(db.String, unique=True, nullable=False)
     password = db.Column(db.String, nullable=False)
     age = db.Column(db.Integer, nullable=False)
-    nationality = db.Column(db.String, nullable=True)
-    description = db.Column(db.Text, nullable=True)
-    hobbies = db.Column(db.Text, nullable=True)
     trainer_id = db.Column(db.Integer, db.ForeignKey('trainer.id'), nullable=True)
 
     # Relationships
@@ -46,6 +44,7 @@ class User(db.Model):
         }
     
 class WorkoutPlan(db.Model):
+   
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     title = db.Column(db.String, nullable=False)
     description = db.Column(db.Text, nullable=True)
@@ -70,6 +69,7 @@ class WorkoutPlan(db.Model):
         }
     
 class NutritionPlan(db.Model):
+   
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     title = db.Column(db.String, nullable=False)
@@ -88,6 +88,7 @@ class NutritionPlan(db.Model):
         }
     
 class ProgressTracking(db.Model):
+    
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     weight = db.Column(db.Float, nullable=False)
@@ -104,6 +105,7 @@ class ProgressTracking(db.Model):
         }
     
 class Trainer(db.Model):
+   
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String, nullable=False)
     email = db.Column(db.String, unique=True, nullable=False)
