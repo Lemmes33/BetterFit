@@ -18,8 +18,9 @@ const Dashboard = () => {
   const [goals, setGoals] = useState([]);
   const [newGoal, setNewGoal] = useState('');
 
-  // Get avatar from local storage
+  // Get avatar and username from local storage
   const [avatar, setAvatar] = useState(localStorage.getItem('avatar') || '../../assets/Fitness _ les exercices pour maigrir des bras et muscler les épaules.jpeg');
+  const [username, setUsername] = useState(localStorage.getItem('name') || 'Aquilla');
 
   useEffect(() => {
     // Load goals from local storage
@@ -37,7 +38,14 @@ const Dashboard = () => {
     const storedAvatar = localStorage.getItem('avatar');
     if (storedAvatar) {
       setAvatar(storedAvatar);
-      toast.success("Profile updated successfully!"); // Show success toast
+    }
+  }, []);
+
+  useEffect(() => {
+    // Update username when it changes
+    const storedUsername = localStorage.getItem('name');
+    if (storedUsername) {
+      setUsername(storedUsername);
     }
   }, []);
 
@@ -207,21 +215,17 @@ const Dashboard = () => {
 
       <main className="main-content">
         <header className="header">
-          <div className="search-bar">
-            <input type="text" placeholder="Search" />
-          </div>
           <div className="user-info">
             <div className="user-name-dropdown" onClick={handleUsernameClick}>
-              Aquilla
-              
+              {username}
               {isUsernameDropdownOpen && (
-              <div className="user-name-dropdown-menu">
-                <ul>
-                  <li>Aquilla</li>
-                  {/* Add more menu items here if needed */}
-                </ul>
-              </div>
-            )}
+                <div className="user-name-dropdown-menu">
+                  <ul>
+                    <li>{username}</li>
+                    {/* Add more menu items here if needed */}
+                  </ul>
+                </div>
+              )}
             </div>
             <div className="user-avatar-dropdown" onClick={handleAvatarClick}>
               <img src={avatar} alt="Avatar" />
@@ -317,7 +321,6 @@ const Dashboard = () => {
         </div>
       )}
 
-      {/* Toast container for notifications */}
       <ToastContainer />
     </div>
   );
