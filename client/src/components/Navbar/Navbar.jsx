@@ -10,7 +10,7 @@ const Navbar = () => {
     <nav className="navbar">
       <div className="logo-container">
         <img src={Logo} alt="BetterFit Logo" className="logo-image" />
-        <div className="logo-text">BetterFit</div>
+        <div className="logo-text">BetterFitt</div>
       </div>
       <ul className="nav-links">
       
