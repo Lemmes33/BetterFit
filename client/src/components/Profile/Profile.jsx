@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './Profile.css';
-import ProfileImg from "../../assets/__4-removebg-preview.png";
+import ProfileImg from "../../assets/___4_-removebg-preview.png";
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Link } from 'react-router-dom';
