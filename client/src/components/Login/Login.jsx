@@ -7,8 +7,6 @@ const Login = () => {
   const [showSignUp, setShowSignUp] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [username, setUsername] = useState("");
-  const [age, setAge] = useState("");
   const navigate = useNavigate();
 
   const toggleSignUp = () => setShowSignUp(!showSignUp);
@@ -43,29 +41,7 @@ const Login = () => {
   const signup = async (event) => {
     event.preventDefault();
 
-    try {
-      const res = await wrappedFetch("/register", {
-        method: "POST",
-        body: JSON.stringify({ email, password, username, age }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-
-      const data = await res.json();
-      if (data.error) {
-        alert(data.error);
-      } else {
-        // Save token or session data
-        localStorage.setItem("token", data.token);
-        // Redirect to dashboard
-        navigate("/dashboard");
-      }
-    } catch (error) {
-      console.error("Sign up error:", error);
-      alert("An error occurred. Please try again.");
-    }
-  };
+  }
 
   return (
     <div className="login-container">
