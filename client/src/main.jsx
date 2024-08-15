@@ -29,16 +29,11 @@ import Martialarts from "./components/Martial-Arts/Martialarts.jsx";
 import Teambuilding from "./components/Team-Building/Teambuilding.jsx";
 import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Register from "./components/Register/Register.jsx";
 
 const router = createBrowserRouter([
   {
     path: "/login",
     element: <Login />,
-  },
-  {
-    path: "/register",
-    element: <Register />,
   },
   {
     path: "/",
