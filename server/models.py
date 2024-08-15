@@ -1,10 +1,7 @@
 from datetime import date
 from sqlalchemy.orm import validates
-<<<<<<< HEAD
 from app import db 
-=======
-from extensions import db  # Import db from the extensions module
->>>>>>> 7fdf119 (got the database table to show and added some files)
+from extensions import db  
 
 user_workout_plan = db.Table('user_workout_plan',
     db.Column('user_id', db.Integer, db.ForeignKey('user.id'), primary_key=True),
