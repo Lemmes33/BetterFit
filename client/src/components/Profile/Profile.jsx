@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Profile.css';
 import ProfileImg from "../../assets/___4_-removebg-preview.png";
 
@@ -9,7 +9,25 @@ const Profile = () => {
   const [funFact, setFunFact] = useState('');
   const [instagram, setInstagram] = useState('');
   const [twitter, setTwitter] = useState('');
-  const [avatar, setAvatar] = useState(null);
+  const [avatar, setAvatar] = useState(localStorage.getItem('avatar') || '');
+  const [isProfileUpdated, setIsProfileUpdated] = useState(false); // State to track if profile was updated
+
+  useEffect(() => {
+    // Load existing profile data from local storage
+    setName(localStorage.getItem('name') || '');
+    setEmail(localStorage.getItem('email') || '');
+    setContact(localStorage.getItem('contact') || '');
+    setFunFact(localStorage.getItem('funFact') || '');
+    setInstagram(localStorage.getItem('instagram') || '');
+    setTwitter(localStorage.getItem('twitter') || '');
+  }, []);
+
+  useEffect(() => {
+    if (isProfileUpdated) {
+      toast.success("Profile saved successfully!");
+      setIsProfileUpdated(false); // Reset the flag
+    }
+  }, [isProfileUpdated]);
 
   const handleAvatarChange = (e) => {
     const file = e.target.files[0];
@@ -17,6 +35,7 @@ const Profile = () => {
       const reader = new FileReader();
       reader.onloadend = () => {
         setAvatar(reader.result);
+        localStorage.setItem('avatar', reader.result); // Save to localStorage
       };
       reader.readAsDataURL(file);
     }
@@ -28,8 +47,15 @@ const Profile = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle form submission here
-    console.log({ name, email, contact, funFact, instagram, twitter, avatar });
+    // Save profile data to local storage
+    localStorage.setItem('name', name);
+    localStorage.setItem('email', email);
+    localStorage.setItem('contact', contact);
+    localStorage.setItem('funFact', funFact);
+    localStorage.setItem('instagram', instagram);
+    localStorage.setItem('twitter', twitter);
+
+    setIsProfileUpdated(true); // Set flag to show toast
   };
 
   return (
@@ -117,8 +143,11 @@ const Profile = () => {
        
         <button type="submit" className="profile-submit">Save Profile</button>
       </form>
+
+      <ToastContainer />
     </div>
   );
 };
 
 export default Profile;
+

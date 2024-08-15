@@ -1,3 +1,4 @@
+/* Container for the profile page */
 .profile-container {
   background-color: #000000;
   color: #39FF14;
@@ -39,8 +40,12 @@
   box-shadow: 0 0 15px #39FF14;
 }
 
+/* Header styling */
 .profile-header {
-  text-align: center;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  position: relative;
   margin-bottom: 30px;
   margin-left: 30px;
   margin-top: -30px;
@@ -49,9 +54,76 @@
 .profile-title {
   font-size: 2.5em;
   text-shadow: 0 0 10px #39FF14;
+  margin-top: -600px;
+  text-align: center;
+  flex: 1;
 }
 
+/* Header image container */
+.header-image-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+  position: relative; /* Allows easy adjustment */
+}
+.back-button-link {
+  background-color: #09ff00;
+  color: #000000;
+  margin-top: -730px ;
+  font-size: 20px;
+  height: 50px;
+  width: 100px;
+  margin-left: -50px;
+  text-align: center;
+  font-size: larger;
+  font-weight: 700;
+  border-radius: 5px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.back-button-link:hover {
+  background-color: #07d600;
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3);
+}
+
+
+.header-image1 {
+  margin: 0;
+  position: relative;
+  left: -329px; /* Adjusts position horizontally */
+  top: 160px; /* Adjusts position vertically */
+  border-radius: 8px;
+}
+
+/* Profile content layout */
+.profile-content {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  margin-right: 30px;
+}
+
+.profile-image-container {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.profile-image {
+  width: 250px;
+  height: 250px;
+  border-radius: 15px;
+  object-fit: cover;
+  box-shadow: 0 0 15px #39FF14;
+}
+
+/* Profile form styling */
 .profile-form {
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
   display: grid;
   gap: 20px;
 }
@@ -66,7 +138,8 @@
   font-weight: bold;
 }
 
-.profile-input, .profile-textarea {
+.profile-input,
+.profile-textarea {
   background-color: #111;
   border: 1px solid #39FF14;
   color: #39FF14;

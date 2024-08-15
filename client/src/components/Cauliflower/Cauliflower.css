@@ -1,0 +1,96 @@
+/* Updated styles */
+
+.cauliflower-wrapper { 
+    display: flex;
+    justify-content: center;
+    margin: 20px;
+}
+  
+.cauliflower-recipe {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+  
+.cauliflower-image-and-content {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+  
+.cauliflower-image-container {
+    flex: 1;
+    max-width: 100%; /* Adjusted to match the other divs */
+}
+  
+.cauliflower-image-container img {
+    width: 100%;
+    height: 785px; /* Adjusted to your desired height */
+}
+  
+.cauliflower-content {
+    flex: 1;
+    max-width: 100%; /* Adjusted to match the other divs */
+}
+  
+.cauliflower-rating {
+    margin: 10px 0;
+    padding: 0;
+    list-style-type: none;
+}
+  
+.cauliflower-star {
+    display: inline-block;
+    margin-right: 2px;
+}
+  
+.cauliflower-ingredients, .cauliflower-recipe_steps {
+    margin-top: 20px;
+    padding: 20px; /* Increased padding for larger divs */
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #ffffff; /* Ensure a white background */
+    text-align: left; /* Align text to the left */
+    box-sizing: border-box; /* Include padding and border in element's total width and height */
+    font-size: 25px; /* Increased font size */
+}
+  
+.cauliflower-ingredients h2, .cauliflower-recipe_steps h2 {
+    margin-bottom: 10px;
+    font-size: 22px; /* Increased font size for headings */
+}
+  
+.cauliflower-ingredients ul, .cauliflower-recipe_steps ol {
+    padding-left: 20px;
+}
+  
+.cauliflower-link {
+    display: block;
+    margin-top: 20px;
+    color: #007bff;
+    text-decoration: none;
+}
+  
+.cauliflower-link:hover {
+    text-decoration: underline;
+}
+  
+/* Hover styles for recipe_steps */
+.cauliflower-recipe_steps {
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+  
+.cauliflower-recipe_steps:hover {
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+  
+/* Hover styles for ingredients */
+.cauliflower-ingredients {
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+  
+.cauliflower-ingredients:hover {
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
