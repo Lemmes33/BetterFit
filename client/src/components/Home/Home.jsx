@@ -15,7 +15,6 @@ const Home = () => {
           <img src={HomeImage} alt="Fitness" />
         </div>
         <div className="hero-text" >
-          <h1>REACH NEW HEIGHTS IN FITNESS</h1>
           <p>Join and transform your fitness today.</p>
           <Link to="/login" style={{ color: 'white', backgroundColor: '#000', padding: '10px 20px', borderRadius: '5px', textDecoration: 'none' }}>
   START NOW
