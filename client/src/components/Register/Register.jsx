@@ -11,6 +11,8 @@ export default function Register() {
   const [username, setUsername] = useState("");
   const [age, setAge] = useState("");
 
+
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
