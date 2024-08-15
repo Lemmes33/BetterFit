@@ -4,6 +4,8 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_bcrypt import Bcrypt
 from flask_cors import CORS
+from flask_jwt_extended import JWTManager, create_access_token
+
 from dotenv import load_dotenv
 import os
 import re
@@ -20,8 +22,10 @@ from models import db,User, WorkoutPlan, NutritionPlan, ProgressTracking
 load_dotenv()
 
 app = Flask(__name__)
+
 app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URI', 'sqlite:///app.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
 app.config['JWT_SECRET_KEY'] = 'super-secret'
 app.secret_key = 'your_secret_key'
 app.config['SESSION_TYPE'] = 'filesystem'
@@ -32,6 +36,7 @@ bcrypt = Bcrypt(app)
 migrate = Migrate(app, db)
 db.init_app(app)
 api = Api(app)
+
 CORS(app, supports_credentials=True)
 jwt = JWTManager(app)
 
@@ -77,6 +82,7 @@ def validate_date(date_text):
         return True
     except ValueError:
         return False
+
 
 def admin_required(fn):
     @wraps(fn)
