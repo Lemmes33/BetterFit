@@ -41,8 +41,6 @@ def create_workout_plans(users):
             title='Beginner Cardio',
             description='A beginner-friendly cardio workout plan.',
             duration=30,
-            start_date=date.today(),
-            end_date=date.today() + timedelta(days=30),
             user_id=users[0].id  # Associate with the first user
         ),
         WorkoutPlan(
