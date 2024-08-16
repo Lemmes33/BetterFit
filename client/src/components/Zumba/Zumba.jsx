@@ -10,7 +10,7 @@ const Zumba = () => {
           <div className="zumba-card__content">
             <p className="zumba-card__category">Zumba</p>
             <h3 className="zumba-card__heading">Dance Fitness</h3>
-            <button className="zumba-card__button">More</button>
+            
           </div>
         </a>
         <a className="zumba-card" href="#">
@@ -18,7 +18,7 @@ const Zumba = () => {
           <div className="zumba-card__content">
             <p className="zumba-card__category">Zumba</p>
             <h3 className="zumba-card__heading">Cardio Dance</h3>
-            <button className="zumba-card__button">More</button>
+            
           </div>
         </a>
         <a className="zumba-card" href="#">
@@ -26,9 +26,14 @@ const Zumba = () => {
           <div className="zumba-card__content">
             <p className="zumba-card__category">Zumba</p>
             <h3 className="zumba-card__heading">Latin Dance</h3>
-            <button className="zumba-card__button">More</button>
+            
           </div>
         </a>
+      </div>
+      <div className="zumba-paragraph">
+        <p>
+          Zumba combines dance and fitness to create a fun and effective workout. With its energetic moves and rhythms, it helps improve cardiovascular health, build endurance, and boost mood. Perfect for all fitness levels, Zumba classes offer a lively and engaging way to stay active and burn calories. Join the rhythm and experience the joy of dance while getting fit and healthy.
+        </p>
       </div>
     </section>
   );

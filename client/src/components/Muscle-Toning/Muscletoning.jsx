@@ -10,7 +10,7 @@ const MuscleToning = () => {
           <div className="muscle-card__content">
             <p className="muscle-card__category">Muscle Toning</p>
             <h3 className="muscle-card__heading">Strength Training</h3>
-            <button className="muscle-card__button">More</button>
+            
           </div>
         </a>
         <a className="muscle-card" href="#">
@@ -18,7 +18,7 @@ const MuscleToning = () => {
           <div className="muscle-card__content">
             <p className="muscle-card__category">Muscle Toning</p>
             <h3 className="muscle-card__heading">Bodyweight Exercises</h3>
-            <button className="muscle-card__button">More</button>
+            
           </div>
         </a>
         <a className="muscle-card" href="#">
@@ -26,9 +26,14 @@ const MuscleToning = () => {
           <div className="muscle-card__content">
             <p className="muscle-card__category">Muscle Toning</p>
             <h3 className="muscle-card__heading">Resistance Band Workouts</h3>
-            <button className="muscle-card__button">More</button>
+            
           </div>
         </a>
+      </div>
+      <div className="muscle-info">
+        <p>
+          Muscle toning exercises are essential for building strength and improving endurance. Incorporating a variety of workouts, including strength training, bodyweight exercises, and resistance band workouts, can help enhance muscle definition and overall fitness. Consistent training and proper nutrition are key to achieving and maintaining muscle tone. Explore different methods to find what works best for you and stay committed to your fitness journey.
+        </p>
       </div>
     </section>
   );

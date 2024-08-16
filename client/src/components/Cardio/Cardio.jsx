@@ -10,7 +10,7 @@ const Cardio = () => {
           <div className="cardio-card__content">
             <p className="cardio-card__category">Cardio</p>
             <h3 className="cardio-card__heading">High-Intensity Workout</h3>
-            <button className="cardio-card__button">More</button>
+            
           </div>
         </a>
         <a className="cardio-card" href="#">
@@ -18,7 +18,7 @@ const Cardio = () => {
           <div className="cardio-card__content">
             <p className="cardio-card__category">Cardio</p>
             <h3 className="cardio-card__heading">Running for Fitness</h3>
-            <button className="cardio-card__button">More</button>
+            
           </div>
         </a>
         <a className="cardio-card" href="#">
@@ -26,9 +26,14 @@ const Cardio = () => {
           <div className="cardio-card__content">
             <p className="cardio-card__category">Cardio</p>
             <h3 className="cardio-card__heading">Cycling Adventures</h3>
-            <button className="cardio-card__button">More</button>
+            
           </div>
         </a>
+      </div>
+      <div className="cardio-paragraph">
+        <p>
+          Cardio workouts are crucial for improving cardiovascular health and increasing overall fitness levels. Engaging in high-intensity interval training, running, or cycling can boost your endurance, help with weight management, and enhance mental well-being. Incorporate these activities into your routine to experience significant health benefits and achieve your fitness goals more effectively. Remember to stay hydrated and consult a fitness professional to tailor workouts to your individual needs.
+        </p>
       </div>
     </section>
   );

@@ -1,7 +1,7 @@
 .cardio-hero-section {
   font-family: 'Montserrat', sans-serif;
   display: flex;
-  justify-content: center;
+  flex-direction: column; /* Stack items vertically */
   align-items: center;
   padding: 50px 0;
 }
@@ -9,6 +9,9 @@
 .cardio-card-grid {
   display: flex;
   gap: 20px;
+  flex-wrap: wrap; /* Allow wrapping of cards */
+  justify-content: center; /* Center cards horizontally */
+  margin-bottom: 20px; /* Space between the cards and the paragraph */
 }
 
 .cardio-card {
@@ -62,4 +65,21 @@
 
 .cardio-card__button:hover {
   background-color: #0056b3;
+}
+
+/* New styles for the paragraph section */
+.cardio-paragraph {
+  max-width: 800px;
+  padding: 20px;
+  margin-top: 20px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.cardio-paragraph:hover {
+  background-color: #212122;
+  box-shadow: 0 8px 16px rgba(82, 126, 76, 0.2);
 }

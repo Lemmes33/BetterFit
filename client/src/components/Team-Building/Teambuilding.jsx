@@ -10,7 +10,7 @@ const TeamBuilding = () => {
           <div className="team-card__content">
             <p className="team-card__category">Team Building</p>
             <h3 className="team-card__heading">Collaborative Challenges</h3>
-            <button className="team-card__button">More</button>
+            
           </div>
         </a>
         <a className="team-card" href="#">
@@ -18,7 +18,7 @@ const TeamBuilding = () => {
           <div className="team-card__content">
             <p className="team-card__category">Team Building</p>
             <h3 className="team-card__heading">Creative Workshops</h3>
-            <button className="team-card__button">More</button>
+            
           </div>
         </a>
         <a className="team-card" href="#">
@@ -26,9 +26,14 @@ const TeamBuilding = () => {
           <div className="team-card__content">
             <p className="team-card__category">Team Building</p>
             <h3 className="team-card__heading">Problem-Solving Activities</h3>
-            <button className="team-card__button">More</button>
+            
           </div>
         </a>
+      </div>
+      <div className="team-info">
+        <p>
+          Effective team building activities foster collaboration and communication among team members. Engaging in various challenges and creative workshops helps strengthen relationships, improve problem-solving skills, and boost overall team morale. Whether it’s through collaborative challenges or problem-solving activities, team building is essential for creating a cohesive and motivated team that can tackle any challenge together.
+        </p>
       </div>
     </section>
   );

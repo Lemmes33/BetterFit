@@ -1,66 +1,87 @@
 .pilates-hero-section {
-    font-family: 'Montserrat', sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 50px 0;
-  }
-  
-  .pilates-card-grid {
-    display: flex;
-    gap: 20px;
-  }
-  
-  .pilates-card {
-    display: block;
-    width: 300px;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
-    transition: transform 0.3s ease;
-    text-decoration: none;
-  }
-  
-  .pilates-card:hover {
-    transform: translateY(-10px);
-  }
-  
-  .pilates-card__background {
-    width: 100%;
-    height: 200px;
-    background-size: cover;
-    background-position: center;
-  }
-  
-  .pilates-card__content {
-    padding: 20px;
-    background-color: white;
-  }
-  
-  .pilates-card__category {
-    font-size: 14px;
-    color: #888;
-    margin-bottom: 5px;
-  }
-  
-  .pilates-card__heading {
-    font-size: 20px;
-    color: #333;
-  }
-  
-  .pilates-card__button {
-    margin-top: 10px;
-    padding: 8px 15px;
-    font-size: 14px;
-    color: white;
-    background-color: #007bff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .pilates-card__button:hover {
-    background-color: #0056b3;
-  }
-  
+  font-family: 'Montserrat', sans-serif;
+  display: flex;
+  flex-direction: column; /* Stack items vertically */
+  align-items: center;
+  padding: 50px 0;
+}
+
+.pilates-card-grid {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap; /* Allow wrapping */
+  justify-content: center; /* Center cards horizontally */
+  margin-bottom: 20px; /* Space between the cards and the paragraph */
+}
+
+.pilates-card {
+  display: block;
+  width: 300px;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s ease;
+  text-decoration: none;
+}
+
+.pilates-card:hover {
+  transform: translateY(-10px);
+}
+
+.pilates-card__background {
+  width: 100%;
+  height: 200px;
+  background-size: cover;
+  background-position: center;
+}
+
+.pilates-card__content {
+  padding: 20px;
+  background-color: white;
+}
+
+.pilates-card__category {
+  font-size: 14px;
+  color: #888;
+  margin-bottom: 5px;
+}
+
+.pilates-card__heading {
+  font-size: 20px;
+  color: #333;
+}
+
+.pilates-card__button {
+  margin-top: 10px;
+  padding: 8px 15px;
+  font-size: 14px;
+  color: white;
+  background-color: #007bff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.pilates-card__button:hover {
+  background-color: #0056b3;
+}
+
+/* New styles for the paragraph section */
+.pilates-info {
+  max-width: 800px;
+  padding: 20px;
+  margin-top: 20px;
+  background-color: #f0eeee;
+  color: #121213;
+  border: 1px solid #0f4703;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.pilates-info:hover {
+  background-color: #111111;
+  box-shadow: 0 8px 16px rgba(65, 110, 68, 0.2);
+  color: #121213;
+}
