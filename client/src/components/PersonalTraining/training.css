@@ -29,7 +29,7 @@
   }
   
   .training__title span {
-    color: #11e918;
+    color: #82f005;
   }
   
   .training__subtitle {
@@ -44,11 +44,11 @@
   }
   .training h3{
     text-align: center;
-    color: #09ff00;
+    color: #82f005;
   }
   
   .training__button {
-    background-color: #11e918; /* Green */
+    background-color: #82f005;
     border: none;
     color: rgb(0, 0, 0);
     padding: 15px 32px;
@@ -69,12 +69,17 @@
   
   .training__image {
     position: relative;
+    background-color: #82f005 ;
+    border-radius: 100%;
+    margin-top: -50px;
+    
   }
   
   .training__img {
     width: 400px;
     height: auto;
-    border-radius: 50%;
+    margin-bottom: -50px;
+    
   }
   
   .training__image::before {

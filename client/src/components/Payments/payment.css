@@ -33,7 +33,7 @@
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2), /* Base shadow */
               0 8px 12px rgba(0, 0, 0, 0.2), /* Larger shadow for depth */
               0 16px 24px rgba(0, 0, 0, 0.2), /* Even larger shadow for more depth */
-              0 0 15px rgba(4, 252, 45, 0.5); /* Green glowing effect */
+              0 0 15px r#82f005; /* Green glowing effect */
 }
 
 .payment-card:before {
@@ -74,6 +74,13 @@
   transition: transform 700ms cubic-bezier(0.19, 1, 0.22, 1);
   z-index: 1;
 }
+.main-title1{
+  color: white;
+  text-align: center;
+}
+.sub-title1{
+  text-align: center;
+}
 
 .content > * + * {
   margin-top: 5rem;
@@ -105,20 +112,20 @@
   letter-spacing: 0.025rem;
   text-transform: uppercase;
   color: white; /* Text color set to white */
-  background-color: rgb(0, 255, 0); /* Neon green background color */
+  background-color: #82f005; /* Neon green background color */
   border: none;
   border-radius: 5px; /* Optional: adds rounded corners */
   transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transition */
 }
 
 .btn:hover {
-  background-color: #00e600; /* Slightly different neon green for hover effect */
+  background-color: #82f005;
   transform: scale(1.05); /* Slightly scale up on hover */
   color: white; /* Ensure text color remains white on hover */
 }
 
 .btn:focus {
-  outline: 1px dashed rgb(1, 255, 56);
+  outline: 1px dashed #82f005;
   outline-offset: 3px;
 }
 

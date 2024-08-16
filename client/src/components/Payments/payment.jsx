@@ -24,8 +24,8 @@ const Card = ({ title, details, button }) => (
 
 const Payment = () => (
   <div className="payment-container">
-    <h1 className="main-title">Choose a Plan</h1>
-    <h2 className="sub-title">PRICING PACKAGE</h2>
+    <h1 className="main-title1">Choose a Plan</h1>
+    <h2 className="sub-title1">PRICING PACKAGE</h2>
     <main className="page-content">
       {cards.map((card, index) => (
         <Card key={index} {...card} />

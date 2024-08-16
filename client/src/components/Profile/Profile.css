@@ -25,7 +25,7 @@
 
 /* Back button styling */
 .back-button1 {
-  background-color: #09ff00;
+  background-color: #82f005;
   border: none;
   color: #000000;
   margin-top: -750px;
@@ -40,7 +40,7 @@
 }
 
 .back-button1:hover {
-  background-color: #07d600;
+  background-color: #5ead04;
   box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3);
 }
 
@@ -192,8 +192,8 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border: 2px solid #39FF14;
-  box-shadow: 0 0 15px #39FF14;
+  border: 2px solid #82f005;
+  box-shadow: 0 0 15px #82f005;
   background-color: #333;
 }
 
@@ -203,9 +203,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #39FF14;
+  color: #82f005;
   font-size: 3em;
-  border: 2px solid #39FF14;
+  border: 2px solid #82f005;
   background-color: #333;
 }
 
