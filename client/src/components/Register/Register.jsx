@@ -114,9 +114,9 @@ const Register = () => {
                 placeholder="Age"
               />
               
-              <button className="login-btn-signup" type="submit">
+              <Link to="/login" className="login-btn-signup" type="submit">
                 SIGN UP <i className="fa fa-arrow-right" aria-hidden="true"></i>
-              </button>
+              </Link>
             </form>
           </div>
         </div>

@@ -107,13 +107,13 @@
 }
 
 .login-link {
-  color: #fff;
+  color: #000000;
   text-decoration: none;
 }
 
 .login-link:active,
 .login-link:hover {
-  border-bottom: 1px solid #1aa52c;
+  border-bottom: 1px solid #41910b;
 }
 
 .login-sign-up-info {
@@ -159,10 +159,11 @@
 .login-btn-signup {
   font-family: Helvetica, sans-serif;
   font-size: 18px;
+  font-weight: 200;
   letter-spacing: 1px;
-  color: #fafafa;
+  color: #000000;
   border: none;
-  background-color: #1aa52c;
+  background-color:  #82f005;
   margin-top: 68px;
   padding-top: 15px;
   padding-bottom: 15px;
