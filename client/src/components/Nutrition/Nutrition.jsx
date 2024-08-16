@@ -45,7 +45,7 @@ const NutriPlanner = () => {
           imageUrl="https://i.pinimg.com/564x/bf/47/ab/bf47ab92ec9e228d30da521926bf0d8a.jpg"
           title="Vegan Diet"
           author="Oballa"
-          description="A vegan diet focuses on plant-based foods and excludes all animal products. It's rich in fruits, vegetables, grains, nuts, and seeds, providing essential nutrients and antioxidants. This diet can promote heart health, reduce the risk of chronic diseases, and support weight management. However, it's important to plan meals carefully to ensure adequate intake of, calcium, and vitamin B12(Cobalamin)."
+          description="A vegan diet focuses on plant-based foods and excludes all animal products. It's rich in fruitsand vegetables. This diet can promote heart health, reduce the risk of chronic diseases, and support weight management. ."
           route="/vegan"
         />
         
@@ -53,14 +53,14 @@ const NutriPlanner = () => {
           imageUrl="https://i.pinimg.com/564x/48/ff/38/48ff38738c9f8251a0ce7ecec4d58265.jpg"
           title="Gluten-Free Diet"
           author="Oballa"
-          description="A gluten-free diet eliminates all forms of gluten, a protein found in wheat, barley, and rye. It's essential for individuals with celiac disease or gluten sensitivity. This diet involves eating naturally gluten-free foods like fruits, vegetables, meat, and dairy, as well as gluten-free grains like quinoa and rice. Careful label reading is necessary to avoid hidden gluten in processed foods."
+          description="A gluten-free diet eliminates all forms of gluten, a protein found in wheat, barley, and rye. This diet involves eating naturally gluten-free foods like fruits, vegetables, meat, and dairy, as well as gluten-free grains like quinoa and rice. "
           route="/gluten"
         />
         <NutriPlannerCard
           imageUrl="https://i.pinimg.com/564x/ca/5d/e9/ca5de9e75f0873f3d38f56fddd854b55.jpg"
           title="Protein-Based Diet"
           author="Oballa"
-          description="A protein-based diet focuses on protein-rich foods like lean meats, fish, eggs, dairy, legumes, and tofu. It's popular for supporting muscle growth and aiding in weight management by promoting fullness and reducing calorie intake. However, balance is crucial to avoid excess saturated fat."
+          description="A protein-based diet focuses on protein-rich foods like lean meats, fish, eggs, dairy, legumes, and tofu. It's popular for supporting muscle growth and aiding in weight management by promoting fullness and reducing calorie intake. "
           route="/protein"
         />
       </div>
