@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import "./register.css";
 import { wrappedFetch } from "../../utils";
-import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 const Register = () => {
   const [showSignUp, setShowSignUp] = useState(true);
@@ -31,7 +32,8 @@ const Register = () => {
         alert(data.error);
       } else {
         localStorage.setItem("token", data.token);
-        navigate("/dashboard");
+        toast.success("Account successfully made!");
+        setTimeout(() => navigate("/dashboard"), 2000); // Navigate after a short delay
       }
     } catch (error) {
       console.error("Sign up error:", error);
@@ -41,87 +43,85 @@ const Register = () => {
 
   return (
     <>
-     <button className="back-button">
-    <Link to="/" className="backbutton">Back</Link>
-  </button>
-    <div className="login-container">
-      <div className="login-left-side">
-        
-        <div className="login-left-side-bg"></div>
-      </div>
-      <div className="login-right-side">
-        <div className="login-sign-in-container">
-          <div className="login-sign-in">
-            <Link to="/login"
-              id="signin"
-              className={`login-btn-header ${!showSignUp ? "active" : ""}`}
-              type="button"
-              onClick={toggleSignUp}
-            >
-              Sign In
-            </Link>
-          </div>
-          <div className="login-sign-up">
-            <button
-              id="signup"
-              className={`login-btn-header ${showSignUp ? "active" : ""}`}
-              type="button"
-              onClick={() => setShowSignUp(true)}
-            >
-              Sign Up
-            </button>
-          </div>
-          
-          <div
-            id="signup-tab"
-            className={`login-sign-up-info ${!showSignUp ? "login-hidden" : ""}`}
-          >
-            <form onSubmit={signup}>
-              <div className="login-prompt-field">USERNAME</div>
-              <input
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                type="text"
-                name="login-name"
-                className="login-input-field"
-                placeholder="Create a username"
-              />
-              <div className="login-prompt-field">PASSWORD</div>
-              <input
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                type="password"
-                name="login-password"
-                className="login-input-field"
-                placeholder="*****"
-              />
-              <div className="login-prompt-field">E-MAIL</div>
-              <input
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                type="text"
-                name="login-email"
-                className="login-input-field"
-                placeholder="Enter your e-mail address"
-              />
-              <div className="login-prompt-field">AGE</div>
-              <input
-                value={age}
-                onChange={(e) => setAge(e.target.value)}
-                type="number"
-                name="age"
-                className="login-input-field"
-                placeholder="Age"
-              />
-              
-              <Link to="/login" className="login-btn-signup" type="submit">
-                SIGN UP <i className="fa fa-arrow-right" aria-hidden="true"></i>
+      <button className="back-button">
+        <Link to="/" className="backbutton">Back</Link>
+      </button>
+      <div className="login-container">
+        <div className="login-left-side">
+          <div className="login-left-side-bg"></div>
+        </div>
+        <div className="login-right-side">
+          <div className="login-sign-in-container">
+            <div className="login-sign-in">
+              <Link to="/login"
+                id="signin"
+                className={`login-btn-header ${!showSignUp ? "active" : ""}`}
+                type="button"
+                onClick={toggleSignUp}
+              >
+                Sign In
               </Link>
-            </form>
+            </div>
+            <div className="login-sign-up">
+              <button
+                id="signup"
+                className={`login-btn-header ${showSignUp ? "active" : ""}`}
+                type="button"
+                onClick={() => setShowSignUp(true)}
+              >
+                Sign Up
+              </button>
+            </div>
+            <div
+              id="signup-tab"
+              className={`login-sign-up-info ${!showSignUp ? "login-hidden" : ""}`}
+            >
+              <form onSubmit={signup}>
+                <div className="login-prompt-field">USERNAME</div>
+                <input
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  type="text"
+                  name="login-name"
+                  className="login-input-field"
+                  placeholder="Create a username"
+                />
+                <div className="login-prompt-field">PASSWORD</div>
+                <input
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  type="password"
+                  name="login-password"
+                  className="login-input-field"
+                  placeholder="*****"
+                />
+                <div className="login-prompt-field">E-MAIL</div>
+                <input
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  type="text"
+                  name="login-email"
+                  className="login-input-field"
+                  placeholder="Enter your e-mail address"
+                />
+                <div className="login-prompt-field">AGE</div>
+                <input
+                  value={age}
+                  onChange={(e) => setAge(e.target.value)}
+                  type="number"
+                  name="age"
+                  className="login-input-field"
+                  placeholder="Age"
+                />
+                <Link to="/login" className="login-btn-signup" type="submit">
+                  CREATE ACCOUNT <i className="fa fa-arrow-right" aria-hidden="true"></i>
+                </Link>
+              </form>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+      <ToastContainer />
     </>
   );
 };
