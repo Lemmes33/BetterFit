@@ -199,7 +199,7 @@ p{
     margin: 0 0 2rem 0;
   }
 }
-.program-button{
+.program-button1{
   display: inline-block;
   padding: 10px 20px;
   font-size: 16px;
@@ -207,11 +207,17 @@ p{
   text-align: center;
   color: #6b9962;
 }
-.program-button:hover {
+.program-button1:hover {
   background-color: #57864d; /* Slightly darker shade for hover effect */
   transform: translateY(-3px);
 }
 
-.program-button:active {
+.program-button1:active  {
   background-color: #0b3a02; /* Even darker shade for active state */
+}
+.wrapper1 h1{
+  color: #000000;
+}
+.wrapper1 h2{
+  text-align: center;
 }

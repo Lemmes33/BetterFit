@@ -20,7 +20,7 @@ const training = () => {
             We have experts who expertise in technique and
             motivation ensuring effective and safe workouts
           </p>
-          <Link to="/Membership"><h3>Become a member now</h3></Link>
+          <Link to="/Membership" className='be'><h3>Become a member now</h3></Link>
         </div>
         <div className="training__image">
           <img src={Shaina} alt="Woman working out" className="training__img" />

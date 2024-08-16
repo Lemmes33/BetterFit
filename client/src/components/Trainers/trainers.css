@@ -72,7 +72,7 @@
   }
   
   .trainer-card .social-icon:hover i {
-    color: #00f50c;
+    color: #82f005;
   }
   
   .trainer-card img {
@@ -116,15 +116,10 @@
     font-size: 0.9rem;
   }
   
-  .trainer-card .trainer-content-wrapper .trainer-content svg {
-    display: inline-block;
-    text-align: right;
-    width: 60px;
-    color: #00f521;
-  }
+  
   
   .trainer-card .trainer-img-wrapper:hover ~ .trainer-content-wrapper .trainer-content {
-    background: #00f50c;
+    background: #82f005;
   }
   
   .trainer-card .trainer-img-wrapper:hover ~ .trainer-content-wrapper .trainer-content h3,
@@ -134,11 +129,11 @@
   }
   
   .trainer-card .trainer-content-wrapper:hover .trainer-content {
-    background: #00f521;
+    background: #82f005;
   }
   
   .trainer-card .trainer-content-wrapper:hover .trainer-content h3,
   .trainer-card .trainer-content-wrapper:hover .trainer-content p,
   .trainer-card .trainer-content-wrapper:hover .trainer-content svg {
-    color: #fff;
+    color: #000000;
   }

@@ -126,7 +126,7 @@ const Login = () => {
                 placeholder="*************"
               />
               
-              <button className="login-btn-signin" type="submit">
+              <button className="signin-button">
                 SIGN IN <i className="fa fa-arrow-right" aria-hidden="true"></i>
               </button>
             </form>

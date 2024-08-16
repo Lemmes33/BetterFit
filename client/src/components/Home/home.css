@@ -8,24 +8,34 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: linear-gradient(51deg, rgba(0, 0, 0, 1) 14%, rgb(100, 245, 4) 50%);
+  background: linear-gradient(51deg, rgba(0, 0, 0, 1) 19%, rgb(141, 245, 4) 50%);
   color: rgb(0, 0, 0);
   padding: 50px;
 }
 
 .hero-text {
-  flex: 1;
-  color: black;
-  text-align: right;
-  margin-right: 50px; /* Adjusted for proper alignment */
+  text-align: right; /* Center-align text and button */
+  margin-top: -90px; /* Add margin around the whole section */
+  
 }
 
 .hero-text h1 {
-  color: black;
-  text-align: right;
-  font-size: 2.5em;
-  margin: 0; /* Removed left margin for better alignment */
+  margin-bottom: 20px; /* Space between the heading and the paragraph */
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 600;
+  color: #000;
 }
+
+.hero-text p {
+  margin-bottom: 20px; /* Space between the paragraph and the button */
+  color: #000;
+}
+
+.hero-text a {
+  display: inline-block; /* Ensure the button doesn't stretch across the container */
+  margin-top: 10px; /* Space above the button */
+}
+
 
 .start-now-link {
   color: white;
@@ -102,8 +112,8 @@
 .stats-section {
   display: flex;
   justify-content: space-around;
-  background-color: #02b602;
-  color: white;
+  background-color: #82f005;
+  color: rgb(5, 5, 5);
   padding: 50px;
   margin-bottom: 0;
 }
@@ -115,4 +125,5 @@
 
 .stat p {
   font-size: 1em;
+  color: #000;
 }

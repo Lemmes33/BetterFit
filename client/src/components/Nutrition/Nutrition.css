@@ -11,7 +11,7 @@ body {
 }
 
 .nutriPlanner-section {
-  background-color: #ffffff; /* White background color */
+  background-color: #eaece0; /* White background color */
   color: #000;
   padding: 40px 20px; /* Add padding around the entire section */
   width: 100%;
@@ -101,7 +101,8 @@ body {
 }
 
 .span2 {
-  color: rgb(0, 177, 0);
+  color: #82f005;
+  
 }
 .card-button {
   display: inline-block;
@@ -109,16 +110,20 @@ body {
   font-size: 16px;
   font-weight: bold;
   text-align: center;
-  color: #fff;
-  background-color: #34662b; /* Aluminous green color */
+  color: #252525;
+  background-color: #82f005;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 300ms ease, transform 200ms ease;
 }
+.nutriPlanner-intro{
+  text-align: center;
+  margin-bottom: 20px;
+}
 
 .card-button:hover {
-  background-color: #57864d; /* Slightly darker shade for hover effect */
+  background-color: #63b307;
   transform: translateY(-3px);
 }
 

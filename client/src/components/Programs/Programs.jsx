@@ -1,42 +1,50 @@
 import React from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import './Programs.css';
-import { Link } from 'react-router-dom';
 
 const Programs = () => {
+  const location = useLocation();
+  const showBackButton = location.pathname === '/programs'; // Adjust the path if needed
+
   return (
-    <section className='programs-section'>
-      <div className="wrapper1">
-        <h1>Our Training Programs</h1>
-        <h2>
-          Embark on your fitness journey with us and discover a range of programs tailored to help you achieve your health and wellness goals. 
-          Whether you're a beginner looking to start fresh or an experienced athlete seeking new challenges, 
-          our expertly designed programs offer something for everyone. 
-          Join us today and take the first step towards a healthier, stronger you!
-        </h2>
-        <div className="cols1">
-          {cardData.map((card, index) => (
-            <div className="col1" key={index} onTouchStart={() => document.querySelector(`#card-${index}`).classList.toggle('hover1')}>
-              <div className="container1" id={`card-${index}`}>
-                <div className="front1" style={{ backgroundImage: `url(${card.image})` }}>
-                  <div className="inner1">
-                    <p>{card.title}</p>
-                    <span>{card.subtitle}</span>
+    <>
+      {showBackButton && (
+        <button className="back-button1">
+          <Link to="/" className="backbutton1">Back</Link>
+        </button>
+      )}
+      <section className='programs-section'>
+        <div className="wrapper1">
+          <h1>Our Training Programs</h1>
+          <h2>
+            Embark on your fitness journey with us and discover a range of programs tailored to help you achieve your health and wellness goals. 
+            
+          </h2>
+          <div className="cols1">
+            {cardData.map((card, index) => (
+              <div className="col1" key={index} onTouchStart={() => document.querySelector(`#card-${index}`).classList.toggle('hover1')}>
+                <div className="container1" id={`card-${index}`}>
+                  <div className="front1" style={{ backgroundImage: `url(${card.image})` }}>
+                    <div className="inner1">
+                      <p>{card.title}</p>
+                      <span>{card.subtitle}</span>
+                    </div>
                   </div>
-                </div>
-                <div className="back1">
-                  <div className="inner1">
-                    <p>{card.description}</p>
-                    <Link to={card.link} className="program-button">
-                      More
-                    </Link>
+                  <div className="back1">
+                    <div className="inner1">
+                      <p>{card.description}</p>
+                      <Link to={card.link} className="program-button">
+                        More
+                      </Link>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 };
 
