@@ -1,31 +1,40 @@
-from flask import Flask, request, jsonify, session
+# app.py
+from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_bcrypt import Bcrypt
 from flask_cors import CORS
-from flask_jwt_extended import JWTManager, create_access_token
 from dotenv import load_dotenv
 import os
 import re
 from datetime import datetime
 from cryptography.fernet import Fernet
+from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
+from functools import wraps
+from flask_restful import Api, Resource, reqparse
+import requests
+from requests.auth import HTTPBasicAuth
+import base64
+import json
 
 load_dotenv()
 
 app = Flask(__name__)
-
 app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URI', 'sqlite:///app.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['JWT_SECRET_KEY'] = os.getenv('JWT_SECRET_KEY', 'your-secret-key')  # Change this to your actual secret key
-app.secret_key = os.getenv('SECRET_KEY', 'your_secret_key')
+app.config['JWT_SECRET_KEY'] = 'super-secret'
+app.secret_key = 'your_secret_key'
 app.config['SESSION_TYPE'] = 'filesystem'
 
-db = SQLAlchemy(app)
+# Initialize extensions
 bcrypt = Bcrypt(app)
+db = SQLAlchemy(app)
 migrate = Migrate(app, db)
-jwt = JWTManager(app)
+api = Api(app)
 CORS(app, supports_credentials=True)
+jwt = JWTManager(app)
 
+# Handle encryption key
 encryption_key = os.getenv('ENCRYPTION_KEY')
 if not encryption_key:
     encryption_key = Fernet.generate_key().decode()
@@ -57,7 +66,9 @@ def validate_password(password):
     return True
 
 def validate_age(age):
-    return age.isdigit() and 18 <= int(age) <= 120
+    if isinstance(age, int) and 18 <= age <= 120:
+        return True
+    return False
 
 def validate_date(date_text):
     try:
@@ -66,77 +77,70 @@ def validate_date(date_text):
     except ValueError:
         return False
 
-class User(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String, nullable=False)
-    email = db.Column(db.String, unique=True, nullable=False)
-    password = db.Column(db.String, nullable=False)
-    age = db.Column(db.Integer, nullable=False)
+def admin_required(fn):
+    @wraps(fn)
+    @jwt_required()
+    def wrapper(*args, **kwargs):
+        from models import User  # Deferred import
+        user_id = get_jwt_identity()
+        user = User.query.get(user_id)
+        if user is None:
+            return jsonify({"error": "User not found"}), 404
+        if user.role != 'admin':
+            return jsonify({"error": "Admin access required"}), 403
+        return fn(*args, **kwargs)
+    return wrapper
 
-    def to_dict(self):
-        return {
-            "id": self.id,
-            "username": self.username,
-            "email": self.email,
-            "age": self.age,
-        }
+def get_mpesa_token():
+    consumer_key = 'YXZhAOLvjYqmX7TkAirasXHJfTjUHHqQtIOAGXYTLjjVfvUK'
+    consumer_secret = 'c6SpWnqqHckfRGGGKQt56LKdwIDrMQXeHlGs9PEiSbfGLLAmnbUjc7niS8olHtJ2'
+    api_URL = "https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials"
+    r = requests.get(api_URL, auth=HTTPBasicAuth(consumer_key, consumer_secret))
+    return r.json()['access_token']
 
-class WorkoutPlan(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String, nullable=False)
-    description = db.Column(db.String, nullable=True)
-    duration = db.Column(db.Integer, nullable=False)
-    start_date = db.Column(db.Date, nullable=False)
-    end_date = db.Column(db.Date, nullable=False)
+class MakeSTKPush(Resource):
+    parser = reqparse.RequestParser()
+    parser.add_argument('phone', type=str, required=True, help="This field is required")
+    parser.add_argument('amount', type=str, required=True, help="This field is required")
 
-    def to_dict(self):
-        return {
-            "id": self.id,
-            "title": decrypt(self.title),
-            "description": decrypt(self.description) if self.description else None,
-            "duration": self.duration,
-            "start_date": self.start_date.isoformat(),
-            "end_date": self.end_date.isoformat()
-        }
+    def post(self):
+        from models import User  # Deferred import
+        data = MakeSTKPush.parser.parse_args()
+        try:
+            access_token = get_mpesa_token()
+            api_url = "https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest"
+            headers = {
+                "Authorization": f"Bearer {access_token}",
+                "Content-Type": "application/json"
+            }
+            request = {
+                "BusinessShortCode": "174379",
+                "Password": "MTc0Mzc5YmZiMjc5ZjlhYTliZGJjZjE1OGU5N2RkNzFhNDY3Y2QyZTBjODkzMDU5YjEwZjc4ZTZiNzJhZGExZWQyYzkxOTIwMTYwMjE2MTY1NjI3",
+                "Timestamp": "20160216165627",
+                "TransactionType": "CustomerPayBillOnline",
+                "Amount": data["amount"],
+                "PartyA": data["phone"],
+                "PartyB": "174379",
+                "PhoneNumber": data["phone"],
+                "CallBackURL": "https://mydomain.com/pat",
+                "AccountReference": "Test",
+                "TransactionDesc": "Test"
+            }
+            response = requests.post(api_url, json=request, headers=headers)
+            if response.status_code > 299:
+                return {"success": False, "message": "Sorry, something went wrong please try again later."}, 400
+            return {"data": json.loads(response.text)}, 200
+        except:
+            return {"success": False, "message": "Sorry something went wrong please try again."}, 400
 
-class NutritionPlan(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, nullable=False)
-    title = db.Column(db.String, nullable=False)
-    description = db.Column(db.String, nullable=True)
-    start_date = db.Column(db.Date, nullable=False)
-    end_date = db.Column(db.Date, nullable=False)
+# Register the M-Pesa STK Push resource
+api.add_resource(MakeSTKPush, "/stkpush")
 
-    def to_dict(self):
-        return {
-            "id": self.id,
-            "user_id": self.user_id,
-            "title": decrypt(self.title),
-            "description": decrypt(self.description) if self.description else None,
-            "start_date": self.start_date.isoformat(),
-            "end_date": self.end_date.isoformat()
-        }
-
-class ProgressTracking(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, nullable=False)
-    weight = db.Column(db.Float, nullable=False)
-    measurements = db.Column(db.String, nullable=True)
-    date = db.Column(db.Date, nullable=False)
-
-    def to_dict(self):
-        return {
-            "id": self.id,
-            "user_id": self.user_id,
-            "weight": self.weight,
-            "measurements": decrypt(self.measurements) if self.measurements else None,
-            "date": self.date.isoformat()
-        }
-
+# Define routes and resources
 
 @app.route('/register', methods=['POST'])
 def register():
-    data = request.get_json() or {}
+    data = request.get_json()
     username = data.get("username")
     email = data.get("email")
     password = data.get("password")
@@ -151,9 +155,15 @@ def register():
     if not validate_password(password):
         return {"error": "Password must be at least 8 characters long, contain an uppercase letter, a lowercase letter, a number, and a special character"}, 400
 
+    try:
+        age = int(age)
+    except ValueError:
+        return {"error": "Age must be a number"}, 400
+
     if not validate_age(age):
         return {"error": "Invalid age. Age must be a number between 18 and 120."}, 400
 
+    from models import User  # Deferred import
     if User.query.filter_by(email=email).first():
         return {"error": "Email already exists"}, 400
 
@@ -162,7 +172,7 @@ def register():
         username=username,
         email=email,
         password=hashed_password,
-        age=int(age),
+        age=age,
     )
     db.session.add(new_user)
     db.session.commit()
@@ -170,25 +180,25 @@ def register():
 
 @app.route('/login', methods=['POST'])
 def login():
-    data = request.get_json() or {}
-    email = data.get("email")
-    password = data.get("password")
-
+    from models import User  # Deferred import
+    email = request.json.get("email")
+    password = request.json.get("password")
     user = User.query.filter_by(email=email).first()
     if user and bcrypt.check_password_hash(user.password, password):
-        access_token = create_access_token(identity={'username': user.username})
-        session['user_id'] = user.id
-        return {"message": "Logged in successfully", "access_token": access_token}, 200
+        access_token = create_access_token(identity=user.id, expires_delta=False)
+        return {"access_token": access_token}, 200
     return {"error": "Invalid credentials"}, 401
 
 @app.route('/logout', methods=['POST'])
+@jwt_required()
 def logout():
-    session.pop('user_id', None)
     return {"message": "Logged out successfully"}, 200
 
 @app.route('/users', methods=['GET'])
 @app.route('/users/<int:user_id>', methods=['GET'])
-def get_users(user_id=None):
+@jwt_required()
+def get_user(user_id=None):
+    from models import User  # Deferred import
     if user_id:
         user = User.query.get(user_id)
         if user:
@@ -198,203 +208,98 @@ def get_users(user_id=None):
     users = User.query.all()
     return {"users": [user.to_dict() for user in users]}, 200
 
+@app.route('/profile', methods=['GET'])
+@jwt_required()
+def user_profile():
+    from models import User  # Deferred import
+    current_user_id = get_jwt_identity()
+    user = User.query.get(current_user_id)
+    if user:
+        return jsonify(user.to_dict())
+    return {"error": "User not found"}, 404
+
 @app.route('/workout_plans', methods=['POST'])
-def create_workout_plan():
-    data = request.get_json() or {}
-
-    if not data.get('title') or not data.get('duration') or not data.get('start_date') or not data.get('end_date'):
-        return {"error": "Missing required fields"}, 400
-
-    if not validate_date(data['start_date']) or not validate_date(data['end_date']):
-        return {"error": "Invalid date format. Use YYYY-MM-DD"}, 400
-
-    new_plan = WorkoutPlan(
-        title=encrypt(data['title']),
-        description=encrypt(data['description']) if data.get('description') else None,
-        duration=data['duration'],
-        start_date=datetime.strptime(data['start_date'], '%Y-%m-%d').date(),
-        end_date=datetime.strptime(data['end_date'], '%Y-%m-%d').date()
-    )
-    db.session.add(new_plan)
-    db.session.commit()
-    return new_plan.to_dict(), 201
-
 @app.route('/workout_plans', methods=['GET'])
-@app.route('/workout_plans/<int:plan_id>', methods=['GET'])
-def get_workout_plans(plan_id=None):
-    if plan_id:
-        plan = WorkoutPlan.query.get(plan_id)
-        if plan:
-            return plan.to_dict(), 200
-        return {"error": "Plan not found"}, 404
+@jwt_required()
+def workout_plans():
+    from models import WorkoutPlan  # Deferred import
+    if request.method == 'POST':
+        data = request.get_json()
 
-    plans = WorkoutPlan.query.all()
-    return [plan.to_dict() for plan in plans], 200
+        if not data.get('title') or not data.get('duration') or not data.get('start_date') or not data.get('end_date'):
+            return {"error": "Missing required fields"}, 400
 
-@app.route('/workout_plans/<int:plan_id>', methods=['PATCH'])
-def update_workout_plan(plan_id):
-    plan = WorkoutPlan.query.get(plan_id)
-    if not plan:
-        return {"error": "Plan not found"}, 404
+        if not validate_date(data['start_date']) or not validate_date(data['end_date']):
+            return {"error": "Invalid date format. Use YYYY-MM-DD."}, 400
 
-    data = request.get_json() or {}
+        new_plan = WorkoutPlan(
+            title=data['title'],
+            duration=data['duration'],
+            start_date=data['start_date'],
+            end_date=data['end_date'],
+            user_id=get_jwt_identity()
+        )
+        db.session.add(new_plan)
+        db.session.commit()
+        return {"message": "Workout plan created successfully"}, 201
 
-    if 'title' in data:
-        plan.title = encrypt(data['title'])
-    if 'description' in data:
-        plan.description = encrypt(data['description'])
-    if 'duration' in data:
-        plan.duration = data['duration']
-    if 'start_date' in data:
-        if not validate_date(data['start_date']):
-            return {"error": "Invalid date format. Use YYYY-MM-DD"}, 400
-        plan.start_date = datetime.strptime(data['start_date'], '%Y-%m-%d').date()
-    if 'end_date' in data:
-        if not validate_date(data['end_date']):
-            return {"error": "Invalid date format. Use YYYY-MM-DD"}, 400
-        plan.end_date = datetime.strptime(data['end_date'], '%Y-%m-%d').date()
-
-    db.session.commit()
-    return plan.to_dict(), 200
-
-@app.route('/workout_plans/<int:plan_id>', methods=['DELETE'])
-def delete_workout_plan(plan_id):
-    plan = WorkoutPlan.query.get(plan_id)
-    if not plan:
-        return {"error": "Plan not found"}, 404
-
-    db.session.delete(plan)
-    db.session.commit()
-    return {"message": "Plan deleted"}, 200
+    plans = WorkoutPlan.query.filter_by(user_id=get_jwt_identity()).all()
+    return jsonify([plan.to_dict() for plan in plans])
 
 @app.route('/nutrition_plans', methods=['POST'])
-def create_nutrition_plan():
-    data = request.get_json() or {}
-
-    if not data.get('user_id') or not data.get('title') or not data.get('start_date') or not data.get('end_date'):
-        return {"error": "Missing required fields"}, 400
-
-    if not validate_date(data['start_date']) or not validate_date(data['end_date']):
-        return {"error": "Invalid date format. Use YYYY-MM-DD"}, 400
-
-    new_plan = NutritionPlan(
-        user_id=data['user_id'],
-        title=encrypt(data['title']),
-        description=encrypt(data['description']) if data.get('description') else None,
-        start_date=datetime.strptime(data['start_date'], '%Y-%m-%d').date(),
-        end_date=datetime.strptime(data['end_date'], '%Y-%m-%d').date()
-    )
-    db.session.add(new_plan)
-    db.session.commit()
-    return new_plan.to_dict(), 201
-
 @app.route('/nutrition_plans', methods=['GET'])
-@app.route('/nutrition_plans/<int:plan_id>', methods=['GET'])
-def get_nutrition_plans(plan_id=None):
-    if plan_id:
-        plan = NutritionPlan.query.get(plan_id)
-        if plan:
-            return plan.to_dict(), 200
-        return {"error": "Plan not found"}, 404
+@jwt_required()
+def nutrition_plans():
+    from models import NutritionPlan  # Deferred import
+    if request.method == 'POST':
+        data = request.get_json()
 
-    plans = NutritionPlan.query.all()
-    return [plan.to_dict() for plan in plans], 200
+        if not data.get('title') or not data.get('meals') or not data.get('start_date') or not data.get('end_date'):
+            return {"error": "Missing required fields"}, 400
 
-@app.route('/nutrition_plans/<int:plan_id>', methods=['PATCH'])
-def update_nutrition_plan(plan_id):
-    plan = NutritionPlan.query.get(plan_id)
-    if not plan:
-        return {"error": "Plan not found"}, 404
+        if not validate_date(data['start_date']) or not validate_date(data['end_date']):
+            return {"error": "Invalid date format. Use YYYY-MM-DD."}, 400
 
-    data = request.get_json() or {}
+        new_plan = NutritionPlan(
+            title=data['title'],
+            meals=data['meals'],
+            start_date=data['start_date'],
+            end_date=data['end_date'],
+            user_id=get_jwt_identity()
+        )
+        db.session.add(new_plan)
+        db.session.commit()
+        return {"message": "Nutrition plan created successfully"}, 201
 
-    if 'title' in data:
-        plan.title = encrypt(data['title'])
-    if 'description' in data:
-        plan.description = encrypt(data['description'])
-    if 'start_date' in data:
-        if not validate_date(data['start_date']):
-            return {"error": "Invalid date format. Use YYYY-MM-DD"}, 400
-        plan.start_date = datetime.strptime(data['start_date'], '%Y-%m-%d').date()
-    if 'end_date' in data:
-        if not validate_date(data['end_date']):
-            return {"error": "Invalid date format. Use YYYY-MM-DD"}, 400
-        plan.end_date = datetime.strptime(data['end_date'], '%Y-%m-%d').date()
-
-    db.session.commit()
-    return plan.to_dict(), 200
-
-@app.route('/nutrition_plans/<int:plan_id>', methods=['DELETE'])
-def delete_nutrition_plan(plan_id):
-    plan = NutritionPlan.query.get(plan_id)
-    if not plan:
-        return {"error": "Plan not found"}, 404
-
-    db.session.delete(plan)
-    db.session.commit()
-    return {"message": "Plan deleted"}, 200
+    plans = NutritionPlan.query.filter_by(user_id=get_jwt_identity()).all()
+    return jsonify([plan.to_dict() for plan in plans])
 
 @app.route('/progress_tracking', methods=['POST'])
-def create_progress_tracking():
-    data = request.get_json() or {}
-
-    if not data.get('user_id') or not data.get('weight') or not data.get('date'):
-        return {"error": "Missing required fields"}, 400
-
-    if not validate_date(data['date']):
-        return {"error": "Invalid date format. Use YYYY-MM-DD"}, 400
-
-    new_tracking = ProgressTracking(
-        user_id=data['user_id'],
-        weight=data['weight'],
-        measurements=encrypt(data.get('measurements', '')),
-        date=datetime.strptime(data['date'], '%Y-%m-%d').date()
-    )
-    db.session.add(new_tracking)
-    db.session.commit()
-    return new_tracking.to_dict(), 201
-
 @app.route('/progress_tracking', methods=['GET'])
-@app.route('/progress_tracking/<int:tracking_id>', methods=['GET'])
-def get_progress_tracking(tracking_id=None):
-    if tracking_id:
-        tracking = ProgressTracking.query.get(tracking_id)
-        if tracking:
-            return tracking.to_dict(), 200
-        return {"error": "Tracking entry not found"}, 404
+@jwt_required()
+def progress_tracking():
+    from models import ProgressTracking  # Deferred import
+    if request.method == 'POST':
+        data = request.get_json()
 
-    trackings = ProgressTracking.query.all()
-    return [tracking.to_dict() for tracking in trackings], 200
+        if not data.get('progress') or not data.get('date'):
+            return {"error": "Missing required fields"}, 400
 
-@app.route('/progress_tracking/<int:tracking_id>', methods=['PATCH'])
-def update_progress_tracking(tracking_id):
-    tracking = ProgressTracking.query.get(tracking_id)
-    if not tracking:
-        return {"error": "Tracking entry not found"}, 404
-
-    data = request.get_json() or {}
-
-    if 'weight' in data:
-        tracking.weight = data['weight']
-    if 'measurements' in data:
-        tracking.measurements = encrypt(data['measurements'])
-    if 'date' in data:
         if not validate_date(data['date']):
-            return {"error": "Invalid date format. Use YYYY-MM-DD"}, 400
-        tracking.date = datetime.strptime(data['date'], '%Y-%m-%d').date()
+            return {"error": "Invalid date format. Use YYYY-MM-DD."}, 400
 
-    db.session.commit()
-    return tracking.to_dict(), 200
+        new_progress = ProgressTracking(
+            progress=data['progress'],
+            date=data['date'],
+            user_id=get_jwt_identity()
+        )
+        db.session.add(new_progress)
+        db.session.commit()
+        return {"message": "Progress tracking entry created successfully"}, 201
 
-@app.route('/progress_tracking/<int:tracking_id>', methods=['DELETE'])
-def delete_progress_tracking(tracking_id):
-    tracking = ProgressTracking.query.get(tracking_id)
-    if not tracking:
-        return {"error": "Tracking entry not found"}, 404
+    entries = ProgressTracking.query.filter_by(user_id=get_jwt_identity()).all()
+    return jsonify([entry.to_dict() for entry in entries])
 
-    db.session.delete(tracking)
-    db.session.commit()
-    return {"message": "Tracking entry deleted"}, 200
-
+# Run the app
 if __name__ == '__main__':
     app.run(debug=True)
