@@ -99,13 +99,13 @@ const Dashboard = () => {
         backgroundColor: (context) => {
           const ctx = context.chart.ctx;
           const gradient = ctx.createLinearGradient(0, 0, 0, 400);
-          gradient.addColorStop(0, 'rgba(9, 255, 0, 0.7)');
+          gradient.addColorStop(0, '#82f005');
           gradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
           return gradient;
         },
-        borderColor: '#09ff00',
+        borderColor: '#82f005',
         pointBackgroundColor: '#000',
-        pointBorderColor: '#09ff00',
+        pointBorderColor: '#82f005',
         pointBorderWidth: 2,
         pointRadius: 5,
         tension: 0.4,
@@ -141,9 +141,9 @@ const Dashboard = () => {
     plugins: {
       tooltip: {
         backgroundColor: '#000',
-        titleColor: '#09ff00',
+        titleColor: '#82f005',
         bodyColor: '#ffffff',
-        borderColor: '#09ff00',
+        borderColor: '#82f005',
         borderWidth: 1,
       },
     },

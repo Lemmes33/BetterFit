@@ -22,6 +22,8 @@
   background-color: #82f005;
   color: #000;
   font-weight: 700;
+  padding: 10px;
+  border-radius: 15%;
 }
 
 .signin {

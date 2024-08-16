@@ -95,8 +95,7 @@ const Login = () => {
             <Link to="/register"
               id="signup"
               className={`login-btn-header ${showSignUp ? "active" : ""}`}
-              type="button"
-              onClick={toggleSignUp}
+              
             >
               Sign Up
             </Link>
@@ -126,9 +125,9 @@ const Login = () => {
                 placeholder="*************"
               />
               
-              <button className="signin-button">
+              <Link to="/dashboard" className="signin-button">
                 SIGN IN <i className="fa fa-arrow-right" aria-hidden="true"></i>
-              </button>
+              </Link>
             </form>
           </div>
         </div>
