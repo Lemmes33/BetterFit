@@ -116,7 +116,7 @@ const Profile = () => {
           />
         </div>
         <div className="profile-input-group">
-          <label htmlFor="email" className="profile-label">Email:</label>
+          <label htmlFor="email" className="profile-label">E-mail:</label>
           <input
             type="email"
             id="email"
@@ -137,7 +137,7 @@ const Profile = () => {
           />
         </div>
         <div className="profile-input-group">
-          <label htmlFor="funFact" className="profile-label">Fun Fact:</label>
+          <label htmlFor="funFact" className="profile-label">Fun Fact :</label>
           <textarea
             id="funFact"
             value={funFact}
