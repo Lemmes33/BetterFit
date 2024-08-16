@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import "./Login.css";
 import { wrappedFetch } from "../../utils";
 import { useNavigate, Link } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 const Login = () => {
   const [showSignUp, setShowSignUp] = useState(false);
@@ -133,6 +135,7 @@ const Login = () => {
         </div>
       </div>
     </div>
+    <ToastContainer />
     </>
   );
 };

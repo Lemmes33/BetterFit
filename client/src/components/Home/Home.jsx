@@ -45,7 +45,7 @@ const Home = () => {
           </div>
         </div>
       </div>
-      <div className="stats-section">
+      <div className="stats-section1">
         <div className="stat">
           <h3>750+</h3>
           <p>Satisfied customers</p>
