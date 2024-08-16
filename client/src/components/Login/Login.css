@@ -38,7 +38,8 @@
 
 .signin:hover,
 .signin.active {
-  border-bottom: 1px solid  #82f005;
+  border-bottom: 1px solid  #294d00;
+  color: #000;
 }
 
 .signin-tab {

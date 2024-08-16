@@ -13,28 +13,9 @@ const Footer = () => {
           </p>
         </div>
 
-        <div className="footer-section">
-          <h6 className="footer-heading">QUICK LINKS</h6>
-          {/* <ul className="footer-links">
-            <li><a href="http://scanfcode.com/about/">About Us</a></li>
-            <li><a href="http://scanfcode.com/contact/">Contact Us</a></li>
-            <li><a href="http://scanfcode.com/contribute-at-scanfcode/">Contribute</a></li>
-            <li><a href="http://scanfcode.com/privacy-policy/">Privacy Policy</a></li>
-            <li><a href="http://scanfcode.com/sitemap/">Sitemap</a></li>
-          </ul> */}
-        </div>
+        
 
-        <div className="footer-section">
-          <h6 className="footer-heading">FOLLOW US</h6>
-          {/* <ul className="footer-links">
-            <li><a href="http://scanfcode.com/category/c-language/">C</a></li>
-            <li><a href="http://scanfcode.com/category/front-end-development/">UI Design</a></li>
-            <li><a href="http://scanfcode.com/category/back-end-development/">PHP</a></li>
-            <li><a href="http://scanfcode.com/category/java-programming-language/">Java</a></li>
-            <li><a href="http://scanfcode.com/category/android/">Android</a></li>
-            <li><a href="http://scanfcode.com/category/templates/">Templates</a></li>
-          </ul> */}
-        </div>
+        
 
       </div>
       <hr className="footer-divider" />
