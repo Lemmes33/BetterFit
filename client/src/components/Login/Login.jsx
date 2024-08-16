@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import "./Login.css";
 import { wrappedFetch } from "../../utils";
-import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 const Login = () => {
   const [showSignUp, setShowSignUp] = useState(false);
@@ -65,14 +64,20 @@ const Login = () => {
   };
 
   return (
+    <>
+    <button className="back-button">
+    <Link to="/" className="backbutton">Back</Link>
+  </button>
     <div className="login-container">
       <div className="login-left-side">
+       
         <img
           className="login-left-side-img"
           src="https://your-direct-image-url.com/image.jpg"
           alt="Background"
         />
         <div className="login-left-side-bg"></div>
+        
       </div>
       <div className="login-right-side">
         <div className="login-sign-in-container">
@@ -120,13 +125,7 @@ const Login = () => {
                 className="login-input-field"
                 placeholder="*************"
               />
-              <div className="login-terms-container">
-                <label className="login-terms-prompt">
-                  <span style={{ borderBottom: "1px solid #47C1B9" }}>
-                    Forgot your password?
-                  </span>
-                </label>
-              </div>
+              
               <button className="login-btn-signin" type="submit">
                 SIGN IN <i className="fa fa-arrow-right" aria-hidden="true"></i>
               </button>
@@ -135,6 +134,7 @@ const Login = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 

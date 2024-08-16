@@ -27,6 +27,7 @@ import Cardio from "./components/Cardio/Cardio.jsx";
 import MuscleToning from "./components/Muscle-Toning/Muscletoning.jsx";
 import Martialarts from "./components/Martial-Arts/Martialarts.jsx";
 import Teambuilding from "./components/Team-Building/Teambuilding.jsx";
+import Register from "./components/Register/Register.jsx"
 import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
@@ -142,6 +143,10 @@ const router = createBrowserRouter([
   {
     path: "teambuilding",
     element: < Teambuilding />,
+  },
+  {
+    path: "/register",
+    element: < Register />,
   },
 ]);
 ReactDOM.createRoot(document.getElementById("root")).render(

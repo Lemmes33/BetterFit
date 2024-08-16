@@ -40,13 +40,13 @@ const Register = () => {
   };
 
   return (
+    <>
+     <button className="back-button">
+    <Link to="/" className="backbutton">Back</Link>
+  </button>
     <div className="login-container">
       <div className="login-left-side">
-        <img
-          className="login-left-side-img"
-          src="https://i.pinimg.com/564x/17/f8/e3/17f8e3f10beff261370824382c6cf7d2.jpg"
-          alt="Background"
-        />
+        
         <div className="login-left-side-bg"></div>
       </div>
       <div className="login-right-side">
@@ -113,19 +113,7 @@ const Register = () => {
                 className="login-input-field"
                 placeholder="Age"
               />
-              <div className="login-terms-container">
-                <input
-                  type="checkbox"
-                  className="login-terms-checkbox"
-                  value="terms_checkbox"
-                />
-                <label className="login-terms-prompt">
-                  I accept the{" "}
-                  <span style={{ borderBottom: "1px solid #47C1B9" }}>
-                    terms and conditions
-                  </span>
-                </label>
-              </div>
+              
               <button className="login-btn-signup" type="submit">
                 SIGN UP <i className="fa fa-arrow-right" aria-hidden="true"></i>
               </button>
@@ -134,6 +122,7 @@ const Register = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 

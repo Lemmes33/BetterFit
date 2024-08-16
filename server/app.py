@@ -1,304 +1,400 @@
-import React, { useState } from 'react';
-import './Checkout.css'; // Include your CSS file
+from flask import Flask, request, jsonify, session
+from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
+from flask_bcrypt import Bcrypt
+from flask_cors import CORS
+from flask_jwt_extended import JWTManager, create_access_token
+from dotenv import load_dotenv
+import os
+import re
+from datetime import datetime
+from cryptography.fernet import Fernet
 
-function Checkout() {
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [plan, setPlan] = useState('');
-  const [paymentDate, setPaymentDate] = useState('');
-  const [endDate, setEndDate] = useState('');
-  const [amount, setAmount] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState('+'); // Initialize with '+'
-  const [paymentMethod, setPaymentMethod] = useState('');
+load_dotenv()
 
-  const [errors, setErrors] = useState({});
-  const [loading, setLoading] = useState(false);
-  const [paymentStatus, setPaymentStatus] = useState('');
+app = Flask(__name__)
 
-  const handlePlanChange = (event) => {
-    const selectedPlan = event.target.value;
-    setPlan(selectedPlan);
-    
-    // Update the amount based on the selected plan
-    switch (selectedPlan) {
-      case 'basic':
-        setAmount('4000');
-        break;
-      case 'premium':
-        setAmount('8000');
-        break;
-      case 'pro':
-        setAmount('12000');
-        break;
-      default:
-        setAmount('');
-    }
-  };
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URI', 'sqlite:///app.db')
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['JWT_SECRET_KEY'] = os.getenv('JWT_SECRET_KEY', 'your-secret-key')  # Change this to your actual secret key
+app.secret_key = os.getenv('SECRET_KEY', 'your_secret_key')
+app.config['SESSION_TYPE'] = 'filesystem'
 
-  const handlePaymentDateChange = (event) => {
-    const date = event.target.value;
-    setPaymentDate(date);
-    setEndDate(calculateEndDate(date));
-  };
+db = SQLAlchemy(app)
+bcrypt = Bcrypt(app)
+migrate = Migrate(app, db)
+jwt = JWTManager(app)
+CORS(app, supports_credentials=True)
 
-  const calculateEndDate = (date) => {
-    if (!date) return '';
-    
-    const paymentDate = new Date(date);
-    paymentDate.setMonth(paymentDate.getMonth() + 6);
-    
-    // Format the end date to YYYY-MM-DD
-    const year = paymentDate.getFullYear();
-    const month = String(paymentDate.getMonth() + 1).padStart(2, '0');
-    const day = String(paymentDate.getDate()).padStart(2, '0');
-    
-    return `${year}-${month}-${day}`;
-  };
+encryption_key = os.getenv('ENCRYPTION_KEY')
+if not encryption_key:
+    encryption_key = Fernet.generate_key().decode()
+    with open('.env', 'a') as f:
+        f.write(f'\nENCRYPTION_KEY={encryption_key}\n')
+cipher = Fernet(encryption_key.encode())
 
-  const handlePhoneNumberChange = (event) => {
-    const value = event.target.value;
+def encrypt(data):
+    return cipher.encrypt(data.encode()).decode()
 
-    // Ensure the input starts with a '+' and allow only numeric values after it, limiting to 13 digits
-    if (value === '' || /^\+\d{0,12}$/.test(value)) {
-      setPhoneNumber(value);
-    }
-  };
+def decrypt(data):
+    return cipher.decrypt(data.encode()).decode()
 
-  const validateForm = () => {
-    let formErrors = {};
-    if (!firstName) formErrors.firstName = 'First name is required';
-    if (!lastName) formErrors.lastName = 'Last name is required';
-    if (!plan) formErrors.plan = 'Plan selection is required';
-    if (!paymentDate) formErrors.paymentDate = 'Payment date is required';
-    if (!amount) formErrors.amount = 'Amount is required';
-    if (!phoneNumber || phoneNumber === '+') formErrors.phoneNumber = 'Phone number is required';
-    if (!paymentMethod) formErrors.paymentMethod = 'Payment method is required';
+def validate_email(email):
+    pattern = r'^[\w\.-]+@[\w\.-]+\.\w+$'
+    return re.match(pattern, email) is not None
 
-    setErrors(formErrors);
+def validate_password(password):
+    if len(password) < 8:
+        return False
+    if not re.search(r'[A-Z]', password):
+        return False
+    if not re.search(r'[a-z]', password):
+        return False
+    if not re.search(r'[0-9]', password):
+        return False
+    if not re.search(r'[@$!%*?&#]', password):
+        return False
+    return True
 
-    return Object.keys(formErrors).length === 0;
-  };
+def validate_age(age):
+    return age.isdigit() and 18 <= int(age) <= 120
 
-  const handleMpesPayment = async () => {
-    setLoading(true);
-    setPaymentStatus("Prompt sent, waiting for payment...");
+def validate_date(date_text):
+    try:
+        datetime.strptime(date_text, '%Y-%m-%d')
+        return True
+    except ValueError:
+        return False
 
-    try {
-      const response = await fetch("http://127.0.0.1:5000/stkpush", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          phone: phoneNumber,  // No country code
-          amount: amount,
-        }),
-      });
+class User(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String, nullable=False)
+    email = db.Column(db.String, unique=True, nullable=False)
+    password = db.Column(db.String, nullable=False)
+    age = db.Column(db.Integer, nullable=False)
 
-      if (response.ok) {
-        const paymentResponse = await response.json();
-
-        if (paymentResponse.success) {
-          setPaymentStatus("Payment successful!");
-          // Handle successful payment, e.g., navigate to confirmation page
-        } else {
-          setPaymentStatus("Payment failed. Please try again.");
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "username": self.username,
+            "email": self.email,
+            "age": self.age,
         }
-      } else {
-        setPaymentStatus("Payment failed. Please try again.");
-      }
-    } catch (error) {
-      console.error("Checkout failed:", error);
-      setPaymentStatus("Payment failed due to a network error. Please try again.");
-    } finally {
-      setLoading(false);
-    }
-  };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    
-    if (!validateForm()) return;
+class WorkoutPlan(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String, nullable=False)
+    description = db.Column(db.String, nullable=True)
+    duration = db.Column(db.Integer, nullable=False)
+    start_date = db.Column(db.Date, nullable=False)
+    end_date = db.Column(db.Date, nullable=False)
 
-    if (paymentMethod === 'paypal') {
-      window.location.href = 'https://www.paypal.com';
-    } else if (paymentMethod === 'mpesa') {
-      handleMpesPayment();
-    } else {
-      alert('Please select a payment method.');
-    }
-  };
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "title": decrypt(self.title),
+            "description": decrypt(self.description) if self.description else None,
+            "duration": self.duration,
+            "start_date": self.start_date.isoformat(),
+            "end_date": self.end_date.isoformat()
+        }
 
-  return (
-    <div className="checkout-container">
-      <h1>Gym Plan Checkout</h1>
-      <div className="row">
-        <div className="col-75">
-          <div className="container">
-            <form onSubmit={handleSubmit}>
-              <div className="row">
-                <div className="col-50">
-                  <h3>Personal Information</h3>
-                  <label htmlFor="first-name">
-                    <i className="fa fa-user"></i> First Name
-                    {errors.firstName && <span className="error">*</span>}
-                  </label>
-                  <input
-                    type="text"
-                    id="first-name"
-                    name="firstname"
-                    value={firstName}
-                    onChange={(e) => setFirstName(e.target.value)}
-                    placeholder="John"
-                    className={errors.firstName ? 'error-input' : ''}
-                  />
-                  
-                  <label htmlFor="last-name">
-                    <i className="fa fa-user"></i> Last Name
-                    {errors.lastName && <span className="error">*</span>}
-                  </label>
-                  <input
-                    type="text"
-                    id="last-name"
-                    name="lastname"
-                    value={lastName}
-                    onChange={(e) => setLastName(e.target.value)}
-                    placeholder="Doe"
-                    className={errors.lastName ? 'error-input' : ''}
-                  />
-                  
-                  <label htmlFor="phone">
-                    <i className="fa fa-phone"></i> Phone Number
-                    {errors.phoneNumber && <span className="error">*</span>}
-                  </label>
-                  <input
-                    type="text"
-                    id="phone"
-                    name="phone"
-                    value={phoneNumber}
-                    onChange={handlePhoneNumberChange}
-                    placeholder="+123456789012"
-                    maxLength="13"
-                    className={errors.phoneNumber ? 'error-input' : ''}
-                  />
+class NutritionPlan(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, nullable=False)
+    title = db.Column(db.String, nullable=False)
+    description = db.Column(db.String, nullable=True)
+    start_date = db.Column(db.Date, nullable=False)
+    end_date = db.Column(db.Date, nullable=False)
 
-                  <label htmlFor="email">
-                    <i className="fa fa-envelope"></i> Email
-                  </label>
-                  <input
-                    type="text"
-                    id="email"
-                    name="email"
-                    placeholder="john@example.com"
-                  />
-                </div>
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "user_id": self.user_id,
+            "title": decrypt(self.title),
+            "description": decrypt(self.description) if self.description else None,
+            "start_date": self.start_date.isoformat(),
+            "end_date": self.end_date.isoformat()
+        }
 
-                <div className="col-50">
-                  <h3>Payment Details</h3>
-                  <label htmlFor="plan">
-                    Choose Your Plan
-                    {errors.plan && <span className="error">*</span>}
-                  </label>
-                  <select
-                    id="plan"
-                    name="plan"
-                    value={plan}
-                    onChange={handlePlanChange}
-                    className={errors.plan ? 'error-input' : ''}
-                  >
-                    <option value="">Select a plan</option>
-                    <option value="basic">Basic Plan</option>
-                    <option value="premium">Premium Plan</option>
-                    <option value="pro">Pro Plan</option>
-                  </select>
-                  
-                  <label htmlFor="amount">
-                    Amount
-                    {errors.amount && <span className="error">*</span>}
-                  </label>
-                  <input
-                    type="text"
-                    id="amount"
-                    name="amount"
-                    value={amount}
-                    readOnly
-                    className={errors.amount ? 'error-input' : ''}
-                  />
-                  
-                  <label htmlFor="payment-date">
-                    Date of Payment
-                    {errors.paymentDate && <span className="error">*</span>}
-                  </label>
-                  <input
-                    type="date"
-                    id="payment-date"
-                    name="payment-date"
-                    value={paymentDate}
-                    onChange={handlePaymentDateChange}
-                    className={errors.paymentDate ? 'error-input' : ''}
-                  />
+class ProgressTracking(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, nullable=False)
+    weight = db.Column(db.Float, nullable=False)
+    measurements = db.Column(db.String, nullable=True)
+    date = db.Column(db.Date, nullable=False)
 
-                  <label htmlFor="end-date">Subscription End Date</label>
-                  <input
-                    type="date"
-                    id="end-date"
-                    name="end-date"
-                    value={endDate}
-                    readOnly
-                  />
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "user_id": self.user_id,
+            "weight": self.weight,
+            "measurements": decrypt(self.measurements) if self.measurements else None,
+            "date": self.date.isoformat()
+        }
 
-                  <h3>Payment Method</h3>
-                  <label htmlFor="payment-method">
-                    Select Payment Method
-                    {errors.paymentMethod && <span className="error">*</span>}
-                  </label>
-                  <div className="payment-options">
-                    <label>
-                      <input
-                        type="radio"
-                        name="payment-method"
-                        value="paypal"
-                        checked={paymentMethod === 'paypal'}
-                        onChange={(e) => setPaymentMethod(e.target.value)}
-                      />
-                      PayPal
-                    </label>
-                    <label>
-                      <input
-                        type="radio"
-                        name="payment-method"
-                        value="mpesa"
-                        checked={paymentMethod === 'mpesa'}
-                        onChange={(e) => setPaymentMethod(e.target.value)}
-                      />
-                     M-Pesa
-                    </label>
-                  </div>
-                </div>
-              </div>
-              {loading && <p>Loading...</p>}
-              {paymentStatus && <p>{paymentStatus}</p>}
-              <button type="submit" className="btn">Submit</button>
-            </form>
-          </div>
-        </div>
 
-        <div className="col-25">
-          <div className="container">
-            <h4>Cart 
-              <span className="price" style={{ color: 'black' }}>
-                <i className="fa fa-shopping-cart"></i> 
-                <b>1</b>
-              </span>
-            </h4>
-            <p><a href="#">Selected Plan</a> <span className="price">${amount}</span></p>
-            <hr />
-            <p>Total <span className="price"><b>${amount}</b></span></p>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
+@app.route('/register', methods=['POST'])
+def register():
+    data = request.get_json() or {}
+    username = data.get("username")
+    email = data.get("email")
+    password = data.get("password")
+    age = data.get("age")
 
-export default Checkout;
+    if not username or not email or not password or not age:
+        return {"error": "Missing required fields"}, 400
+
+    if not validate_email(email):
+        return {"error": "Invalid email format"}, 400
+
+    if not validate_password(password):
+        return {"error": "Password must be at least 8 characters long, contain an uppercase letter, a lowercase letter, a number, and a special character"}, 400
+
+    if not validate_age(age):
+        return {"error": "Invalid age. Age must be a number between 18 and 120."}, 400
+
+    if User.query.filter_by(email=email).first():
+        return {"error": "Email already exists"}, 400
+
+    hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
+    new_user = User(
+        username=username,
+        email=email,
+        password=hashed_password,
+        age=int(age),
+    )
+    db.session.add(new_user)
+    db.session.commit()
+    return new_user.to_dict(), 201
+
+@app.route('/login', methods=['POST'])
+def login():
+    data = request.get_json() or {}
+    email = data.get("email")
+    password = data.get("password")
+
+    user = User.query.filter_by(email=email).first()
+    if user and bcrypt.check_password_hash(user.password, password):
+        access_token = create_access_token(identity={'username': user.username})
+        session['user_id'] = user.id
+        return {"message": "Logged in successfully", "access_token": access_token}, 200
+    return {"error": "Invalid credentials"}, 401
+
+@app.route('/logout', methods=['POST'])
+def logout():
+    session.pop('user_id', None)
+    return {"message": "Logged out successfully"}, 200
+
+@app.route('/users', methods=['GET'])
+@app.route('/users/<int:user_id>', methods=['GET'])
+def get_users(user_id=None):
+    if user_id:
+        user = User.query.get(user_id)
+        if user:
+            return user.to_dict(), 200
+        return {"error": "User not found"}, 404
+
+    users = User.query.all()
+    return {"users": [user.to_dict() for user in users]}, 200
+
+@app.route('/workout_plans', methods=['POST'])
+def create_workout_plan():
+    data = request.get_json() or {}
+
+    if not data.get('title') or not data.get('duration') or not data.get('start_date') or not data.get('end_date'):
+        return {"error": "Missing required fields"}, 400
+
+    if not validate_date(data['start_date']) or not validate_date(data['end_date']):
+        return {"error": "Invalid date format. Use YYYY-MM-DD"}, 400
+
+    new_plan = WorkoutPlan(
+        title=encrypt(data['title']),
+        description=encrypt(data['description']) if data.get('description') else None,
+        duration=data['duration'],
+        start_date=datetime.strptime(data['start_date'], '%Y-%m-%d').date(),
+        end_date=datetime.strptime(data['end_date'], '%Y-%m-%d').date()
+    )
+    db.session.add(new_plan)
+    db.session.commit()
+    return new_plan.to_dict(), 201
+
+@app.route('/workout_plans', methods=['GET'])
+@app.route('/workout_plans/<int:plan_id>', methods=['GET'])
+def get_workout_plans(plan_id=None):
+    if plan_id:
+        plan = WorkoutPlan.query.get(plan_id)
+        if plan:
+            return plan.to_dict(), 200
+        return {"error": "Plan not found"}, 404
+
+    plans = WorkoutPlan.query.all()
+    return [plan.to_dict() for plan in plans], 200
+
+@app.route('/workout_plans/<int:plan_id>', methods=['PATCH'])
+def update_workout_plan(plan_id):
+    plan = WorkoutPlan.query.get(plan_id)
+    if not plan:
+        return {"error": "Plan not found"}, 404
+
+    data = request.get_json() or {}
+
+    if 'title' in data:
+        plan.title = encrypt(data['title'])
+    if 'description' in data:
+        plan.description = encrypt(data['description'])
+    if 'duration' in data:
+        plan.duration = data['duration']
+    if 'start_date' in data:
+        if not validate_date(data['start_date']):
+            return {"error": "Invalid date format. Use YYYY-MM-DD"}, 400
+        plan.start_date = datetime.strptime(data['start_date'], '%Y-%m-%d').date()
+    if 'end_date' in data:
+        if not validate_date(data['end_date']):
+            return {"error": "Invalid date format. Use YYYY-MM-DD"}, 400
+        plan.end_date = datetime.strptime(data['end_date'], '%Y-%m-%d').date()
+
+    db.session.commit()
+    return plan.to_dict(), 200
+
+@app.route('/workout_plans/<int:plan_id>', methods=['DELETE'])
+def delete_workout_plan(plan_id):
+    plan = WorkoutPlan.query.get(plan_id)
+    if not plan:
+        return {"error": "Plan not found"}, 404
+
+    db.session.delete(plan)
+    db.session.commit()
+    return {"message": "Plan deleted"}, 200
+
+@app.route('/nutrition_plans', methods=['POST'])
+def create_nutrition_plan():
+    data = request.get_json() or {}
+
+    if not data.get('user_id') or not data.get('title') or not data.get('start_date') or not data.get('end_date'):
+        return {"error": "Missing required fields"}, 400
+
+    if not validate_date(data['start_date']) or not validate_date(data['end_date']):
+        return {"error": "Invalid date format. Use YYYY-MM-DD"}, 400
+
+    new_plan = NutritionPlan(
+        user_id=data['user_id'],
+        title=encrypt(data['title']),
+        description=encrypt(data['description']) if data.get('description') else None,
+        start_date=datetime.strptime(data['start_date'], '%Y-%m-%d').date(),
+        end_date=datetime.strptime(data['end_date'], '%Y-%m-%d').date()
+    )
+    db.session.add(new_plan)
+    db.session.commit()
+    return new_plan.to_dict(), 201
+
+@app.route('/nutrition_plans', methods=['GET'])
+@app.route('/nutrition_plans/<int:plan_id>', methods=['GET'])
+def get_nutrition_plans(plan_id=None):
+    if plan_id:
+        plan = NutritionPlan.query.get(plan_id)
+        if plan:
+            return plan.to_dict(), 200
+        return {"error": "Plan not found"}, 404
+
+    plans = NutritionPlan.query.all()
+    return [plan.to_dict() for plan in plans], 200
+
+@app.route('/nutrition_plans/<int:plan_id>', methods=['PATCH'])
+def update_nutrition_plan(plan_id):
+    plan = NutritionPlan.query.get(plan_id)
+    if not plan:
+        return {"error": "Plan not found"}, 404
+
+    data = request.get_json() or {}
+
+    if 'title' in data:
+        plan.title = encrypt(data['title'])
+    if 'description' in data:
+        plan.description = encrypt(data['description'])
+    if 'start_date' in data:
+        if not validate_date(data['start_date']):
+            return {"error": "Invalid date format. Use YYYY-MM-DD"}, 400
+        plan.start_date = datetime.strptime(data['start_date'], '%Y-%m-%d').date()
+    if 'end_date' in data:
+        if not validate_date(data['end_date']):
+            return {"error": "Invalid date format. Use YYYY-MM-DD"}, 400
+        plan.end_date = datetime.strptime(data['end_date'], '%Y-%m-%d').date()
+
+    db.session.commit()
+    return plan.to_dict(), 200
+
+@app.route('/nutrition_plans/<int:plan_id>', methods=['DELETE'])
+def delete_nutrition_plan(plan_id):
+    plan = NutritionPlan.query.get(plan_id)
+    if not plan:
+        return {"error": "Plan not found"}, 404
+
+    db.session.delete(plan)
+    db.session.commit()
+    return {"message": "Plan deleted"}, 200
+
+@app.route('/progress_tracking', methods=['POST'])
+def create_progress_tracking():
+    data = request.get_json() or {}
+
+    if not data.get('user_id') or not data.get('weight') or not data.get('date'):
+        return {"error": "Missing required fields"}, 400
+
+    if not validate_date(data['date']):
+        return {"error": "Invalid date format. Use YYYY-MM-DD"}, 400
+
+    new_tracking = ProgressTracking(
+        user_id=data['user_id'],
+        weight=data['weight'],
+        measurements=encrypt(data.get('measurements', '')),
+        date=datetime.strptime(data['date'], '%Y-%m-%d').date()
+    )
+    db.session.add(new_tracking)
+    db.session.commit()
+    return new_tracking.to_dict(), 201
+
+@app.route('/progress_tracking', methods=['GET'])
+@app.route('/progress_tracking/<int:tracking_id>', methods=['GET'])
+def get_progress_tracking(tracking_id=None):
+    if tracking_id:
+        tracking = ProgressTracking.query.get(tracking_id)
+        if tracking:
+            return tracking.to_dict(), 200
+        return {"error": "Tracking entry not found"}, 404
+
+    trackings = ProgressTracking.query.all()
+    return [tracking.to_dict() for tracking in trackings], 200
+
+@app.route('/progress_tracking/<int:tracking_id>', methods=['PATCH'])
+def update_progress_tracking(tracking_id):
+    tracking = ProgressTracking.query.get(tracking_id)
+    if not tracking:
+        return {"error": "Tracking entry not found"}, 404
+
+    data = request.get_json() or {}
+
+    if 'weight' in data:
+        tracking.weight = data['weight']
+    if 'measurements' in data:
+        tracking.measurements = encrypt(data['measurements'])
+    if 'date' in data:
+        if not validate_date(data['date']):
+            return {"error": "Invalid date format. Use YYYY-MM-DD"}, 400
+        tracking.date = datetime.strptime(data['date'], '%Y-%m-%d').date()
+
+    db.session.commit()
+    return tracking.to_dict(), 200
+
+@app.route('/progress_tracking/<int:tracking_id>', methods=['DELETE'])
+def delete_progress_tracking(tracking_id):
+    tracking = ProgressTracking.query.get(tracking_id)
+    if not tracking:
+        return {"error": "Tracking entry not found"}, 404
+
+    db.session.delete(tracking)
+    db.session.commit()
+    return {"message": "Tracking entry deleted"}, 200
+
+if __name__ == '__main__':
+    app.run(debug=True)
