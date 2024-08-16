@@ -5,8 +5,6 @@ function Checkout() {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [plan, setPlan] = useState('');
-  const [paymentDate, setPaymentDate] = useState('');
-  const [endDate, setEndDate] = useState('');
   const [amount, setAmount] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('+'); // Initialize with '+'
   const [paymentMethod, setPaymentMethod] = useState('');
@@ -35,26 +33,6 @@ function Checkout() {
     }
   };
 
-  const handlePaymentDateChange = (event) => {
-    const date = event.target.value;
-    setPaymentDate(date);
-    setEndDate(calculateEndDate(date));
-  };
-
-  const calculateEndDate = (date) => {
-    if (!date) return '';
-    
-    const paymentDate = new Date(date);
-    paymentDate.setMonth(paymentDate.getMonth() + 6);
-    
-    // Format the end date to YYYY-MM-DD
-    const year = paymentDate.getFullYear();
-    const month = String(paymentDate.getMonth() + 1).padStart(2, '0');
-    const day = String(paymentDate.getDate()).padStart(2, '0');
-    
-    return `${year}-${month}-${day}`;
-  };
-
   const handlePhoneNumberChange = (event) => {
     const value = event.target.value;
 
@@ -69,7 +47,6 @@ function Checkout() {
     if (!firstName) formErrors.firstName = 'First name is required';
     if (!lastName) formErrors.lastName = 'Last name is required';
     if (!plan) formErrors.plan = 'Plan selection is required';
-    if (!paymentDate) formErrors.paymentDate = 'Payment date is required';
     if (!amount) formErrors.amount = 'Amount is required';
     if (!phoneNumber || phoneNumber === '+') formErrors.phoneNumber = 'Phone number is required';
     if (!paymentMethod) formErrors.paymentMethod = 'Payment method is required';
@@ -120,9 +97,7 @@ function Checkout() {
     
     if (!validateForm()) return;
 
-    if (paymentMethod === 'paypal') {
-      window.location.href = 'https://www.paypal.com';
-    } else if (paymentMethod === 'mpesa') {
+    if (paymentMethod === 'mpesa') {
       handleMpesPayment();
     } else {
       alert('Please select a payment method.');
@@ -224,28 +199,6 @@ function Checkout() {
                     readOnly
                     className={errors.amount ? 'error-input' : ''}
                   />
-                  
-                  <label htmlFor="payment-date">
-                    Date of Payment
-                    {errors.paymentDate && <span className="error">*</span>}
-                  </label>
-                  <input
-                    type="date"
-                    id="payment-date"
-                    name="payment-date"
-                    value={paymentDate}
-                    onChange={handlePaymentDateChange}
-                    className={errors.paymentDate ? 'error-input' : ''}
-                  />
-
-                  <label htmlFor="end-date">Subscription End Date</label>
-                  <input
-                    type="date"
-                    id="end-date"
-                    name="end-date"
-                    value={endDate}
-                    readOnly
-                  />
 
                   <h3>Payment Method</h3>
                   <label htmlFor="payment-method">
@@ -257,21 +210,11 @@ function Checkout() {
                       <input
                         type="radio"
                         name="payment-method"
-                        value="paypal"
-                        checked={paymentMethod === 'paypal'}
-                        onChange={(e) => setPaymentMethod(e.target.value)}
-                      />
-                      PayPal
-                    </label>
-                    <label>
-                      <input
-                        type="radio"
-                        name="payment-method"
                         value="mpesa"
                         checked={paymentMethod === 'mpesa'}
                         onChange={(e) => setPaymentMethod(e.target.value)}
                       />
-                     M-Pesa
+                      M-Pesa
                     </label>
                   </div>
                 </div>
