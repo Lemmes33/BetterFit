@@ -8,12 +8,11 @@ body {
 }
 
 .navbar {
-  background-color: #13b818; /* Green color */
+  background-color: #6ac206;
   padding: 15px 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
@@ -24,18 +23,19 @@ body {
 }
 
 .logo-image {
-  width: 120px;
-  height: 120px;
-  margin-top: -20px;
+  width: 160px;
+  height: 170px;
+  margin-top: -60px;
   margin-bottom: -30px;
+  margin-left: -200px;
 }
 
 .logo-text {
   font-size: 2.5em;
   color: rgb(29, 28, 28);
   font-weight: bold;
-  margin-left: -20px;
-  margin-top: 20px;
+  margin-left: 140px;
+  margin-top: -90px;
   font-family: 'Pacifico', cursive;
 }
 
@@ -43,16 +43,19 @@ body {
   list-style: none;
   display: flex;
   gap: 40px;
+  
 }
 
 .nav-links li {
   margin: 0;
+  
 }
 
 .nav-links a {
   text-decoration: none;
   color: rgb(15, 15, 15);
-  font-size: 1em;
+  font-size: 21px;
+  font-weight: 500;
   transition: color 0.3s ease;
 }
 

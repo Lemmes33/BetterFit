@@ -4,6 +4,8 @@ import './Nutrition.css';
 
 const NutriPlannerCard = ({ imageUrl, title, author, description, route }) => {
   return (
+    <>
+    
     <div className="nutriPlanner-card">
       <div
         className="nutriPlanner-image"
@@ -18,6 +20,7 @@ const NutriPlannerCard = ({ imageUrl, title, author, description, route }) => {
         </Link>
       </div>
     </div>
+    </>
   );
 };
 

@@ -18,6 +18,11 @@
   padding: 10px;
   color: #000;
 }
+.signin-button{
+  background-color: #82f005;
+  color: #000;
+  font-weight: 700;
+}
 
 .signin {
   background-color: transparent;

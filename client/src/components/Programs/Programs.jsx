@@ -1,10 +1,13 @@
 import React from 'react';
 import './Programs.css';
 import { Link } from 'react-router-dom';
+import Navbar from "./components/Navbar/Navbar.jsx";
 
 const Programs = () => {
   return (
+    
     <section className='programs-section'>
+      
       <div className="wrapper1">
         <h1>Our Training Programs</h1>
         <h2>
