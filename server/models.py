@@ -14,13 +14,11 @@ class User(db.Model):
     email = db.Column(db.String, unique=True, nullable=False)
     password = db.Column(db.String, nullable=False)
     age = db.Column(db.Integer, nullable=False)
-    trainer_id = db.Column(db.Integer, db.ForeignKey('trainer.id'), nullable=True)
 
     # Relationships
     workout_plans = db.relationship('WorkoutPlan', secondary=user_workout_plan, backref=db.backref('users', lazy=True))
     nutrition_plans = db.relationship('NutritionPlan', backref='user', lazy=True)
     progress_tracking = db.relationship('ProgressTracking', backref='user', lazy=True)
-    trainer = db.relationship('Trainer', backref='users', lazy=True)
 
     @validates('email')
     def validate_email(self, key, address):
@@ -51,7 +49,6 @@ class WorkoutPlan(db.Model):
     duration = db.Column(db.Integer, nullable=False)
     start_date = db.Column(db.Date, nullable=False, default=date.today)
     end_date = db.Column(db.Date, nullable=False)
-    trainer_id = db.Column(db.Integer , db.ForeignKey('trainer.id'), nullable=True)
 
     @validates('duration')
     def validate_duration(self, key, duration):
@@ -104,31 +101,3 @@ class ProgressTracking(db.Model):
             "date": self.date
         }
     
-class Trainer(db.Model):
-   
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    name = db.Column(db.String, nullable=False)
-    email = db.Column(db.String, unique=True, nullable=False)
-    phone = db.Column(db.String, nullable=True)
-    specialty = db.Column(db.String, nullable=True)
-    bio = db.Column(db.Text, nullable=True)
-
-    # Relationships
-    workout_plans = db.relationship('WorkoutPlan', backref='trainer', lazy=True)
-    users = db.relationship('User', backref='trainer', lazy=True)
-
-
-    @validates('email')
-    def validate_email(self, key, address):
-        assert '@' in address, "Provided email is invalid"
-        return address
-
-    def to_dict(self):
-        return {
-            "id": self.id,
-            "name": self.name,
-            "email": self.email,
-            "phone": self.phone,
-            "specialty": self.specialty,
-            "bio": self.bio
-        }
