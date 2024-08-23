@@ -34,7 +34,7 @@ npm install
 
 Start the application using:
 npm start
-The app will be available at http://localhost:3000 by default.
+The app will be available at https://better-fit.vercel.app/ by default.
 
 *Contributing*
 
