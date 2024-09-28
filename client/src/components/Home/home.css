@@ -1,46 +1,51 @@
+/* General styles */
 .home-container {
   text-align: center;
-  width: 100vw;
+  width: 100%;
+  overflow-x: hidden; /* Prevent horizontal overflow */
   margin-bottom: -20px;
 }
 
+/* Hero Section */
 .hero-section {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   align-items: center;
-  background: linear-gradient(51deg, rgba(0, 0, 0, 1) 19%, rgb(141, 245, 4) 50%);
+  background: linear-gradient(55deg, rgb(0, 0, 0) 33%, rgb(139, 190, 19) 35%);
   color: rgb(0, 0, 0);
-  padding: 50px;
+  padding: 30px;
+  height: 100vh;
+  margin-top: -97px;
 }
 
 .hero-text {
-  text-align: right; /* Center-align text and button */
-  margin-top: -90px; /* Add margin around the whole section */
-  
+  text-align: center;
+  margin-top: 20px;
 }
 
 .hero-text h1 {
-  margin-bottom: 20px; /* Space between the heading and the paragraph */
+  margin-bottom: 15px;
   font-family: Arial, Helvetica, sans-serif;
   font-weight: 600;
-  color: #000;
+  color: #000000;
+  font-size: 2.7em;
 }
 
 .hero-text p {
-  margin-bottom: 20px; /* Space between the paragraph and the button */
-  color: #000;
+  margin-bottom: 15px;
+  color: #000000;
+  font-size: 2em;
 }
 
 .hero-text a {
-  display: inline-block; /* Ensure the button doesn't stretch across the container */
-  margin-top: 10px; /* Space above the button */
+  display: inline-block;
+  margin-top: 10px;
 }
-
 
 .start-now-link {
   color: white;
   background-color: #cd908b;
-  padding: 10px 20px;
+  padding: 10px 15px;
   border-radius: 5px;
   text-decoration: none;
   font-weight: bold;
@@ -51,79 +56,146 @@
   background-color: #a36a73;
 }
 
-.hero-text p {
-  font-size: 1.2em;
-}
-
 .hero-text button {
-  padding: 10px 20px;
+  padding: 10px 15px;
   font-size: 1em;
   background-color: black;
-  color: rgb(255, 255, 255);
+  color: #fff;
   border: none;
   cursor: pointer;
   margin-top: 20px;
 }
 
 .hero-image {
-  flex: 1;
-  display: flex;
-  margin-left: -50px;
+  width: 80%;
+  max-width: 600px;
+  margin: 20px auto 0;
 }
 
-.hero-image img {
-  width: 100%;
-  max-width: 550px;
-}
-
+/* Push Forward Section */
 .push-forward-section {
-  padding: 50px;
+  padding: 30px;
   background-color: white;
+  text-align: center;
 }
 
 .push-forward-section h2 {
-  font-size: 2em;
+  font-size: 1.8em;
   color: black;
 }
 
 .push-forward-section p {
-  font-size: 1.2em;
-  margin: 20px 0;
+  font-size: 1em;
+  margin: 15px 0;
   color: black;
 }
 
+/* Features Section */
 .features {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
   margin-top: 20px;
 }
 
 .feature {
-  margin: 0 50px;
+  margin: 20px 0;
   text-align: center;
   color: black;
 }
 
 .feature img {
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
 }
 
+/* Stats Section */
 .stats-section1 {
   display: flex;
-  justify-content: space-around;
+  flex-direction: column;
+  align-items: center;
   background-color: #87fd00;
   color: rgb(5, 5, 5);
-  padding: 50px;
+  padding: 30px;
   margin-bottom: 0;
 }
 
+.stat {
+  margin-bottom: 20px;
+}
+
 .stat h3 {
-  font-size: 2em;
+  font-size: 1.5em;
   margin: 0;
 }
 
 .stat p {
   font-size: 1em;
   color: #000;
+}
+
+/* Media Queries for iPhone 12 Pro */
+@media screen and (max-width: 390px) {
+  .hero-section {
+    padding: 20px;
+    height: auto; /* Allow the hero section to adjust its height */
+  }
+
+  .hero-text {
+    margin-left: 0;
+    text-align: center;
+  }
+
+  .hero-image {
+    margin-left: 0;
+    margin-bottom: 20px;
+  }
+
+  .features {
+    flex-direction: column;
+  }
+
+  .feature {
+    margin: 10px 0;
+  }
+
+  .stats-section1 {
+    flex-direction: column;
+    padding: 20px;
+  }
+
+  .stat {
+    margin-bottom: 15px;
+  }
+}
+
+@media (min-width: 390px) {
+  .hero-section {
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 50px;
+  }
+
+  .hero-text {
+    text-align: right;
+    margin-top: -90px;
+  }
+
+  .hero-image {
+    margin-left: 150px;
+  }
+
+  .features {
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  .feature {
+    margin: 0 30px;
+  }
+
+  .stats-section1 {
+    flex-direction: row;
+    justify-content: space-around;
+  }
 }

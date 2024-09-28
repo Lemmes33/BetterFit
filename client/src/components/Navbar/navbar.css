@@ -1,14 +1,187 @@
+/* General styles */
+.home-container {
+  text-align: center;
+  width: 100vw;
+  margin-bottom: -20px;
+  overflow-x: hidden;
+}
+
+/* Hero Section */
+.hero-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: linear-gradient(55deg, rgb(0, 0, 0) 33%, rgb(139, 190, 19) 35%);
+  color: rgb(0, 0, 0);
+  padding: 30px;
+  height: 100vh;
+  margin-top: -97px;
+}
+
+.hero-text {
+  text-align: center;
+  margin-top: 20px;
+  margin-left: 0;
+}
+
+.hero-text h1 {
+  margin-bottom: 15px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 600;
+  color: #000000;
+  font-size: 2em;
+}
+
+.hero-text p {
+  margin-bottom: 15px;
+  color: #000000;
+  font-size: 1.2em;
+}
+
+.hero-text a {
+  display: inline-block;
+  margin-top: 10px;
+}
+
+.start-now-link {
+  color: white;
+  background-color: #cd908b;
+  padding: 10px 15px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+.start-now-link:hover {
+  background-color: #a36a73;
+}
+
+.hero-text button {
+  padding: 10px 15px;
+  font-size: 1em;
+  background-color: black;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.hero-image {
+  width: 90%;
+  max-width: 600px;
+  margin: 20px auto 0;
+}
+
+.hero-image img {
+  width: 100%;
+  margin-left: 0;
+  margin-bottom: -100px;
+}
+
+/* Push Forward Section */
+.push-forward-section {
+  padding: 30px;
+  background-color: white;
+  text-align: center;
+}
+
+.push-forward-section h2 {
+  font-size: 1.8em;
+  color: black;
+}
+
+.push-forward-section p {
+  font-size: 1em;
+  margin: 15px 0;
+  color: black;
+}
+
+/* Features Section */
+.features {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.feature {
+  margin: 20px 0;
+  text-align: center;
+  color: black;
+}
+
+.feature img {
+  width: 40px;
+  height: 40px;
+}
+
+/* Stats Section */
+.stats-section1 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #87fd00;
+  color: rgb(5, 5, 5);
+  padding: 30px;
+  margin-bottom: 0;
+}
+
+.stat {
+  margin-bottom: 20px;
+}
+
+.stat h3 {
+  font-size: 1.5em;
+  margin: 0;
+}
+
+.stat p {
+  font-size: 1em;
+  color: #000;
+}
+
+/* Media Queries for iPhone 12 Pro */
+@media (max-width: 390px) {
+  .hero-section {
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    margin-top: -70px;
+  }
+
+  .hero-text {
+    text-align: center;
+    margin-top: 0;
+  }
+
+  .hero-image {
+    margin-left: 0;
+    margin-top: 20px;
+  }
+
+  .features {
+    flex-direction: column;
+  }
+
+  .feature {
+    margin: 20px 0;
+  }
+
+  .stats-section1 {
+    flex-direction: column;
+  }
+}
+
 body {
   font-family: 'Arial', sans-serif;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  
-  
 }
 
+/* Navbar */
 .navbar {
-  background-color: #6ac206;
   padding: 15px 20px;
   display: flex;
   justify-content: space-between;
@@ -19,42 +192,36 @@ body {
 .logo-container {
   display: flex;
   align-items: center;
-  
 }
 
 .logo-image {
-  width: 160px;
-  height: 170px;
-  margin-top: -60px;
-  margin-bottom: -30px;
-  margin-left: -200px;
+  width: 100px;
+  height: 100px;
+  margin: 0;
 }
 
 .logo-text {
-  font-size: 2.5em;
-  color: rgb(29, 28, 28);
+  font-size: 2em;
+  color: rgb(255, 255, 255);
   font-weight: bold;
-  margin-left: 140px;
-  margin-top: -90px;
+  margin-left: 10px;
   font-family: 'Pacifico', cursive;
 }
 
 .nav-links {
   list-style: none;
   display: flex;
-  gap: 40px;
-  
+  gap: 20px;
 }
 
 .nav-links li {
   margin: 0;
-  
 }
 
 .nav-links a {
   text-decoration: none;
   color: rgb(15, 15, 15);
-  font-size: 21px;
+  font-size: 18px;
   font-weight: 500;
   transition: color 0.3s ease;
 }

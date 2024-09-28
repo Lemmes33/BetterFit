@@ -1,3 +1,107 @@
 .Program{
   background-color: white;
 }
+/* App.css */
+
+/* Base styles for App */
+.App {
+  width: 100%;
+  margin-top: -50px;
+  overflow-x: hidden;
+  font-family: Arial, sans-serif;
+}
+
+/* General section styles */
+.App section {
+  padding: 20px;
+  margin: 10px auto;
+  max-width: 100%;
+}
+
+/* Base component styles for alignment */
+.HomeComponent,
+.ProgramsComponent,
+.TrainingComponent,
+.NutritionComponent,
+.PaymentComponent,
+.TrainersComponent {
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* iPhone 12 Pro Specific Styles */
+@media screen and (max-width: 390px) {
+  /* Adjust the container for iPhone 12 Pro */
+  .App {
+    width: 100%;
+    overflow-x: hidden;
+  }
+
+  section {
+    padding: 15px 10px;
+    margin: 5px 0;
+  }
+
+  /* Ensure each section takes full width */
+  #home,
+  #programs,
+  #training,
+  #nutrition,
+  #payment,
+  #trainers {
+    display: block;
+    width: 100%;
+    text-align: center;
+  }
+
+  /* Adjust individual components to fit screen width */
+  .HomeComponent,
+  .ProgramsComponent,
+  .TrainingComponent,
+  .NutritionComponent,
+  .PaymentComponent,
+  .TrainersComponent {
+    max-width: 390px; /* Match iPhone 12 Pro width */
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  /* Typography adjustments for smaller screens */
+  h1,
+  h2,
+  h3,
+  p {
+    font-size: 90%;
+  }
+
+  /* Button adjustments for mobile devices */
+  button {
+    font-size: 14px;
+    padding: 10px 15px;
+  }
+
+  /* Footer adjustments */
+  .Footer {
+    font-size: 14px;
+    padding: 15px;
+  }
+}
+
+/* Styles for larger devices (e.g., tablets or desktops) */
+@media screen and (min-width: 768px) {
+  .App section {
+    padding: 30px;
+  }
+
+  button {
+    font-size: 16px;
+    padding: 12px 20px;
+  }
+
+  h1,
+  h2,
+  h3,
+  p {
+    font-size: 100%;
+  }
+}
